@@ -1,6 +1,4 @@
-﻿using System.Security.Cryptography.X509Certificates;
-
-namespace Movieasy.Domain.Reviews
+﻿namespace Movieasy.Domain.Reviews
 {
     public sealed record Rating
     {
