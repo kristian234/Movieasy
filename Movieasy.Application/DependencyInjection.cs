@@ -11,8 +11,6 @@ namespace Movieasy.Application
                 configuration.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly);
             });
 
-            
-
             return services;
         }
     }
