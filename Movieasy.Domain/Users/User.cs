@@ -1,4 +1,5 @@
 ﻿using Movieasy.Domain.Abstractions;
+using Movieasy.Domain.Users.Events;
 
 namespace Movieasy.Domain.Users
 {
@@ -24,6 +25,8 @@ namespace Movieasy.Domain.Users
         public static User Create(FirstName firstName, LastName lastName, Email email)
         {
             User user = new User(Guid.NewGuid(), firstName, lastName, email);
+
+            user.RaiseDomainEvent(new UserCreatedDomainEvent(user.Id));
 
             return user;
         }
