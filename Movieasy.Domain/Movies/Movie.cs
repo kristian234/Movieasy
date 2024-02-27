@@ -13,7 +13,11 @@ namespace Movieasy.Domain.Movies
             )
             : base(id)
         {
-
+            Id = id;
+            Title = title;
+            Description = description;
+            Rating = rating;
+            Duration = duration;
         }
 
         public Title Title { get; private set; }
