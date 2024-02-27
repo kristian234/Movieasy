@@ -4,7 +4,7 @@ namespace Movieasy.Domain.Movies
 {
     public sealed class Movie : Entity
     {
-        public Movie(
+        private Movie(
             Guid id,
             Title title,
             Description description,
@@ -31,5 +31,23 @@ namespace Movieasy.Domain.Movies
         public Duration Duration { get; private set; }
 
         // TO DO: Remember to add the cast
+
+        public static Movie Create(
+            Title title,
+            Description description,
+            Rating rating,
+            Duration duration)
+        {
+            Movie movie = new Movie(
+                Guid.NewGuid(),
+                title,
+                description,
+                rating,
+                duration);
+
+            return movie;
+        }
     }
+
+
 }
