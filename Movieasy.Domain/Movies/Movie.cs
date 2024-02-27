@@ -24,8 +24,7 @@ namespace Movieasy.Domain.Movies
 
         public Description Description { get; private set; }
 
-        public DateTime? ReleaseDate { get; private set; }
-
+        public DateTime? ReleaseDate { get; internal set; }
         public Rating Rating { get; private set; }
 
         // TO DO: Remember to add Genres
