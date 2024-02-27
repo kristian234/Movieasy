@@ -7,9 +7,24 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5DE4DCBF-DB4
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{6D039289-F569-4535-9E72-B69190386794}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Movieasy.Domain", "Movieasy.Domain\Movieasy.Domain.csproj", "{D8B693F8-CEA4-4937-B57A-A67CEF74629D}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D8B693F8-CEA4-4937-B57A-A67CEF74629D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8B693F8-CEA4-4937-B57A-A67CEF74629D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8B693F8-CEA4-4937-B57A-A67CEF74629D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8B693F8-CEA4-4937-B57A-A67CEF74629D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D8B693F8-CEA4-4937-B57A-A67CEF74629D} = {5DE4DCBF-DB48-47F2-80CD-46009312EA74}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2F0B8C98-C51D-4164-9D79-2C6D126A5099}
