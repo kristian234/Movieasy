@@ -1,6 +1,6 @@
 ﻿using Movieasy.Domain.Abstractions;
 using Movieasy.Domain.Movies;
-using Movieasy.Domain.Reviews.Event;
+using Movieasy.Domain.Reviews.Events;
 using Movieasy.Domain.Users;
 
 namespace Movieasy.Domain.Reviews
