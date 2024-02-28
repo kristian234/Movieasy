@@ -1,3 +1,5 @@
+using Movieasy.Application;
+using Movieasy.Infrastructure;
 
 namespace Movieasy.Api
 {
@@ -14,6 +16,9 @@ namespace Movieasy.Api
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddApplication();
+            builder.Services.AddInfrastructure(builder.Configuration);
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -24,9 +29,6 @@ namespace Movieasy.Api
             }
 
             app.UseHttpsRedirection();
-
-            app.UseAuthorization();
-
 
             app.MapControllers();
 

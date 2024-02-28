@@ -14,4 +14,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Movieasy.Application\Movieasy.Application.csproj" />
+    <ProjectReference Include="..\Movieasy.Infrastructure\Movieasy.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
