@@ -6,10 +6,13 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5DE4DCBF-DB48-47F2-80CD-46009312EA74}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{6D039289-F569-4535-9E72-B69190386794}"
+	ProjectSection(SolutionItems) = preProject
+		Test = Test
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Movieasy.Domain", "Movieasy.Domain\Movieasy.Domain.csproj", "{D8B693F8-CEA4-4937-B57A-A67CEF74629D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Movieasy.Domain", "Movieasy.Domain\Movieasy.Domain.csproj", "{D8B693F8-CEA4-4937-B57A-A67CEF74629D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Movieasy.Application", "Movieasy.Application\Movieasy.Application.csproj", "{EB937481-C9C8-44CE-BF18-995974B4CAB0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Movieasy.Application", "Movieasy.Application\Movieasy.Application.csproj", "{EB937481-C9C8-44CE-BF18-995974B4CAB0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

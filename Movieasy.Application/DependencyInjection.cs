@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using FluentValidation;
+using Microsoft.Extensions.DependencyInjection;
 using Movieasy.Application.Abstractions.Behaviors;
 
 namespace Movieasy.Application
@@ -12,7 +13,11 @@ namespace Movieasy.Application
                 configuration.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly);
 
                 configuration.AddOpenBehavior(typeof(LoggingBehavior<,>));
+
+                configuration.AddOpenBehavior(typeof(ValidationBehavior<,>));
             });
+
+            services.AddValidatorsFromAssembly(typeof(DependencyInjection).Assembly);
 
             return services;
         }

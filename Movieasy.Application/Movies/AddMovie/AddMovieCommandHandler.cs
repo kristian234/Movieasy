@@ -19,11 +19,12 @@ namespace Movieasy.Application.Movies.AddMovie
 
         public async Task<Result<Guid>> Handle(AddMovieCommand request, CancellationToken cancellationToken)
         {
-            Movie movie = Movie.Create(
-                new Title(request.title),
-                new Description(request.description),
-                (Rating)request.rating,
-                new Duration(request.duration));
+            Title movieTitle = new Title(request.Title);
+            Description movieDescription = new Description(request.Description);
+            Rating movieRating = (Rating)request.Rating;
+            Duration movieDuration = new Duration(request.Duration);
+
+            Movie movie = Movie.Create(movieTitle, movieDescription, movieRating, movieDuration);
 
             await _movieRepository.AddAsync(movie);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
