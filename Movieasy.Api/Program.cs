@@ -1,3 +1,4 @@
+using Movieasy.Api.Extensions;
 using Movieasy.Application;
 using Movieasy.Infrastructure;
 
@@ -26,6 +27,8 @@ namespace Movieasy.Api
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
+
+                app.ApplyMigrations();
             }
 
             app.UseHttpsRedirection();

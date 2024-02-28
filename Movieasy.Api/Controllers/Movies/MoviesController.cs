@@ -44,7 +44,7 @@ namespace Movieasy.Api.Controllers.Movies
                 return BadRequest(result);
             }
 
-            return CreatedAtAction(nameof(GetMovie), result.Value);
+            return CreatedAtAction(nameof(GetMovie), new { id = result.Value }, result.Value);
         }
     }
 }
