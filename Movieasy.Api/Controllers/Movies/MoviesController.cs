@@ -1,6 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Movieasy.Application.Movies.AddMovie;
+using Movieasy.Application.Movies.GetMovie;
+using Movieasy.Domain.Abstractions;
 
 namespace Movieasy.Api.Controllers.Movies
 {
@@ -14,10 +16,14 @@ namespace Movieasy.Api.Controllers.Movies
             _sender = sender;
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetMovie(Guid id, CancellationToken cancellationToken)
         {
-            return Ok();
+            var query = new GetMovieQuery(id);
+
+            Result<MovieResponse> result = await _sender.Send(query, cancellationToken);
+
+            return result.IsSuccess ? Ok(result.Value) : NotFound();
         }
 
         [HttpPost]
@@ -31,7 +37,7 @@ namespace Movieasy.Api.Controllers.Movies
                 request.Rating,
                 request.Duration);
 
-            var result = await _sender.Send(command, cancellationToken);
+            Result<Guid> result = await _sender.Send(command, cancellationToken);
 
             if (result.IsFailure)
             {
