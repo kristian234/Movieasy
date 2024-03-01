@@ -1,12 +1,20 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Movieasy.Application.Abstractions.Data;
 using Movieasy.Domain.Abstractions;
+using Movieasy.Domain.Movies;
+using Movieasy.Domain.Reviews;
+using Movieasy.Domain.Users;
 
 namespace Movieasy.Infrastructure
 {
-    public sealed class ApplicationDbContext : DbContext, IUnitOfWork
+    public sealed class ApplicationDbContext : DbContext, IUnitOfWork, IApplicationDbContext
     {
         private readonly IPublisher _publisher;
+
+        public DbSet<Movie> Movies { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Review> Reviews { get; set; }
 
         public ApplicationDbContext(DbContextOptions options, IPublisher publisher)
             : base(options)
