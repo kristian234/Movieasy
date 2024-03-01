@@ -1,4 +1,5 @@
 ﻿using Movieasy.Domain.Abstractions;
+using Movieasy.Domain.Reviews;
 
 namespace Movieasy.Domain.Movies
 {
@@ -47,7 +48,25 @@ namespace Movieasy.Domain.Movies
 
             return movie;
         }
+
+        public Result Update(string title, string description, int rating, double duration)
+        {
+            Title newTitle = new Title(title);
+            Description newDescription = new Description(description);
+            Rating newRating = (Rating)rating;
+            Result<Duration> newDuration = Duration.Create(duration);
+
+            if (newDuration.IsFailure)
+            {
+                return newDuration;
+            }
+
+            Title = newTitle;
+            Description = newDescription;
+            Rating = newRating;
+            Duration = newDuration.Value;
+
+            return Result.Success();
+        }
     }
-
-
 }
