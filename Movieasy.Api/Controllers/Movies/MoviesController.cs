@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Movieasy.Application.Movies.AddMovie;
 using Movieasy.Application.Movies.GetMovie;
+using Movieasy.Application.Movies.UpdateMovie;
 using Movieasy.Domain.Abstractions;
 
 namespace Movieasy.Api.Controllers.Movies
@@ -35,16 +36,39 @@ namespace Movieasy.Api.Controllers.Movies
                 request.Title,
                 request.Description,
                 request.Rating,
+                request.ReleaseDate,
                 request.Duration);
 
             Result<Guid> result = await _sender.Send(command, cancellationToken);
 
             if (result.IsFailure)
             {
-                return BadRequest(result);
+                return BadRequest(result.Error);
             }
 
             return CreatedAtAction(nameof(GetMovie), new { id = result.Value }, result.Value);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateMovie(
+            UpdateMovieRequest request,
+            CancellationToken cancellationToken)
+        {
+            var command = new UpdateMovieCommand(
+                request.MovieId,
+                request.Title,
+                request.Description,
+                request.Rating,
+                request.Duration);
+
+            Result result = await _sender.Send(command, cancellationToken);
+
+            if (result.IsFailure)
+            {
+                return BadRequest(result.Error);
+            }
+
+            return Ok();
         }
     }
 }

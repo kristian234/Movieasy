@@ -25,7 +25,9 @@ namespace Movieasy.Application.Movies.GetMovie
                     Description = m.Description.Value,
                     Duration = m.Duration.Value,
                     Rating = m.Rating.ToString(),
-                }).FirstOrDefaultAsync(cancellationToken);
+                })
+                .AsNoTracking()
+                .FirstOrDefaultAsync(cancellationToken);
 
             if (movie == null)
             {

@@ -10,7 +10,8 @@ namespace Movieasy.Domain.Movies
             Title title,
             Description description,
             Rating rating,
-            Duration duration
+            Duration duration,
+            DateOnly? releaseDate
             )
             : base(id)
         {
@@ -19,13 +20,14 @@ namespace Movieasy.Domain.Movies
             Description = description;
             Rating = rating;
             Duration = duration;
+            ReleaseDate = releaseDate;
         }
 
         public Title Title { get; private set; }
 
         public Description Description { get; private set; }
 
-        public DateTime? ReleaseDate { get; internal set; }
+        public DateOnly? ReleaseDate { get; internal set; }
         public Rating Rating { get; private set; }
 
         // TO DO: Remember to add Genres
@@ -37,34 +39,37 @@ namespace Movieasy.Domain.Movies
             Title title,
             Description description,
             Rating rating,
-            Duration duration)
+            Duration duration,
+            DateOnly? releaseDate)
         {
             Movie movie = new Movie(
                 Guid.NewGuid(),
                 title,
                 description,
                 rating,
-                duration);
+                duration,
+                releaseDate);
 
             return movie;
         }
 
-        public Result Update(string title, string description, int rating, double duration)
+        public Result Update(string title, string description, int rating, double duration, DateOnly? releaseDate)
         {
+            Result<Duration> newDuration = Duration.Create(duration);
+            if (newDuration.IsFailure)
+            {
+                return Result.Failure(Duration.Invalid);
+            }
+
             Title newTitle = new Title(title);
             Description newDescription = new Description(description);
             Rating newRating = (Rating)rating;
-            Result<Duration> newDuration = Duration.Create(duration);
-
-            if (newDuration.IsFailure)
-            {
-                return newDuration;
-            }
 
             Title = newTitle;
             Description = newDescription;
             Rating = newRating;
             Duration = newDuration.Value;
+            ReleaseDate = releaseDate;
 
             return Result.Success();
         }

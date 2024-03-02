@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Movieasy.Application.Abstractions.Clock;
+using Movieasy.Application.Abstractions.Data;
 using Movieasy.Application.Abstractions.Email;
 using Movieasy.Domain.Abstractions;
 using Movieasy.Domain.Movies;
@@ -38,6 +39,8 @@ namespace Movieasy.Infrastructure
             services.AddScoped<IReviewRepository, ReviewRepository>();
 
             services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<ApplicationDbContext>());
+
+            services.AddScoped<IApplicationDbContext>(sp => sp.GetRequiredService<ApplicationDbContext>());
 
             return services;
         }

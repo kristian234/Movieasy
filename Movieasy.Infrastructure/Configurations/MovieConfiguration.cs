@@ -21,7 +21,7 @@ namespace Movieasy.Infrastructure.Configurations
                 .HasConversion(description => description.Value, value => new Description(value));
 
             builder.Property(movie => movie.Duration)
-                .HasConversion(duration => duration.Value, value => new Duration(value));
+                .HasConversion(duration => duration.Value, value => Duration.Create(value).Value);
         }
     }
 }
