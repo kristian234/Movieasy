@@ -7,5 +7,6 @@ namespace Movieasy.Application.Movies.UpdateMovie
         string Title,
         string Description,
         int Rating,
+        DateOnly? ReleaseDate,
         double Duration) : ICommand;
 }

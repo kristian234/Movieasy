@@ -6,6 +6,6 @@ namespace Movieasy.Application.Movies.AddMovie
         string Title,
         string Description,
         int Rating,
-        DateOnly ReleaseDate,
+        DateOnly? ReleaseDate,
         double Duration) : ICommand<Guid>;
 }

@@ -5,5 +5,6 @@
         string Title,
         string Description,
         int Rating,
+        DateOnly? ReleaseDate,
         double Duration);
 }

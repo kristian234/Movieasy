@@ -28,7 +28,8 @@ namespace Movieasy.Application.Movies.UpdateMovie
                 request.Title,
                 request.Description,
                 request.Rating,
-                request.Duration);
+                request.Duration,
+                request.ReleaseDate);
 
             if (updateResult.IsFailure)
             {

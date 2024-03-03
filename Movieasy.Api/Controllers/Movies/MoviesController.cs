@@ -59,7 +59,8 @@ namespace Movieasy.Api.Controllers.Movies
                 request.Title,
                 request.Description,
                 request.Rating,
-                request.Duration);
+                request.ReleaseDate,
+                request.Duration) ;
 
             Result result = await _sender.Send(command, cancellationToken);
 

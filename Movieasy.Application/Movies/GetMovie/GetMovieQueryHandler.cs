@@ -3,6 +3,7 @@ using Movieasy.Application.Abstractions.Data;
 using Movieasy.Application.Abstractions.Messaging;
 using Movieasy.Domain.Abstractions;
 using Movieasy.Domain.Movies;
+using System.Globalization;
 
 namespace Movieasy.Application.Movies.GetMovie
 {
@@ -25,6 +26,11 @@ namespace Movieasy.Application.Movies.GetMovie
                     Description = m.Description.Value,
                     Duration = m.Duration.Value,
                     Rating = m.Rating.ToString(),
+                    ReleaseDate = m.ReleaseDate.HasValue ?
+                        m.ReleaseDate.Value
+                         .ToString(CultureInfo.InvariantCulture)
+                        : null
+
                 })
                 .AsNoTracking()
                 .FirstOrDefaultAsync(cancellationToken);
