@@ -5,17 +5,17 @@ using Movieasy.Domain.Abstractions;
 using Movieasy.Domain.Movies;
 using System.Globalization;
 
-namespace Movieasy.Application.Movies.GetMovie
+namespace Movieasy.Application.Movies.GetMovieById
 {
-    internal sealed class GetMovieQueryHandler : IQueryHandler<GetMovieQuery, MovieResponse>
+    internal sealed class GetMovieByIdQueryHandler : IQueryHandler<GetMovieByIdQuery, MovieResponse>
     {
         private readonly IApplicationDbContext _context;
-        public GetMovieQueryHandler(IApplicationDbContext context)
+        public GetMovieByIdQueryHandler(IApplicationDbContext context)
         {
             _context = context;
         }
 
-        public async Task<Result<MovieResponse>> Handle(GetMovieQuery request, CancellationToken cancellationToken)
+        public async Task<Result<MovieResponse>> Handle(GetMovieByIdQuery request, CancellationToken cancellationToken)
         {
             MovieResponse? movie = await _context
                 .Movies

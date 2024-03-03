@@ -1,7 +1,10 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ActionConstraints;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Movieasy.Application.Movies.AddMovie;
 using Movieasy.Application.Movies.GetMovie;
+using Movieasy.Application.Movies.GetMovieById;
 using Movieasy.Application.Movies.UpdateMovie;
 using Movieasy.Domain.Abstractions;
 
@@ -17,10 +20,24 @@ namespace Movieasy.Api.Controllers.Movies
             _sender = sender;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetMovies(
+            string? searchTerm,
+            string? sortColumn,
+            string? sortOrder,
+            CancellationToken cancellationToken)
+        {
+            var query = new GetMoviesQuery(searchTerm, sortColumn, sortOrder);
+
+            Result<List<MovieResponse>> result = await _sender.Send(query, cancellationToken);
+
+            return Ok(result.Value);
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetMovie(Guid id, CancellationToken cancellationToken)
         {
-            var query = new GetMovieQuery(id);
+            var query = new GetMovieByIdQuery(id);
 
             Result<MovieResponse> result = await _sender.Send(query, cancellationToken);
 
@@ -60,7 +77,7 @@ namespace Movieasy.Api.Controllers.Movies
                 request.Description,
                 request.Rating,
                 request.ReleaseDate,
-                request.Duration) ;
+                request.Duration);
 
             Result result = await _sender.Send(command, cancellationToken);
 

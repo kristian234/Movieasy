@@ -1,4 +1,4 @@
-﻿namespace Movieasy.Application.Movies.GetMovie
+﻿namespace Movieasy.Application.Movies.GetMovieById
 {
     public sealed class MovieResponse
     {
