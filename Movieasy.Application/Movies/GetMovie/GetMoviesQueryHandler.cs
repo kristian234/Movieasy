@@ -10,7 +10,7 @@ using System.Runtime.CompilerServices;
 
 namespace Movieasy.Application.Movies.GetMovie
 {
-    internal sealed class GetMoviesQueryHandler : IQueryHandler<GetMoviesQuery, List<MovieResponse>>
+    internal sealed class GetMoviesQueryHandler : IQueryHandler<GetMoviesQuery, PagedList<MovieResponse>>
     {
         private readonly IApplicationDbContext _context;
         public GetMoviesQueryHandler(IApplicationDbContext context)
@@ -18,7 +18,7 @@ namespace Movieasy.Application.Movies.GetMovie
             _context = context;
         }
 
-        public async Task<Result<List<MovieResponse>>> Handle(GetMoviesQuery request, CancellationToken cancellationToken)
+        public async Task<Result<PagedList<MovieResponse>>> Handle(GetMoviesQuery request, CancellationToken cancellationToken)
         {
             IQueryable<Movie> moviesQuery = _context.Movies;
 
@@ -41,8 +41,7 @@ namespace Movieasy.Application.Movies.GetMovie
                 moviesQuery = moviesQuery.OrderBy(keySelector);
             }
 
-            var movies = await _context
-                .Movies
+            var movieResponsesQuery = moviesQuery
                 .Select(m => new MovieResponse
                 {
                     Title = m.Title.Value,
@@ -53,8 +52,12 @@ namespace Movieasy.Application.Movies.GetMovie
                         m.ReleaseDate.Value.ToString("yyyy/mm/dd", CultureInfo.InvariantCulture)
                         : null,
                 })
-                .AsNoTracking()
-                .ToListAsync(cancellationToken);
+                .AsNoTracking();
+
+            var movies = await PagedList<MovieResponse>.CreateAsync(
+                movieResponsesQuery,
+                request.Page,
+                request.PageSize);
 
             return movies;
         }

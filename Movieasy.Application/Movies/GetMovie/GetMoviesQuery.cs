@@ -6,5 +6,7 @@ namespace Movieasy.Application.Movies.GetMovie
     public sealed record GetMoviesQuery(
         string? SearchTerm,
         string? SortColumn,
-        string? SortOrder) : IQuery<List<MovieResponse>>;
+        string? SortOrder,
+        int Page,
+        int PageSize) : IQuery<PagedList<MovieResponse>>;
 }

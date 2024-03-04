@@ -1,7 +1,5 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ActionConstraints;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Movieasy.Application.Movies.AddMovie;
 using Movieasy.Application.Movies.GetMovie;
 using Movieasy.Application.Movies.GetMovieById;
@@ -25,9 +23,11 @@ namespace Movieasy.Api.Controllers.Movies
             string? searchTerm,
             string? sortColumn,
             string? sortOrder,
+            int page,
+            int pageSize,
             CancellationToken cancellationToken)
         {
-            var query = new GetMoviesQuery(searchTerm, sortColumn, sortOrder);
+            var query = new GetMoviesQuery(searchTerm, sortColumn, sortOrder, page, pageSize);
 
             Result<List<MovieResponse>> result = await _sender.Send(query, cancellationToken);
 
