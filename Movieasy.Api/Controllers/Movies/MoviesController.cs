@@ -29,7 +29,7 @@ namespace Movieasy.Api.Controllers.Movies
         {
             var query = new GetMoviesQuery(searchTerm, sortColumn, sortOrder, page, pageSize);
 
-            Result<List<MovieResponse>> result = await _sender.Send(query, cancellationToken);
+            Result<PagedList<MovieResponse>> result = await _sender.Send(query, cancellationToken);
 
             return Ok(result.Value);
         }

@@ -32,7 +32,7 @@ namespace Movieasy.Application.Movies.GetMovie
             int totalCount = await query.CountAsync();
             var items = await query.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
 
-            return new PagedList<T>(items, page, pageSize, totalCount)
+            return new PagedList<T>(items, page, pageSize, totalCount);
         } 
     }
 }
