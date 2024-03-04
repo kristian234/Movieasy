@@ -8,13 +8,20 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-      },
+      colors: {
+        primary: '#ffffff',
+        secondary: '#52527A',
+        third: '#676790',
+        header: '#0D0D1A',
+        body: '#080212',
+      }
     },
   },
-  plugins: [],
+  corePlugins: {
+    aspectRatio: false
+  },
+  plugins: [
+    require('@tailwindcss/aspect-ratio')
+  ],
 };
 export default config;

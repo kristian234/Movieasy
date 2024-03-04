@@ -6,7 +6,6 @@ using Movieasy.Domain.Abstractions;
 using Movieasy.Domain.Movies;
 using System.Globalization;
 using System.Linq.Expressions;
-using System.Runtime.CompilerServices;
 
 namespace Movieasy.Application.Movies.GetMovie
 {
@@ -27,7 +26,7 @@ namespace Movieasy.Application.Movies.GetMovie
             if (!string.IsNullOrWhiteSpace(request.SearchTerm))
             {
                 moviesQuery = moviesQuery.Where(m =>
-                    m.Title.Value.Contains(request.SearchTerm));
+                    ((string)m.Title).Contains(request.SearchTerm));
             }
 
             Expression<Func<Movie, object>> keySelector = GetSortProperty(request);
