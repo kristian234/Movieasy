@@ -9,12 +9,14 @@ type Props = {
 }
 
 const customTheme = {
-    pages: {
+    pages: {   
         selector: {
             // Quick solution, issue is this is a client side component so accessing tailwind.config.ts is impossible
             // a good solution is to create a global css file with the colours defined in it, maybe in the future
             base:
-                `w-12 
+
+                `
+                w-8 sm:w-10 
                 border
                 border-third
                 bg-second py-2 
@@ -39,7 +41,7 @@ const customTheme = {
                 border-secondary
                 bg-third
                 py-2
-                px-3 
+                px-2 sm:px-3
                 leading-tight
                 text-secondary-500 
                 enabled:hover:bg-secondary
@@ -55,7 +57,7 @@ const customTheme = {
                 border-secondary
                 bg-third
                 py-2
-                px-3 
+                px-2 sm:px-3
                 leading-tight
                 text-secondary-500 
                 enabled:hover:bg-secondary
