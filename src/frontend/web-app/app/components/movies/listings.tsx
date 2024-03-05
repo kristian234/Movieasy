@@ -1,7 +1,6 @@
-'use client'
-
 import { Fragment } from "react";
 import MovieCard from "./movie-card";
+import AppPagination from "../shared/app-pagination";
 
 export default function Listings() {
     const movies = [
@@ -26,12 +25,17 @@ export default function Listings() {
     ];
 
     return (
-        <div className="flex flex-wrap justify-center p-6">
-            <div className="grid grid-cols-2 gap-6">
-                {movies.map((movie, index) => (
-                    <MovieCard key={index} title={movie.title} description={movie.description} imageUrl={movie.imageUrl} />
-                ))}
+        <Fragment>
+            <div className="flex flex-wrap justify-center p-6">
+                <div className="grid grid-cols-2 gap-6">
+                    {movies.map((movie, index) => (
+                        <MovieCard key={index} title={movie.title} description={movie.description} imageUrl={movie.imageUrl} />
+                    ))}
+                </div>
             </div>
-        </div>
+            <div className="flex justify-center b-2">
+                <AppPagination currentPage={1} pageCount={10} />
+            </div>
+        </Fragment>
     );
 }
