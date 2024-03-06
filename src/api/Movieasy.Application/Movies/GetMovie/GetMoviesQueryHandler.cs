@@ -48,7 +48,7 @@ namespace Movieasy.Application.Movies.GetMovie
                     Duration = m.Duration.Value,
                     Rating = m.Rating.ToString(),
                     ReleaseDate = m.ReleaseDate.HasValue ?
-                        m.ReleaseDate.Value.ToString("yyyy/mm/dd", CultureInfo.InvariantCulture)
+                        m.ReleaseDate.Value.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)
                         : null,
                 })
                 .AsNoTracking();

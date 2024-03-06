@@ -15,6 +15,9 @@ const config: Config = {
         third: '#676790',
         header: '#0D0D1A',
         body: '#080212',
+      },
+      screens: {
+        'ssm': '420px'
       }
     },
   },

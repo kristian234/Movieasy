@@ -7,7 +7,7 @@ export interface Movie {
   }
 
   export interface PagedResult<T>{
-    results: T[]
+    items: T[]
     pageCount: number
     totalCount: number
   }
