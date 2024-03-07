@@ -1,5 +1,3 @@
-'use client'
-
 import LoginButton from "./headerComponents/login";
 import Logo from "./headerComponents/logo";
 import Search from "./headerComponents/search";

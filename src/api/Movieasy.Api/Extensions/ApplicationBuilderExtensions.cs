@@ -12,6 +12,7 @@ namespace Movieasy.Api.Extensions
             using ApplicationDbContext dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
             dbContext.Database.Migrate();
+            dbContext.SeedData();
         }
     }
 }

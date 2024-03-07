@@ -3,39 +3,58 @@
 import { Fragment, useEffect, useState } from "react";
 import MovieCard from "./movie-card";
 import AppPagination from "../shared/app-pagination";
-import { Movie } from "@/types";
+import { Movie, PagedResult } from "@/types";
 import { getData } from "@/app/actions/movie-actions";
+import Filters from "./filters";
+import { useParamsStore } from "@/hooks/useParamsStore";
+import { shallow } from "zustand/shallow";
+import qs from 'query-string'
 
 export default function Listings() {
-    const [movies, setMovies] = useState<Movie[]>([]);
-    const [pageCount, setPageCount] = useState(0);
-    const [pageNumber, setPageNumber] = useState(1);
-    const url = "https://cdn.pixabay.com/photo/2023/11/09/19/36/zoo-8378189_1280.jpg";
+    const [data, setData] = useState<PagedResult<Movie>>();
+
+    const params = useParamsStore(state => ({
+        pageNumber: state.pageNumber,
+        pageSize: state.pageSize,
+        searchTerm: state.searchTerm
+    }), shallow);
+    const setParams = useParamsStore(state => state.setParams);
+
+    const url = qs.stringifyUrl({ url: '', query: params })
+
+    const urlm = "https://cdn.pixabay.com/photo/2023/11/09/19/36/zoo-8378189_1280.jpg";
+
+    function setPageNumber(pageNumber: number) {
+        setParams({pageNumber});
+    }
 
     useEffect(() => {
-        getData(pageNumber).then(data => {
-            setMovies(data.items);
-            setPageCount(data.totalCount);
+        getData(url).then(data => {
+            setData(data);
+            console.log(data);
         })
-    }, [pageNumber])
+    }, [url])
 
-    if (movies?.length === 0) return <h3>Loading...</h3>
+    if (!data) return <h3>Loading...</h3>
 
     return (
-        <Fragment>
-            <div className="flex flex-grow justify-center p-6">
-                <div className="grid grid-cols-2">
-                    {movies?.map((movie, index) => (
+        <div className="relative">
+            <div className="flex flex-grow justify-end mt-8 mx-auto max-w-full px-8 w-[900px] sm:px-8 items-center">
+                <Filters/>
+            </div>
+            <div className="flex flex-grow justify-center p-6 mx-auto max-w-full px-8 w-[900px] sm:px-8 ">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-1">
+                    {data.items?.map((movie, index) => (
                         <Fragment>
-                            <MovieCard key={index} title="fff HEDAGHAEGHAEHAEHAEHAEHAEEA " description={movie.description} imageUrl={url} />
-                            <MovieCard title="ffff" description={movie.description} imageUrl={url} />
+                            <MovieCard key={index} title={movie.title} description={movie.description} imageUrl={urlm} />
                         </Fragment>
                     ))}
                 </div>
             </div>
-            <div className="flex justify-center b-2">
-                <AppPagination currentPage={pageNumber} pageCount={pageCount} />
+
+            <div className="flex justify-center p-6">
+                <AppPagination currentPage={params.pageNumber} pageCount={data.totalPages} pageChanged={setPageNumber} />
             </div>
-        </Fragment>
+        </div>
     );
 }

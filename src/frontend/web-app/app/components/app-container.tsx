@@ -4,12 +4,10 @@ import Header from "../layout/header";
 
 export default function AppContainer() {
     return (
-        <div className="min-h-screen max-h-screen overflow-auto flex-grow">
+        <div className="min-h-screen flex-auto max-h-screen overflow-auto">
             <Header />
 
             <Body />
-
-            <Footer />
         </div>
     )
 }

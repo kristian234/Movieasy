@@ -23,11 +23,11 @@ namespace Movieasy.Api.Controllers.Movies
             string? searchTerm,
             string? sortColumn,
             string? sortOrder,
-            int page,
+            int pageNumber,
             int pageSize,
             CancellationToken cancellationToken)
         {
-            var query = new GetMoviesQuery(searchTerm, sortColumn, sortOrder, page, pageSize);
+            var query = new GetMoviesQuery(searchTerm, sortColumn, sortOrder, pageNumber, pageSize);
 
             Result<PagedList<MovieResponse>> result = await _sender.Send(query, cancellationToken);
 

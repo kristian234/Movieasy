@@ -4,12 +4,12 @@ namespace Movieasy.Application.Movies.GetMovie
 {
     public class PagedList<T>
     {
-        private PagedList(List<T> items, int page, int pageSize, int totalCount)
+        private PagedList(List<T> items, int page, int pageSize, int totalPages)
         {
             Items = items;
             Page = page;
             PageSize = pageSize;
-            TotalCount = totalCount;
+            TotalPages = totalPages;
         }
 
         public List<T> Items { get; }
@@ -18,21 +18,19 @@ namespace Movieasy.Application.Movies.GetMovie
 
         public int PageSize { get; }
 
-        public int TotalCount { get; }
-
-        public bool HasNextPage => Page * PageSize < TotalCount;
-
-        public bool HasPreviousPage => Page > 1;
+        public int TotalPages { get; }
 
         public static async Task<PagedList<T>> CreateAsync(
             IQueryable<T> query,
             int page,
             int pageSize)
         {
-            int totalCount = await query.CountAsync();
+            var totalCount = await query.CountAsync();
+            var totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
+
             var items = await query.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
 
-            return new PagedList<T>(items, page, pageSize, totalCount);
-        } 
+            return new PagedList<T>(items, page, pageSize, totalPages);
+        }
     }
 }
