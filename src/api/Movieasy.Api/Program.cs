@@ -30,10 +30,12 @@ namespace Movieasy.Api
 
                 app.ApplyMigrations();
             }
-            
+
             app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000"));
 
             app.UseHttpsRedirection();
+
+            app.UseCustomExceptionHandler();
 
             app.MapControllers();
 

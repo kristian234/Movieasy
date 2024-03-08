@@ -18,14 +18,16 @@ namespace Movieasy.Api.Controllers.Movies
             _sender = sender;
         }
 
+
+        // TO DO: Make sure to add an object representing the input parameters (may or may not be a good idea)
         [HttpGet]
         public async Task<IActionResult> GetMovies(
             string? searchTerm,
             string? sortColumn,
             string? sortOrder,
-            int pageNumber,
-            int pageSize,
-            CancellationToken cancellationToken)
+            CancellationToken cancellationToken,
+            int pageNumber = 1,
+            int pageSize = 12)
         {
             var query = new GetMoviesQuery(searchTerm, sortColumn, sortOrder, pageNumber, pageSize);
 
