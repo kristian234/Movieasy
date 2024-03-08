@@ -36,7 +36,7 @@ namespace Movieasy.Infrastructure
 
             services.Configure<AuthenticationOptions>(configuration.GetSection("Authentication"));
 
-            services.ConfigureOptions<JwtBearerOptions>();
+            services.ConfigureOptions<JwtBearerOptionsSetup>();
 
             services.Configure<KeycloakOptions>(configuration.GetSection("Keycloak"));
 

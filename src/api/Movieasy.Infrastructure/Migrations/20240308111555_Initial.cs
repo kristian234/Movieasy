@@ -18,7 +18,7 @@ namespace Movieasy.Infrastructure.Migrations
                     id = table.Column<Guid>(type: "uuid", nullable: false),
                     title = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
                     description = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: false),
-                    release_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    release_date = table.Column<DateOnly>(type: "date", nullable: true),
                     rating = table.Column<int>(type: "integer", nullable: false),
                     duration = table.Column<double>(type: "double precision", nullable: false)
                 },
@@ -34,7 +34,8 @@ namespace Movieasy.Infrastructure.Migrations
                     id = table.Column<Guid>(type: "uuid", nullable: false),
                     first_name = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
                     last_name = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
-                    email = table.Column<string>(type: "character varying(400)", maxLength: 400, nullable: false)
+                    email = table.Column<string>(type: "character varying(400)", maxLength: 400, nullable: false),
+                    identity_id = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -42,7 +43,7 @@ namespace Movieasy.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "review",
+                name: "reviews",
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -54,15 +55,15 @@ namespace Movieasy.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("pk_review", x => x.id);
+                    table.PrimaryKey("pk_reviews", x => x.id);
                     table.ForeignKey(
-                        name: "fk_review_movies_movie_id",
+                        name: "fk_reviews_movies_movie_id",
                         column: x => x.movie_id,
                         principalTable: "movies",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "fk_review_user_user_id",
+                        name: "fk_reviews_users_user_id",
                         column: x => x.user_id,
                         principalTable: "users",
                         principalColumn: "id",
@@ -70,13 +71,13 @@ namespace Movieasy.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "ix_review_movie_id",
-                table: "review",
+                name: "ix_reviews_movie_id",
+                table: "reviews",
                 column: "movie_id");
 
             migrationBuilder.CreateIndex(
-                name: "ix_review_user_id",
-                table: "review",
+                name: "ix_reviews_user_id",
+                table: "reviews",
                 column: "user_id");
 
             migrationBuilder.CreateIndex(
@@ -84,13 +85,19 @@ namespace Movieasy.Infrastructure.Migrations
                 table: "users",
                 column: "email",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "ix_users_identity_id",
+                table: "users",
+                column: "identity_id",
+                unique: true);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "review");
+                name: "reviews");
 
             migrationBuilder.DropTable(
                 name: "movies");
