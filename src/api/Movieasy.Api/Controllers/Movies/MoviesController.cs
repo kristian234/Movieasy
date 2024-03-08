@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Movieasy.Application.Movies.AddMovie;
 using Movieasy.Application.Movies.GetMovie;
@@ -8,6 +9,7 @@ using Movieasy.Domain.Abstractions;
 
 namespace Movieasy.Api.Controllers.Movies
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class MoviesController : ControllerBase

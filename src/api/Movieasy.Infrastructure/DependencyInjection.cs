@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Movieasy.Application.Abstractions.Clock;
@@ -24,6 +26,21 @@ namespace Movieasy.Infrastructure
 
             services.AddTransient<IEmailService, EmailService>();
 
+            AddPersistence(services, configuration);
+
+            services
+                .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer();
+
+            services.Configure<AuthenticationOptions>(configuration.GetSection("Authentication"));
+
+            services.ConfigureOptions<JwtBearerOptions>();
+
+            return services;
+        }
+
+        private static void AddPersistence(IServiceCollection services, IConfiguration configuration)
+        {
             string connectionString = configuration.GetConnectionString("Database") ??
                 throw new ArgumentNullException(nameof(configuration));
 
@@ -41,8 +58,6 @@ namespace Movieasy.Infrastructure
             services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<ApplicationDbContext>());
 
             services.AddScoped<IApplicationDbContext>(sp => sp.GetRequiredService<ApplicationDbContext>());
-
-            return services;
         }
     }
 }
