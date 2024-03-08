@@ -9,6 +9,7 @@ import Filters from "./filters";
 import { useParamsStore } from "@/hooks/useParamsStore";
 import { shallow } from "zustand/shallow";
 import qs from 'query-string'
+import EmptyFilter from "./empty-filter";
 
 export default function Listings() {
     const [data, setData] = useState<PagedResult<Movie>>();
@@ -16,7 +17,8 @@ export default function Listings() {
     const params = useParamsStore(state => ({
         pageNumber: state.pageNumber,
         pageSize: state.pageSize,
-        searchTerm: state.searchTerm
+        searchTerm: state.searchTerm,
+        sortColumn: state.orderBy,
     }), shallow);
     const setParams = useParamsStore(state => state.setParams);
 
@@ -25,7 +27,7 @@ export default function Listings() {
     const urlm = "https://cdn.pixabay.com/photo/2023/11/09/19/36/zoo-8378189_1280.jpg";
 
     function setPageNumber(pageNumber: number) {
-        setParams({pageNumber});
+        setParams({ pageNumber });
     }
 
     useEffect(() => {
@@ -40,21 +42,29 @@ export default function Listings() {
     return (
         <div className="relative">
             <div className="flex flex-grow justify-end mt-8 mx-auto max-w-full px-8 w-[900px] sm:px-8 items-center">
-                <Filters/>
+                <Filters />
             </div>
-            <div className="flex flex-grow justify-center p-6 mx-auto max-w-full px-8 w-[900px] sm:px-8 ">
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-1">
-                    {data.items?.map((movie, index) => (
-                        <Fragment>
-                            <MovieCard key={index} title={movie.title} description={movie.description} imageUrl={urlm} />
-                        </Fragment>
-                    ))}
-                </div>
-            </div>
+            {data.totalPages === 0 ? (
+                <EmptyFilter />
+            ) : (
+                <>
+                    <div className="flex flex-grow justify-center p-6 mx-auto max-w-full px-8 w-[900px] sm:px-8 ">
+                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-1">
+                            {data.items?.map((movie, index) => (
+                                <Fragment>
+                                    <MovieCard key={index} title={movie.title} description={movie.description} imageUrl={urlm} />
+                                </Fragment>
+                            ))}
+                        </div>
+                    </div>
 
-            <div className="flex justify-center p-6">
-                <AppPagination currentPage={params.pageNumber} pageCount={data.totalPages} pageChanged={setPageNumber} />
-            </div>
+                    <div className="flex justify-center p-6">
+                        <AppPagination currentPage={params.pageNumber} pageCount={data.totalPages} pageChanged={setPageNumber} />
+                    </div>
+                </>
+            )
+            }
+
         </div>
     );
 }
