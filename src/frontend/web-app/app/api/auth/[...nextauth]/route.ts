@@ -19,7 +19,7 @@ export const handler = NextAuth({
             },
             id: 'credential',
             async authorize(credentials, req) {
-                const res = await axios.post("https://localhost:53781/api/user/login", {
+                const res = await axios.post(process.env.URL + "/api/user/login", {
                     email: credentials?.email,
                     password: credentials?.password
                 }, {
@@ -36,7 +36,8 @@ export const handler = NextAuth({
                         email: decodedToken.email,
                         id: decodedToken.sid,
                         sub: decodedToken.sub,
-                        name: decodedToken.name
+                        name: decodedToken.name,
+                        accessToken: res.data.accessToken
                     }
                 }
 
@@ -54,8 +55,7 @@ export const handler = NextAuth({
     },
 
     callbacks: {
-        jwt: async ({ token, user }) => {
-
+        jwt: async ({ token, profile, account, user }) => {
             if (user?.name) {
                 token.name = user.name;
             }
@@ -63,9 +63,20 @@ export const handler = NextAuth({
                 token.email = user.email;
             }
 
+            if(user?.accessToken){
+                token.accessToken = user.accessToken
+            }
+
             return token;
         },
-        async session({ session, token, user }) { return { ...session, token: token }; }
+        async session({ session, token, user }) {
+            if (token) {
+                session.user.name = token.name
+                session.user.email = token.email
+            }
+
+            return { ...session, token: token };
+        }
     }
 })
 

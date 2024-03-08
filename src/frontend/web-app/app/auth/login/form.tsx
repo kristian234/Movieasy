@@ -1,21 +1,16 @@
 'use client'
-
-import { signIn, useSession } from "next-auth/react";
+import { getCurrentUser, getTokenWorkaround } from "@/app/actions/auth-actions";
+import { getSession, signIn, useSession } from "next-auth/react";
 import { useState } from "react";
 
 export default function LoginForm() {
     const [email, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
-
-    const session = useSession();
     const handleSubmit = async (e : any) => {
         e.preventDefault();
-        // "username-login" matches the id for the credential
-        const result = await signIn("credential", { email, password, redirect: false});
 
-        console.log(result);
-        console.log(session);
+        await signIn("credential", { email, password, redirect: false});
       };
     
 
