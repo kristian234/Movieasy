@@ -1,6 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
+using Movieasy.Application.Users.LoginUser;
 using Movieasy.Application.Users.RegisterUser;
 
 namespace Movieasy.Api.Controllers.Users
@@ -33,6 +35,24 @@ namespace Movieasy.Api.Controllers.Users
             if (result.IsFailure)
             {
                 return BadRequest(result.Error);
+            }
+
+            return Ok(result.Value);
+        }
+
+        [AllowAnonymous]
+        [HttpPost("login")]
+        public async Task<IActionResult> LogIn(
+            LoginUserRequest request,
+            CancellationToken cancellationToken)
+        {
+            var command = new LogInUserCommand(request.Email, request.Password);
+
+            var result = await _sender.Send(command, cancellationToken);
+
+            if (result.IsFailure)
+            {
+                return Unauthorized(result.Error);
             }
 
             return Ok(result.Value);

@@ -30,6 +30,13 @@ namespace Movieasy.Infrastructure
 
             AddPersistence(services, configuration);
 
+            AddAuthentication(services, configuration);
+
+            return services;
+        }
+
+        private static void AddAuthentication(IServiceCollection services, IConfiguration configuration)
+        {
             services
                 .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer();
@@ -49,7 +56,12 @@ namespace Movieasy.Infrastructure
                 httpClient.BaseAddress = new Uri(keycloakOptions.AdminUrl);
             }).AddHttpMessageHandler<AdminAuthorizationDelegatingHandler>();
 
-            return services;
+            services.AddHttpClient<IJwtService, JwtService>((serviceProvider, httpClient) =>
+            {
+                var keycloakOptions = serviceProvider.GetRequiredService<IOptions<KeycloakOptions>>().Value;
+
+                httpClient.BaseAddress = new Uri(keycloakOptions.TokenUrl);
+            }).AddHttpMessageHandler<AdminAuthorizationDelegatingHandler>();
         }
 
         private static void AddPersistence(IServiceCollection services, IConfiguration configuration)
