@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using Movieasy.Application.Abstractions.Authentication;
 using Movieasy.Application.Abstractions.Clock;
 using Movieasy.Application.Abstractions.Data;
 using Movieasy.Application.Abstractions.Email;
@@ -10,6 +11,7 @@ using Movieasy.Domain.Abstractions;
 using Movieasy.Domain.Movies;
 using Movieasy.Domain.Reviews;
 using Movieasy.Domain.Users;
+using Movieasy.Infrastructure.Authentication;
 using Movieasy.Infrastructure.Clock;
 using Movieasy.Infrastructure.Email;
 using Movieasy.Infrastructure.Repositories;
@@ -35,6 +37,17 @@ namespace Movieasy.Infrastructure
             services.Configure<AuthenticationOptions>(configuration.GetSection("Authentication"));
 
             services.ConfigureOptions<JwtBearerOptions>();
+
+            services.Configure<KeycloakOptions>(configuration.GetSection("Keycloak"));
+
+            services.AddTransient<AdminAuthorizationDelegatingHandler>();
+
+            services.AddHttpClient<IAuthenticationService, AuthenticationService>((serviceProvider, httpClient) =>
+            {
+                var keycloakOptions = serviceProvider.GetRequiredService<IOptions<KeycloakOptions>>().Value;
+
+                httpClient.BaseAddress = new Uri(keycloakOptions.AdminUrl);
+            }).AddHttpMessageHandler<AdminAuthorizationDelegatingHandler>();
 
             return services;
         }
