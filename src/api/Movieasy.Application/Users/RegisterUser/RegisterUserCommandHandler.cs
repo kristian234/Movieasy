@@ -9,7 +9,7 @@ namespace Movieasy.Application.Users.RegisterUser
     {
         private readonly IUserRepository _userRepository;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IAuthenticationService _authenticationService
+        private readonly IAuthenticationService _authenticationService;
 
         public RegisterUserCommandHandler(
             IUserRepository userRepository,

@@ -25,6 +25,8 @@ namespace Movieasy.Infrastructure.Configurations
                 .HasConversion(email => email.Value, value => new Domain.Users.Email(value));
 
             builder.HasIndex(user => user.Email).IsUnique();
+
+            builder.HasIndex(user => user.IdentityId).IsUnique();
         }
     }
 }
