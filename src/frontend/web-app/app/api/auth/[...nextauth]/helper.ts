@@ -1,4 +1,3 @@
-import { jwtDecode } from "jwt-decode";
 import { JWT } from "next-auth/jwt";
 
 export const getIsTokenValid = (token: JWT) => {
@@ -8,10 +7,8 @@ export const getIsTokenValid = (token: JWT) => {
     const dateNowInSeconds = new Date().getTime() / 1000;
 
     if (dateNowInSeconds > Number(token.accessTokenExpiry)) {
-        console.log("API token expired");
-        return false;   
-     }    //Now we have expiration date of the token 
+        return false;
+    }
 
     return true;
 };
- 

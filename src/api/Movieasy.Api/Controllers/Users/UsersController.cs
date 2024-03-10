@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using Movieasy.Application.Users.LoginUser;
 using Movieasy.Application.Users.RefreshUser;
