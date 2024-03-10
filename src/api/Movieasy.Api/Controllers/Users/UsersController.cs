@@ -1,9 +1,11 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Movieasy.Application.Users.GetLoggedInUser;
 using Movieasy.Application.Users.LoginUser;
 using Movieasy.Application.Users.RefreshUser;
 using Movieasy.Application.Users.RegisterUser;
+using Movieasy.Domain.Abstractions;
 
 namespace Movieasy.Api.Controllers.Users
 {
@@ -16,6 +18,21 @@ namespace Movieasy.Api.Controllers.Users
         public UsersController(ISender sender)
         {
             _sender = sender;
+        }
+
+        [HttpGet("me")]
+        public async Task<IActionResult> GetLoggedInUser(CancellationToken cancellationToken)
+        {
+            var query = new GetLoggedInUserQuery();
+
+            Result<UserResponse> result = await _sender.Send(query, cancellationToken);
+
+            if (result.IsFailure)
+            {
+                return BadRequest(result.Error);
+            }
+
+            return Ok(result.Value);
         }
 
         [AllowAnonymous]

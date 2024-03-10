@@ -62,6 +62,11 @@ namespace Movieasy.Infrastructure
 
                 httpClient.BaseAddress = new Uri(keycloakOptions.TokenUrl);
             }).AddHttpMessageHandler<AdminAuthorizationDelegatingHandler>();
+
+            services.AddHttpContextAccessor();
+
+            // Uses HttpContextAccessor
+            services.AddScoped<IUserContext, UserContext>();
         }
 
         private static void AddPersistence(IServiceCollection services, IConfiguration configuration)

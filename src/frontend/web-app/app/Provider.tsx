@@ -8,14 +8,6 @@ interface Props {
 }
 
 export default function Provider({ children }: Props) {
-    const { data: session } = useSession();
-
-    useEffect(() => {
-        if (session?.error === "RefreshAccessTokenError") {
-            //console.log("BREOAKFKOAEKOEA" + session?.error)
-            signOut(); // Force sign in to hopefully resolve error
-        }
-    }, [session]);
-
-    return <SessionProvider>{children}</SessionProvider>
+    
+    return <SessionProvider refetchInterval={60}>{children}</SessionProvider>
 }

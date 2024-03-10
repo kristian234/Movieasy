@@ -19,8 +19,4 @@
     <ProjectReference Include="..\Movieasy.Domain\Movieasy.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Authentication\Models\" />
-  </ItemGroup>
-
 </Project>

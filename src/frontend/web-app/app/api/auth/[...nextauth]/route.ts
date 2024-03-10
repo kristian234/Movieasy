@@ -5,6 +5,7 @@ import { jwtDecode } from "jwt-decode";
 import { parse } from "cookie";
 import { getIsTokenValid } from "./helper";
 import { JWT } from "next-auth/jwt";
+import { signOut } from "next-auth/react";
 
 interface TokenDecode {
     email: string,
@@ -24,7 +25,7 @@ export const handler = NextAuth({
             id: 'credential',
             async authorize(credentials, req) {
                 const rememberMeCookie = parse(req?.headers?.cookie)['rememberMe'] === 'true' ? true : false;
-                console.log(rememberMeCookie);
+
                 const res = await axios.post(process.env.URL + "/api/user/login", {
                     email: credentials?.email,
                     password: credentials?.password,
@@ -40,10 +41,7 @@ export const handler = NextAuth({
                     const decodedToken = jwtDecode<TokenDecode>(res.data.accessToken);
 
                     return {
-                        email: decodedToken.email,
-                        id: decodedToken.sid,
-                        sub: decodedToken.sub,
-                        name: decodedToken.name,
+                        id: decodedToken.sub,
                         accessToken: res.data.accessToken,
                         refreshToken: res.data.refreshToken,
                         accessTokenExpiry: decodedToken.exp
@@ -57,7 +55,7 @@ export const handler = NextAuth({
 
     session: {
         strategy: "jwt",
-        maxAge: 3000 
+        maxAge: 3000
     },
 
     pages: {
@@ -66,20 +64,16 @@ export const handler = NextAuth({
 
     callbacks: {
         jwt: async ({ token, profile, account, user, trigger }) => {
-            if (user?.accessToken) {
-                token.accessToken = user.accessToken
-            }
+            if (user) {
+                console.log("WT9AEG9AEJ9GAE9JGAJE9HAEHAE9GAEJ9HJAE");
 
-            if (user?.refreshToken) {
-                token.refreshToken = user.refreshToken
-            }
-
-            if (user?.id) {
-                token.id = user.id;
-            }
-
-            if (user?.accessTokenExpiry) {
-                token.accessTokenExpiry = user.accessTokenExpiry
+                return {
+                    ...token,
+                    id: user.id,
+                    accessToken: user.accessToken,
+                    refreshToken: user.refreshToken,
+                    accessTokenExpiry: user.accessTokenExpiry
+                }
             }
 
             const dateNowInSeconds = new Date().getTime() / 1000;
@@ -99,13 +93,23 @@ export const handler = NextAuth({
                 session.user.name = null;
                 session.error = "RefreshAccessTokenError"
 
-                return { ...session, token  }
+                return { ...session, token }
             };
 
             if (token) {
-                session.user.email = token.email
-                session.user.id = token.id
-                session.user.name = token.name
+                const res = await axios.get(process.env.URL + "/api/user/me",
+                    {
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token.accessToken}`
+                        }
+                    });
+
+                if (res.status == 200) {
+                    session.user.email = res.data.email,
+                        session.user.name = `${res.data.firstName} ${res.data.lastName}`,
+                        session.user.id = res.data.id
+                }
             }
 
             return { ...session, token: token };
@@ -115,11 +119,12 @@ export const handler = NextAuth({
     }
 })
 
+
 async function refreshAccessToken(token: JWT) {
     console.log("Refreshing access token");
     try {
-        if(!token.refreshToken){
-
+        if (!token.refreshToken) {
+            return { ...token, error: "RefreshAccessTokenError" as const } 
         }
 
         const response = await axios.post(process.env.URL + "/api/user/refresh", {
@@ -147,19 +152,15 @@ async function refreshAccessToken(token: JWT) {
             accessToken: response.data.accessToken,
             refreshToken: response.data.refreshToken,
             accessTokenExpiry: decodedToken.exp,
-            email: decodedToken.email,
             id: decodedToken.sid,
-            sub: decodedToken.sub,
-            name: decodedToken.name,
         }
 
         return token;
     } catch (error) {
         console.log("ERROR ERROR ERROR ERROR " + error);
 
-        return { ...token, error: "RefreshAccessTokenError" as const }
+        return { ...token, token: undefined, error: "RefreshAccessTokenError" as const }
     }
 }
-
 
 export { handler as GET, handler as POST }
