@@ -9,7 +9,7 @@ export default function LogoutButton() {
 
     return (
         <div>
-            <button  className='text-secondary' onClick={() => signOut()}>
+            <button  className='text-secondary flex items-center' onClick={() => signOut()}>
                 <FiLogOut className="mr-2" />
                 Logout
             </button>

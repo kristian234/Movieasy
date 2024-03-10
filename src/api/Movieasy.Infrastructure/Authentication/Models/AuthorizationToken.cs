@@ -7,4 +7,7 @@ internal sealed class AuthorizationToken
     // token used to authentication to keycloak admin api
     [JsonPropertyName("access_token")]
     public string AccessToken { get; init; } = string.Empty;
+
+    [JsonPropertyName("refresh_token")]
+    public string RefreshToken { get; init; } = string.Empty;
 }

@@ -26,7 +26,10 @@ const config: Config = {
   },
   plugins: [
     require('@tailwindcss/aspect-ratio'),
-    require('flowbite/plugin')
+    require('flowbite/plugin'),
+    require('@tailwindcss/forms')({
+      strategy: 'class',
+    }),
   ],
 };
 export default config;

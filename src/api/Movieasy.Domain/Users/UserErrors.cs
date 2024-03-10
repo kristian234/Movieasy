@@ -11,5 +11,9 @@ namespace Movieasy.Domain.Users
         public static Error InvalidCredentials = new Error(
             "User.InvalidCredentials",
             "The provided credentials were invalid");
+
+        public static Error InvalidRefreshToken = new Error(
+            "User.InvalidRefreshToken",
+            "The provided refresh token was invalid");
     }
 }

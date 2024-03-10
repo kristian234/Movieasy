@@ -1,4 +1,3 @@
-import { getSession } from "next-auth/react";
 import LoginButton from "./headerComponents/login";
 import Logo from "./headerComponents/logo";
 import LogoutButton from "./headerComponents/logout";

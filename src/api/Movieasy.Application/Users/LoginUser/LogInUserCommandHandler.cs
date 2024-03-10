@@ -18,7 +18,7 @@ namespace Movieasy.Application.Users.LoginUser
             LogInUserCommand request,
             CancellationToken cancellationToken)
         {
-            Result<string> result = await _jwtService.GetAccessTokenAsync(
+            Result<JwtServiceResult> result = await _jwtService.GetAccessTokenAsync(
                 request.Email,
                 request.Password,
                 cancellationToken);
@@ -28,7 +28,9 @@ namespace Movieasy.Application.Users.LoginUser
                 return Result.Failure<AccessTokenResponse>(UserErrors.InvalidCredentials);
             }
 
-            return new AccessTokenResponse(result.Value);
+            return new AccessTokenResponse(
+                result.Value.AccessToken,
+                request.RememberMe ? result.Value.RefreshToken : null);
         }
     }
 }

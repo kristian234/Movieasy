@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using Movieasy.Application.Users.LoginUser;
+using Movieasy.Application.Users.RefreshUser;
 using Movieasy.Application.Users.RegisterUser;
 
 namespace Movieasy.Api.Controllers.Users
@@ -46,7 +47,25 @@ namespace Movieasy.Api.Controllers.Users
             LoginUserRequest request,
             CancellationToken cancellationToken)
         {
-            var command = new LogInUserCommand(request.Email, request.Password);
+            var command = new LogInUserCommand(request.Email, request.Password, request.RememberMe);
+
+            var result = await _sender.Send(command, cancellationToken);
+
+            if (result.IsFailure)
+            {
+                return Unauthorized(result.Error);
+            }
+
+            return Ok(result.Value);
+        }
+
+        [AllowAnonymous]
+        [HttpPost("refresh")]
+        public async Task<IActionResult> RefreshUser(
+            RefreshUserRequest request,
+            CancellationToken cancellationToken)
+        {
+            var command = new RefreshUserCommand(request.RefreshToken);
 
             var result = await _sender.Send(command, cancellationToken);
 

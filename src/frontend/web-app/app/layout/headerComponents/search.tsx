@@ -1,7 +1,7 @@
 'use client'
 
 import { useParamsStore } from "@/hooks/useParamsStore";
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import { FaSearch } from "react-icons/fa";
 
 export default function Search() {
@@ -28,7 +28,7 @@ export default function Search() {
                     onChange={onChange}
                     value={searchValue}
                     type="text"
-                    placeholder="Search movies..."
+                    placeholder="Search for movies..."
                     className="
                         bg-transparent
                         w-full

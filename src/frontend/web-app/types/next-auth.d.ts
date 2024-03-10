@@ -2,23 +2,25 @@ import { DefaultSession } from "next-auth";
 
 declare module 'next-auth' {
     interface Session {
+        error?: "RefreshAccessTokenError",
         user: {
-            username: string
+            id?: id,
         } & DefaultSession['user']
     }
 
-    interface Profile{
-        username: string
-    }
-
-    interface User{
+    interface User {
         accessToken?: string
+        refreshToken?: string
+        accessTokenExpiry?: number
     }
 }
 
 declare module 'next-auth/jwt' {
     interface JWT {
-        username: string
-        accessToken?: string
+        accessToken?: string,
+        refreshToken?: string,
+        accessTokenExpiry?: number;
+        error?: "RefreshAccessTokenError"
     }
 }
+
