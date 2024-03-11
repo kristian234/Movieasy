@@ -58,6 +58,10 @@ export const handler = NextAuth({
         maxAge: 3000
     },
 
+    jwt:{
+
+    },
+
     pages: {
         signIn: "/auth/login"
     },

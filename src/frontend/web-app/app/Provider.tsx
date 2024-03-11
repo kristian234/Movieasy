@@ -1,7 +1,7 @@
 'use client'
 
-import { SessionProvider, signOut, useSession } from "next-auth/react";
-import { ReactNode, useEffect } from "react";
+import { SessionProvider } from "next-auth/react";
+import { ReactNode } from "react";
 
 interface Props {
     children: ReactNode;

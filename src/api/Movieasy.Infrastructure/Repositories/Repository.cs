@@ -22,7 +22,7 @@ namespace Movieasy.Infrastructure.Repositories
                 .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
         }
 
-        public async Task AddAsync(T entity)
+        public virtual async Task AddAsync(T entity)
         {
             await DbContext.AddAsync(entity);
         }

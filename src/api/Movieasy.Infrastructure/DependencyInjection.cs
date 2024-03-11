@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,6 +13,7 @@ using Movieasy.Domain.Movies;
 using Movieasy.Domain.Reviews;
 using Movieasy.Domain.Users;
 using Movieasy.Infrastructure.Authentication;
+using Movieasy.Infrastructure.Authorization;
 using Movieasy.Infrastructure.Clock;
 using Movieasy.Infrastructure.Email;
 using Movieasy.Infrastructure.Repositories;
@@ -31,6 +33,8 @@ namespace Movieasy.Infrastructure
             AddPersistence(services, configuration);
 
             AddAuthentication(services, configuration);
+
+            AddAuthorization(services);
 
             return services;
         }
@@ -88,6 +92,13 @@ namespace Movieasy.Infrastructure
             services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<ApplicationDbContext>());
 
             services.AddScoped<IApplicationDbContext>(sp => sp.GetRequiredService<ApplicationDbContext>());
+        }
+
+        private static void AddAuthorization(IServiceCollection services)
+        {
+            services.AddScoped<AuthorizationService>();
+
+            services.AddTransient<IClaimsTransformation, CustomClaimsTransformation>();
         }
     }
 }

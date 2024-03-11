@@ -8,6 +8,15 @@ namespace Movieasy.Infrastructure.Repositories
         {
         }
 
+        public override async Task AddAsync(User entity)
+        {
+            foreach(var role in entity.Roles)
+            {
+                DbContext.Attach(role);
+            }
+
+           await DbContext.AddAsync(entity);
+        }
 
     }
 }

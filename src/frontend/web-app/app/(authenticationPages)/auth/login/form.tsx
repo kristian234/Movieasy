@@ -1,6 +1,7 @@
 'use client'
 import { setCookie } from "cookies-next";
 import { getSession, signIn } from "next-auth/react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -53,7 +54,7 @@ export default function LoginForm() {
                         </div>
                         <button type="submit" className="w-full text-body bg-secondary hover:bg-third focus:ring-1 focus:outline-none focus:ring-third font-bold rounded-lg text-sm px-5 py-2.5 text-center">Sign in</button>
                         <p className="text-sm font-medium text-third">
-                            Don’t have an account yet? <a href="#" className="font-bold text-secondary hover:underline">Sign up</a>
+                            Don’t have an account yet? <Link href="/auth/register" className="font-bold text-secondary hover:underline">Sign up</Link>
                         </p>
                     </form>
                 </div>
