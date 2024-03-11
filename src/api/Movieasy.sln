@@ -6,19 +6,18 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5DE4DCBF-DB48-47F2-80CD-46009312EA74}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{6D039289-F569-4535-9E72-B69190386794}"
-	ProjectSection(SolutionItems) = preProject
-		Test = Test
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Movieasy.Domain", "Movieasy.Domain\Movieasy.Domain.csproj", "{D8B693F8-CEA4-4937-B57A-A67CEF74629D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Movieasy.Application", "Movieasy.Application\Movieasy.Application.csproj", "{EB937481-C9C8-44CE-BF18-995974B4CAB0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Movieasy.Infrastructure", "Movieasy.Infrastructure\Movieasy.Infrastructure.csproj", "{703E3A43-6CE3-4043-8172-8FB303F2C3D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Movieasy.Infrastructure", "Movieasy.Infrastructure\Movieasy.Infrastructure.csproj", "{703E3A43-6CE3-4043-8172-8FB303F2C3D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Movieasy.Api", "Movieasy.Api\Movieasy.Api.csproj", "{B78B8F84-D9DA-4417-9B1F-B8888B264F12}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Movieasy.Api", "Movieasy.Api\Movieasy.Api.csproj", "{B78B8F84-D9DA-4417-9B1F-B8888B264F12}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{D8927D74-97CB-4CEB-9D26-D894E13F3976}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Movieasy.Domain.UnitTests", "..\..\test\Movieasy.Domain.UnitTests\Movieasy.Domain.UnitTests.csproj", "{6F6DC413-F68D-42B1-A7E6-A5F0E9E4FC3E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,6 +45,10 @@ Global
 		{D8927D74-97CB-4CEB-9D26-D894E13F3976}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D8927D74-97CB-4CEB-9D26-D894E13F3976}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D8927D74-97CB-4CEB-9D26-D894E13F3976}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F6DC413-F68D-42B1-A7E6-A5F0E9E4FC3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F6DC413-F68D-42B1-A7E6-A5F0E9E4FC3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F6DC413-F68D-42B1-A7E6-A5F0E9E4FC3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F6DC413-F68D-42B1-A7E6-A5F0E9E4FC3E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,6 +58,7 @@ Global
 		{EB937481-C9C8-44CE-BF18-995974B4CAB0} = {5DE4DCBF-DB48-47F2-80CD-46009312EA74}
 		{703E3A43-6CE3-4043-8172-8FB303F2C3D8} = {5DE4DCBF-DB48-47F2-80CD-46009312EA74}
 		{B78B8F84-D9DA-4417-9B1F-B8888B264F12} = {5DE4DCBF-DB48-47F2-80CD-46009312EA74}
+		{6F6DC413-F68D-42B1-A7E6-A5F0E9E4FC3E} = {6D039289-F569-4535-9E72-B69190386794}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2F0B8C98-C51D-4164-9D79-2C6D126A5099}
