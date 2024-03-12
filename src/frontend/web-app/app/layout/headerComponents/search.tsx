@@ -1,12 +1,14 @@
 'use client'
 
 import { useParamsStore } from "@/hooks/useParamsStore";
+import { useRouter } from "next/navigation";
 import { Fragment } from "react";
 import { FaSearch } from "react-icons/fa";
 
 export default function Search() {
     const setParams = useParamsStore(state => state.setParams);
-    const setSearchValue = useParamsStore(state => state.setSearchValue);
+    const setSearchValue = useParamsStore(state => state.setSearchValue)
+    const router = useRouter();
 
     const searchValue = useParamsStore(state => state.searchValue);
 
@@ -16,6 +18,8 @@ export default function Search() {
 
     function search() {
         setParams({ searchTerm: searchValue });
+        // over here redirect the mto the search page
+        router.push('/search')
     }
 
     return (

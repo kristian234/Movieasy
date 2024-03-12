@@ -7,6 +7,7 @@ import Search from "./headerComponents/search";
 export default async function Header() {
 
     const session = await getCurrentUser();
+
     return (
         <nav className="bg-header p-4 flex items-center justify-between shadow-2xl">
             <Logo />

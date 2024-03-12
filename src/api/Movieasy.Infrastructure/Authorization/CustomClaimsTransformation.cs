@@ -17,7 +17,8 @@ namespace Movieasy.Infrastructure.Authorization
 
         public async Task<ClaimsPrincipal> TransformAsync(ClaimsPrincipal principal)
         {
-            if(principal.HasClaim(claim => claim.Type == ClaimTypes.Role) &&
+            if (principal.Identity is not { IsAuthenticated: true } ||
+                principal.HasClaim(claim => claim.Type == ClaimTypes.Role) &&
                 principal.HasClaim(claim => claim.Type == JwtRegisteredClaimNames.Sub))
             {
                 return principal;
@@ -32,9 +33,10 @@ namespace Movieasy.Infrastructure.Authorization
             var userRoles = await authorizationService.GetRolesForUserAsync(identityId);
 
             var claimsIdentity = new ClaimsIdentity();
+
             claimsIdentity.AddClaim(new Claim(JwtRegisteredClaimNames.Sub, userRoles.Id.ToString()));
 
-            foreach(var role in userRoles.Roles)
+            foreach (var role in userRoles.Roles)
             {
                 claimsIdentity.AddClaim(new Claim(ClaimTypes.Role, role.Name));
             }

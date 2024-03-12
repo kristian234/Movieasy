@@ -18,7 +18,8 @@ export default function RegisterForm() {
         e.preventDefault();
         
         registerUser(firstName, lastName, email, password).then(res => {
-            if (res == 200) {
+            console.log(res);
+            if (!res.error) {
                 router.push('/auth/login');
                 router.refresh();
             }

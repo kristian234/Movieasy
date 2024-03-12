@@ -1,6 +1,6 @@
 'use server'
 
-import axios, { AxiosResponse } from "axios";
+import { fetchWrapper } from "@/lib/fetchWrapper";
 import { NextApiRequest } from "next";
 import { getServerSession } from "next-auth";
 import { getToken } from "next-auth/jwt";
@@ -10,21 +10,16 @@ export async function registerUser(
     firstName: string,
     lastName: string,
     email: string,
-    password: string) : Promise<number> {
+    password: string): Promise<any> {
 
-    const res = await axios.post(process.env.URL + "/api/user/register", {
+    const res = await fetchWrapper.post("/api/user/register", {
         email: email,
         password: password,
         firstName: firstName,
         lastName: lastName
-    }, {
-        withCredentials: true,
-        headers: {
-            "Content-Type": "application/json"
-        }
-    });
+    })
 
-    return res.status;
+    return res;
 }
 
 export async function getSession() {

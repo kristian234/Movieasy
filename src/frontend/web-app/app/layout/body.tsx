@@ -1,9 +1,8 @@
-import Listings from "../components/movies/listings";
 
 export default function Body() {
     return (
         <div>
-            <Listings />
+            <h1>Home page</h1>
         </div>
     )
 }

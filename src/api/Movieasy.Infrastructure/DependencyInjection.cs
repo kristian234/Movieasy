@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,6 +17,9 @@ using Movieasy.Infrastructure.Authorization;
 using Movieasy.Infrastructure.Clock;
 using Movieasy.Infrastructure.Email;
 using Movieasy.Infrastructure.Repositories;
+using AuthenticationOptions = Movieasy.Infrastructure.Authentication.AuthenticationOptions;
+using IAuthenticationService = Movieasy.Application.Abstractions.Authentication.IAuthenticationService;
+using AuthenticationService = Movieasy.Infrastructure.Authentication.AuthenticationService;
 
 namespace Movieasy.Infrastructure
 {
@@ -41,8 +45,8 @@ namespace Movieasy.Infrastructure
         private static void AddAuthentication(IServiceCollection services, IConfiguration configuration)
         {
             services
-                .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer();
+            .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer();
 
             services.Configure<AuthenticationOptions>(configuration.GetSection("Authentication"));
 
@@ -54,21 +58,22 @@ namespace Movieasy.Infrastructure
 
             services.AddHttpClient<IAuthenticationService, AuthenticationService>((serviceProvider, httpClient) =>
             {
-                var keycloakOptions = serviceProvider.GetRequiredService<IOptions<KeycloakOptions>>().Value;
+                KeycloakOptions keycloakOptions = serviceProvider.GetRequiredService<IOptions<KeycloakOptions>>().Value;
 
                 httpClient.BaseAddress = new Uri(keycloakOptions.AdminUrl);
-            }).AddHttpMessageHandler<AdminAuthorizationDelegatingHandler>();
+            })
+            .AddHttpMessageHandler<AdminAuthorizationDelegatingHandler>();
 
             services.AddHttpClient<IJwtService, JwtService>((serviceProvider, httpClient) =>
             {
-                var keycloakOptions = serviceProvider.GetRequiredService<IOptions<KeycloakOptions>>().Value;
+                KeycloakOptions keycloakOptions = serviceProvider.GetRequiredService<IOptions<KeycloakOptions>>().Value;
 
                 httpClient.BaseAddress = new Uri(keycloakOptions.TokenUrl);
-            }).AddHttpMessageHandler<AdminAuthorizationDelegatingHandler>();
+            });
 
             services.AddHttpContextAccessor();
 
-            // Uses HttpContextAccessor
+            // Uses httpcontextaccessor
             services.AddScoped<IUserContext, UserContext>();
         }
 
@@ -97,7 +102,7 @@ namespace Movieasy.Infrastructure
         {
             services.AddScoped<AuthorizationService>();
 
-            services.AddTransient<Microsoft.AspNetCore.Authentication.IClaimsTransformation, CustomClaimsTransformation>();
+            services.AddTransient<IClaimsTransformation, CustomClaimsTransformation>();
         }
     }
 }
