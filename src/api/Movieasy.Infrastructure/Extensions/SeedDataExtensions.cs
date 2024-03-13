@@ -25,8 +25,9 @@ namespace Movieasy.Api.Extensions
                     description: new Description(faker.Commerce.ProductDescription()),
                     rating: (Rating)faker.PickRandom(1, 2, 3, 4, 5),
                     duration: Duration.Create(faker.Random.Double(1, 120)).Value,
+                    uploadDate: faker.Date.Between(new DateTime(2012, 1, 1), new DateTime(2024, 12, 12)),
                     releaseDate: faker.Date.BetweenDateOnly(new DateOnly(2012, 1, 1), new DateOnly(2024, 12, 12))
-                    ));
+                    )) ;
             }
 
             app.Movies.AddRange(movies);

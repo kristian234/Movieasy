@@ -32,6 +32,7 @@ namespace Movieasy.Domain.Movies
 
         // TO DO: Remember to add Genres
         public Duration Duration { get; private set; }
+        public DateTime UploadDate { get; internal set; }
 
         // TO DO: Remember to add the cast
 
@@ -40,6 +41,7 @@ namespace Movieasy.Domain.Movies
             Description description,
             Rating rating,
             Duration duration,
+            DateTime uploadDate,
             DateOnly? releaseDate)
         {
             Movie movie = new Movie(

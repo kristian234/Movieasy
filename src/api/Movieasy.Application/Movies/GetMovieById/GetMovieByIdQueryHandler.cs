@@ -27,9 +27,9 @@ namespace Movieasy.Application.Movies.GetMovieById
                     Duration = m.Duration.Value,
                     Rating = m.Rating.ToString(),
                     ReleaseDate = m.ReleaseDate.HasValue ?
-                        m.ReleaseDate.Value
-                         .ToString(CultureInfo.InvariantCulture)
-                        : null
+                        m.ReleaseDate.Value.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)
+                        : null,
+                    UploadDate = m.UploadDate.ToString("yyyy-MM-dd-HH-mm", CultureInfo.InvariantCulture),
 
                 })
                 .AsNoTracking()
