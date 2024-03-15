@@ -5,12 +5,11 @@ import { getRecent } from "../actions/movie-actions";
 
 export default async function AppContainer() {
     const user = await getCurrentUser();
-    const movies = await getRecent();
 
     return (
         <div>
-            <MovieCarousel movies={movies} ></MovieCarousel>
             <WelcomeGreeting user={user} />
+            <MovieCarousel movies={getRecent} text="Recently Added"></MovieCarousel>
         </div>
     )
 }

@@ -6,7 +6,7 @@ interface Props {
     description: string,
     imageUrl: string,
 
-    isCarousel: boolean  
+    isCarousel: boolean
 }
 
 export default function MovieCard({ title, description, imageUrl, isCarousel = false }: Props) {
@@ -16,9 +16,13 @@ export default function MovieCard({ title, description, imageUrl, isCarousel = f
                 <MovieImage src={imageUrl} />
             </div>
             <h1 className="mb-1 line-clamp-2 text-ellipsis break-words font-bold text-primary">{title}</h1>
-            <p className="font-semibold text-third text-sm">
-                Movie<span className="mx-[0.6em] text-[1em]">●</span>2011
-            </p>
+
+            {!isCarousel && (
+                <p className="font-semibold text-third text-sm">
+                    Movie<span className="mx-[0.6em] text-[1em]">●</span>2011
+                </p>
+            )}
+
         </div>
     );
 }
