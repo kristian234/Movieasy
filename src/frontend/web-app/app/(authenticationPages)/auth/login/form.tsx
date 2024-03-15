@@ -17,6 +17,7 @@ export default function LoginForm() {
         setCookie('rememberMe', rememberMe);
 
         const result = await signIn("credential", { email, password, redirect: false });
+
         const session = await getSession();
 
         console.log(session);

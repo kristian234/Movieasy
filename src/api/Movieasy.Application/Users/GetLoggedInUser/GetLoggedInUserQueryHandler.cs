@@ -25,12 +25,14 @@ namespace Movieasy.Application.Users.GetLoggedInUser
         {
             UserResponse? user = await _context.Users
                 .Where(x => x.IdentityId == _userContext.IdentityId)
+                .Include(x => x.Roles)
                 .Select(x => new UserResponse()
                 {
                     Id = x.Id,
                     Email = x.Email.Value,
                     FirstName = x.FirstName.Value,
-                    LastName = x.LastName.Value
+                    LastName = x.LastName.Value,
+                    Roles = x.Roles.Select(role => role.Name)
                 })
                 .AsNoTracking()
                 .FirstOrDefaultAsync(cancellationToken);

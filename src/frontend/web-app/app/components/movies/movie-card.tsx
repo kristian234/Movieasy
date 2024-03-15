@@ -5,11 +5,13 @@ interface Props {
     title: string,
     description: string,
     imageUrl: string,
+
+    isCarousel: boolean  
 }
 
-export default function MovieCard({ title, description, imageUrl }: Props) {
+export default function MovieCard({ title, description, imageUrl, isCarousel = false }: Props) {
     return (
-        <div className="ssm:w-48 relative mb-2 p-3 group transition-transform duration-100 hover:scale-95">
+        <div className={`${isCarousel ? "ssm:w-full" : "ssm:w-48"} relative mb-2 p-3 group transition-transform duration-100 hover:scale-95`}>
             <div className="h-0 pb-[125%] relative">
                 <MovieImage src={imageUrl} />
             </div>

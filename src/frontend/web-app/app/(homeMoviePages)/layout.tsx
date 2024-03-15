@@ -2,8 +2,7 @@ import { Metadata } from "next";
 import "../globals.css";
 import Header from "../layout/header";
 import Provider from "../Provider";
-import { signOut, useSession } from "next-auth/react";
-import { useEffect } from "react";
+import RefreshClientComponent from "../components/shared/refresh-component";
 
 export const metadata: Metadata = {
   title: "Movieasy",
@@ -20,6 +19,7 @@ export default async function RootLayout({
       <body>
         <div className="min-h-screen flex-auto max-h-screen overflow-auto">
           <Provider>
+            <RefreshClientComponent />
             <Header />
             <main>
               {children}
@@ -30,4 +30,3 @@ export default async function RootLayout({
     </html>
   )
 }
-

@@ -1,10 +1,10 @@
-import NextAuth from "next-auth";
+import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import axios from 'axios';
 import { jwtDecode } from "jwt-decode";
 import { getIsTokenValid } from "./helper";
 import { JWT } from "next-auth/jwt";
-import { NextRequest, NextResponse } from "next/server";
+import { parse } from "cookie";
 
 interface TokenDecode {
     email: string,
@@ -14,113 +14,143 @@ interface TokenDecode {
     exp: number,
 }
 
-export const handler = async (req: any, res: any) => {
-    const rememberMeCookieValue = req.cookies.get('rememberMe')?.value || 'false';
-    const rememberMe = rememberMeCookieValue === 'true';
-    
-    return await NextAuth(req, res, {
-        providers: [
-            CredentialsProvider({
-                credentials: {
-                    email: {},
-                    password: {},
-                },
-                id: 'credential',
-                async authorize(credentials, req) {
-                    const res = await axios.post(process.env.URL + "/api/user/login", {
-                        email: credentials?.email,
-                        password: credentials?.password,
-                        rememberMe: rememberMe
-                    }, {
-                        withCredentials: true,
-                        headers: {
-                            "Content-Type": "application/json"
-                        }
-                    });
+export const authOptions: NextAuthOptions = {
+    providers: [
+        CredentialsProvider({
+            credentials: {
+                email: {},
+                password: {},
+            },
+            id: 'credential',
+            async authorize(credentials, req) {
+                const rememberMe = parse(req?.headers?.cookie)['rememberMe'] === 'true' ? true : false;
 
-                    if (res.status == 200) {
+                const res = await axios.post(process.env.URL + "/api/user/login", {
+                    email: credentials?.email,
+                    password: credentials?.password,
+                    rememberMe: rememberMe
+                }, {
+                    withCredentials: true,
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                });
+
+                if (res.status == 200) {
+                    const userData = await axios.get(process.env.URL + "/api/user/me",
+                        {
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Authorization": `Bearer ${res.data.accessToken}`
+                            }
+                        });
+
+                    if (userData) {
                         const decodedToken = jwtDecode<TokenDecode>(res.data.accessToken);
 
                         return {
                             id: decodedToken.sub,
                             accessToken: res.data.accessToken,
                             refreshToken: res.data.refreshToken,
-                            accessTokenExpiry: decodedToken.exp
+                            accessTokenExpiry: decodedToken.exp,
+                            name: `${userData.data.firstName} ${userData.data.lastName}`,
+                            croles: userData.data.roles,
+                            email: userData.data.email
                         }
                     }
-
-                    return null;
-                }
-            })
-        ],
-
-
-        session: {
-            strategy: "jwt",
-            maxAge: rememberMe ? 3000 : 20
-        },
-
-        pages: {
-            signIn: "/auth/login"
-        },
-
-        callbacks: {
-            jwt: async ({ token, profile, account, user, trigger }) => {
-                if (user) {
-                    console.log("WT9AEG9AEJ9GAE9JGAJE9HAEHAE9GAEJ9HJAE");
-
-                    return {
-                        ...token,
-                        id: user.id,
-                        accessToken: user.accessToken,
-                        refreshToken: user.refreshToken,
-                        accessTokenExpiry: user.accessTokenExpiry
-                    }
                 }
 
-                const dateNowInSeconds = new Date().getTime() / 1000;
+                return null;
+            }
+        })
+    ],
 
-                if (dateNowInSeconds < Number(token.accessTokenExpiry)) {
-                    return token;
+    pages: {
+        signIn: "/auth/login"
+    },
+
+    callbacks: {
+        jwt: async ({ token, profile, account, user, trigger }) => {
+            if (user) {
+                console.log("WT9AEG9AEJ9GAE9JGAJE9HAEHAE9GAEJ9HJAE");
+
+                return {
+                    ...token,
+                    id: user.id,
+                    croles: user.croles,
+                    accessToken: user.accessToken,
+                    refreshToken: user.refreshToken,
+                    accessTokenExpiry: user.accessTokenExpiry
                 }
+            }
 
+            const dateNowInSeconds = new Date().getTime() / 1000;
+
+            if (dateNowInSeconds < Number(token.accessTokenExpiry)) {
+                return token;
+            }
+
+            if (token.refreshToken) {
                 return refreshAccessToken(token);
-            },
+            }
 
-            async session({ session, token }) {
-                const isTokenValid = getIsTokenValid(token);
-                if (!isTokenValid) {
-                    session.user.email = null;
-                    session.user.id = null;
-                    session.user.name = null;
-                    session.error = "RefreshAccessTokenError"
+            return token;
+        },
 
-                    return { ...session, token }
-                };
+        async session({ session, token, trigger }) {
 
-                if (token) {
-                    const res = await axios.get(process.env.URL + "/api/user/me",
-                        {
-                            headers: {
-                                "Content-Type": "application/json",
-                                "Authorization": `Bearer ${token.accessToken}`
-                            }
-                        });
+            const isTokenValid = getIsTokenValid(token);
+            if (!isTokenValid) {
+                session.user.email = null;
+                session.user.id = null;
+                session.user.name = null;
+                session.error = "RefreshAccessTokenError"
+                return { ...session, token }
+            };
 
-                    if (res.status == 200) {
-                        session.user.email = res.data.email,
-                            session.user.name = `${res.data.firstName} ${res.data.lastName}`,
-                            session.user.id = res.data.id
-                    }
+            if (trigger === 'update' && token) {
+
+                const res = await axios.get(process.env.URL + "/api/user/me",
+                    {
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token.accessToken}`
+                        }
+                    });
+
+                console.log("GDA9GHJAD9AJD9HAEJHG9EAJGH9AEJHGA0E9 HGJAE90GJA9EGHJEA9");
+                if (res.status == 200) {
+                    session.user.email = res.data.email,
+                        session.user.name = `${res.data.firstName} ${res.data.lastName}`,
+                        session.user.id = res.data.id,
+                        session.user.roles = res.data.roles
                 }
 
-                return { ...session, token: token };
-            },
+            }
+            if (token) {
+                session.user.id = token.id,
+                session.user.name = token.name,
+                session.user.email = token.email,
+                session.user.roles = token.croles
+            }
+            return { ...session, token: token };
+        },
 
-        }
-    })
+    }
 }
 
+export const handler = async (req: any, res: any) => {
+    const rememberMeCookieValue = req.cookies.get('rememberMe')?.value || 'false';
+    const rememberMe = rememberMeCookieValue === 'true';
+
+    return await NextAuth(req, res, {
+        ...authOptions,
+        session: {
+            strategy: "jwt",
+            maxAge: rememberMe ? 3000 : 60
+        },
+    })
+}
 
 
 async function refreshAccessToken(token: JWT) {
@@ -162,7 +192,7 @@ async function refreshAccessToken(token: JWT) {
     } catch (error) {
         console.log("ERROR ERROR ERROR ERROR " + error);
 
-        return { ...token, token: undefined, error: "RefreshAccessTokenError" as const }
+        return { ...token, refreshAccessToken: undefined, error: "RefreshAccessTokenError" as const }
     }
 }
 

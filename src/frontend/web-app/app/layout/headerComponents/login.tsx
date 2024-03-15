@@ -1,6 +1,5 @@
 'use client'
 
-import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { FaSignInAlt } from "react-icons/fa"
 
@@ -9,7 +8,7 @@ export default function LoginButton() {
 
     return (
         <div> 
-            <button className="text-secondary" onClick={() => router.push('/auth/login')}>
+            <button className="text-secondary flex items-center" onClick={() => router.push('/auth/login')}>
                 <FaSignInAlt className="mr-2" />
                 Login
             </button>

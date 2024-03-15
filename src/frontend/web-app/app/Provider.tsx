@@ -8,6 +8,5 @@ interface Props {
 }
 
 export default function Provider({ children }: Props) {
-    
     return <SessionProvider refetchInterval={60}>{children}</SessionProvider>
 }

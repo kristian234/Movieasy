@@ -2,6 +2,7 @@ export interface Movie {
     title: string
     description: string
     releaseDate: Date | null
+    addedOn: Date
     rating: string
     duration: number
   }

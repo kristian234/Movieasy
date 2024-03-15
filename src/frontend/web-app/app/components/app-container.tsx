@@ -1,9 +1,16 @@
-import Body from "../layout/body";
+import WelcomeGreeting from "./home/welcome-greet";
+import { getCurrentUser } from "../actions/auth-actions";
+import MovieCarousel from "./movies/movie-carousel";
+import { getRecent } from "../actions/movie-actions";
 
-export default function AppContainer() {
+export default async function AppContainer() {
+    const user = await getCurrentUser();
+    const movies = await getRecent();
+
     return (
         <div>
-            <Body />
+            <MovieCarousel movies={movies} ></MovieCarousel>
+            <WelcomeGreeting user={user} />
         </div>
     )
 }
