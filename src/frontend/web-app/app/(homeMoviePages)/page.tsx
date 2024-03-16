@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import AppContainer from "../components/app-container";
+import AppContainer from "./app-container";
 
 export default function Home() {
   

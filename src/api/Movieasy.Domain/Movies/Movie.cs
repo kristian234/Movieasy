@@ -1,5 +1,4 @@
 ﻿using Movieasy.Domain.Abstractions;
-using Movieasy.Domain.Reviews;
 
 namespace Movieasy.Domain.Movies
 {
@@ -11,6 +10,7 @@ namespace Movieasy.Domain.Movies
             Description description,
             Rating rating,
             Duration duration,
+            DateTime uploadDate,
             DateOnly? releaseDate
             )
             : base(id)
@@ -20,6 +20,7 @@ namespace Movieasy.Domain.Movies
             Description = description;
             Rating = rating;
             Duration = duration;
+            UploadDate = uploadDate;
             ReleaseDate = releaseDate;
         }
 
@@ -50,6 +51,7 @@ namespace Movieasy.Domain.Movies
                 description,
                 rating,
                 duration,
+                uploadDate,
                 releaseDate);
 
             return movie;

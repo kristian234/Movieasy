@@ -10,3 +10,7 @@ export async function getData(query: string): Promise<PagedResult<Movie>> {
 export async function getRecent(): Promise<PagedResult<Movie>> {
     return await fetchWrapper.get(`/api/Movies?pageNumber=1&pageSize=12`)
 }
+
+export async function getTrending(): Promise<PagedResult<Movie>> {
+    return await fetchWrapper.get(`/api/Movies?pageNumber=1&pageSize=12`)
+}
