@@ -20,6 +20,9 @@ using Movieasy.Infrastructure.Repositories;
 using AuthenticationOptions = Movieasy.Infrastructure.Authentication.AuthenticationOptions;
 using IAuthenticationService = Movieasy.Application.Abstractions.Authentication.IAuthenticationService;
 using AuthenticationService = Movieasy.Infrastructure.Authentication.AuthenticationService;
+using Movieasy.Application.Abstractions.Photos;
+using Movieasy.Infrastructure.Photos;
+using Movieasy.Domain.Photos;
 
 namespace Movieasy.Infrastructure
 {
@@ -92,6 +95,13 @@ namespace Movieasy.Infrastructure
             services.AddScoped<IMovieRepository, MovieRepository>();
 
             services.AddScoped<IReviewRepository, ReviewRepository>();
+
+            services.AddScoped<IPhotoRepository, PhotoRepository>();
+
+            // Photo (cloudinary) related 
+            services.AddScoped<IPhotoAccessor, PhotoAccessor>();
+            services.Configure<CloudinaryOptions>(configuration.GetSection("Cloudinary"));
+            // end
 
             services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<ApplicationDbContext>());
 

@@ -41,6 +41,7 @@ namespace Movieasy.Application.Movies.GetMovie
             }
 
             var movieResponsesQuery = moviesQuery
+                .Include(m => m.Photo)
                 .Select(m => new MovieResponse
                 {
                     Title = m.Title.Value,
@@ -50,7 +51,8 @@ namespace Movieasy.Application.Movies.GetMovie
                     ReleaseDate = m.ReleaseDate.HasValue ?
                         m.ReleaseDate.Value.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)
                         : null,
-                    UploadDate = m.UploadDate.ToString("yyyy-MM-dd-HH-mm", CultureInfo.InvariantCulture),
+                    UploadDate = m.UploadDate.ToString("yyyy-MM-dd-HH-mm", CultureInfo.InvariantCulture), 
+                    ImageUrl = m.Photo.Url.Value,
                 })
                 .AsNoTracking();
 

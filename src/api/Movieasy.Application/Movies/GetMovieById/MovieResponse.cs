@@ -8,5 +8,6 @@
         public string UploadDate { get; init; } = string.Empty;
         public string Rating { get; init; } = string.Empty;
         public double Duration { get; init; }
+        public string ImageUrl { get; init; } = string.Empty;
     }
 }

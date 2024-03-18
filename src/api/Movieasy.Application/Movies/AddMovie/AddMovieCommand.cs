@@ -1,4 +1,5 @@
-﻿using Movieasy.Application.Abstractions.Messaging;
+﻿using Microsoft.AspNetCore.Http;
+using Movieasy.Application.Abstractions.Messaging;
 
 namespace Movieasy.Application.Movies.AddMovie
 {
@@ -7,5 +8,6 @@ namespace Movieasy.Application.Movies.AddMovie
         string Description,
         int Rating,
         DateOnly? ReleaseDate,
-        double Duration) : ICommand<Guid>;
+        double Duration,
+        IFormFile Photo) : ICommand<Guid>;
 }

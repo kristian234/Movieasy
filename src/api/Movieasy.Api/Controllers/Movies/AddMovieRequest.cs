@@ -5,5 +5,6 @@
         string Description,
         int Rating,
         DateOnly? ReleaseDate,
-        double Duration);
+        double Duration,
+        IFormFile Photo);
 }

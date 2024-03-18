@@ -50,7 +50,7 @@ namespace Movieasy.Api.Controllers.Movies
 
         [HttpPost]
         public async Task<IActionResult> AddMovie(
-            AddMovieRequest request,
+           [FromForm] AddMovieRequest request,
             CancellationToken cancellationToken)
         {
             var command = new AddMovieCommand(
@@ -58,7 +58,8 @@ namespace Movieasy.Api.Controllers.Movies
                 request.Description,
                 request.Rating,
                 request.ReleaseDate,
-                request.Duration);
+                request.Duration,
+                request.Photo);
 
             Result<Guid> result = await _sender.Send(command, cancellationToken);
 

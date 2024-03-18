@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Movieasy.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240313144213_Initial3")]
-    partial class Initial3
+    [Migration("20240318185956_inito")]
+    partial class inito
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,6 +42,10 @@ namespace Movieasy.Infrastructure.Migrations
                         .HasColumnType("double precision")
                         .HasColumnName("duration");
 
+                    b.Property<Guid>("PhotoId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("photo_id");
+
                     b.Property<int>("Rating")
                         .HasColumnType("integer")
                         .HasColumnName("rating");
@@ -63,7 +67,34 @@ namespace Movieasy.Infrastructure.Migrations
                     b.HasKey("Id")
                         .HasName("pk_movies");
 
+                    b.HasIndex("PhotoId")
+                        .IsUnique()
+                        .HasDatabaseName("ix_movies_photo_id");
+
                     b.ToTable("movies", (string)null);
+                });
+
+            modelBuilder.Entity("Movieasy.Domain.Photos.Photo", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("PublicId")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("public_id");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("url");
+
+                    b.HasKey("Id")
+                        .HasName("pk_photos");
+
+                    b.ToTable("photos", (string)null);
                 });
 
             modelBuilder.Entity("Movieasy.Domain.Reviews.Review", b =>
@@ -195,6 +226,18 @@ namespace Movieasy.Infrastructure.Migrations
                         .HasDatabaseName("ix_role_user_users_id");
 
                     b.ToTable("role_user", (string)null);
+                });
+
+            modelBuilder.Entity("Movieasy.Domain.Movies.Movie", b =>
+                {
+                    b.HasOne("Movieasy.Domain.Photos.Photo", "Photo")
+                        .WithOne()
+                        .HasForeignKey("Movieasy.Domain.Movies.Movie", "PhotoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_movies_photos_photo_id");
+
+                    b.Navigation("Photo");
                 });
 
             modelBuilder.Entity("Movieasy.Domain.Reviews.Review", b =>

@@ -52,7 +52,7 @@ export default function Listings() {
                         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-1">
                             {data.items?.map((movie, index) => (
                                 <Fragment>
-                                    <MovieCard isCarousel={false} key={index} title={movie.title} description={movie.description} imageUrl={urlm} />
+                                    <MovieCard isCarousel={false} key={index} title={movie.title} description={movie.description} imageUrl={movie.imageUrl} />
                                 </Fragment>
                             ))}
                         </div>

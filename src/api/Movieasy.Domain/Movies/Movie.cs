@@ -1,4 +1,5 @@
 ﻿using Movieasy.Domain.Abstractions;
+using Movieasy.Domain.Photos;
 
 namespace Movieasy.Domain.Movies
 {
@@ -6,6 +7,7 @@ namespace Movieasy.Domain.Movies
     {
         private Movie(
             Guid id,
+            Guid photoId,
             Title title,
             Description description,
             Rating rating,
@@ -21,12 +23,15 @@ namespace Movieasy.Domain.Movies
             Rating = rating;
             Duration = duration;
             UploadDate = uploadDate;
+            PhotoId = photoId;
             ReleaseDate = releaseDate;
         }
 
         public Title Title { get; private set; }
-
         public Description Description { get; private set; }
+
+        public Guid PhotoId { get; private set; }
+        public Photo Photo { get; private set; } = null!;
 
         public DateOnly? ReleaseDate { get; internal set; }
         public Rating Rating { get; private set; }
@@ -43,10 +48,12 @@ namespace Movieasy.Domain.Movies
             Rating rating,
             Duration duration,
             DateTime uploadDate,
+            Photo photo,
             DateOnly? releaseDate)
         {
             Movie movie = new Movie(
                 Guid.NewGuid(),
+                photo.Id,
                 title,
                 description,
                 rating,

@@ -20,6 +20,7 @@ namespace Movieasy.Application.Movies.GetMovieById
             MovieResponse? movie = await _context
                 .Movies
                 .Where(m => m.Id == request.MovieId)
+                .Include(m => m.Photo)
                 .Select(m => new MovieResponse
                 {
                     Title = m.Title.Value,
@@ -30,7 +31,7 @@ namespace Movieasy.Application.Movies.GetMovieById
                         m.ReleaseDate.Value.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)
                         : null,
                     UploadDate = m.UploadDate.ToString("yyyy-MM-dd-HH-mm", CultureInfo.InvariantCulture),
-
+                    ImageUrl = m.Photo.Url.Value,
                 })
                 .AsNoTracking()
                 .FirstOrDefaultAsync(cancellationToken);
