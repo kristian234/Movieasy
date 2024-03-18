@@ -68,8 +68,9 @@ namespace Movieasy.Application.Movies.GetMovie
             {
                 "title" => movie => movie.Title,
                 "rating" => movie => movie.Rating,
+                "upload" => movie => movie.UploadDate,
                 _ => movie => movie.Id
-            };
+            } ;
         }
     }
 }

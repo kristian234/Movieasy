@@ -127,6 +127,7 @@ export const authOptions: NextAuthOptions = {
                 }
 
             }
+            
             if (token) {
                 session.user.id = token.id,
                 session.user.name = token.name,

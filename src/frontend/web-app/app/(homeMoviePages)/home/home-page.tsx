@@ -10,7 +10,6 @@ export default async function HomePage() {
         <div>
             <WelcomeGreeting user={user} />
             <MovieCarousel movies={getRecent} text="Recently Added"></MovieCarousel>
-            <br/>
             <MovieCarousel movies={getTrending} text="Trending"></MovieCarousel>
         </div>
     )

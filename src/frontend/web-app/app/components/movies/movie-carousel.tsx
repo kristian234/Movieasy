@@ -44,7 +44,7 @@ export default function MovieCarousel({ movies, text }: Props) {
 
     return (
         <div>
-            <div className="p-4 w-[80%] mx-auto">
+            <div className="p-2 w-[90%] ssm:w-[70%] mx-auto">
                 {text.length > 0 && (
                     <h1 className="font-bold text-secondary ml-3">{text}:</h1>
                 )}
