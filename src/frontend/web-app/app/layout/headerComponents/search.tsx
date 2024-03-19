@@ -19,7 +19,7 @@ export default function Search() {
     function search() {
         setParams({ searchTerm: searchValue });
         // over here redirect the mto the search page
-        router.push('/search')
+        router.push('/movies/search')
     }
 
     return (

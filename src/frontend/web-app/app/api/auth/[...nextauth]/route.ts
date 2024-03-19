@@ -158,7 +158,7 @@ async function refreshAccessToken(token: JWT) {
     console.log("Refreshing access token");
     try {
         if (!token.refreshToken) {
-            return { ...token, error: "RefreshAccessTokenError" as const }
+            return { ...token, refreshToken: undefined, error: "RefreshAccessTokenError" as const }
         }
 
         const response = await axios.post(process.env.URL + "/api/user/refresh", {
@@ -193,7 +193,7 @@ async function refreshAccessToken(token: JWT) {
     } catch (error) {
         console.log("ERROR ERROR ERROR ERROR " + error);
 
-        return { ...token, refreshAccessToken: undefined, error: "RefreshAccessTokenError" as const }
+        return { ...token, refreshToken: undefined, error: "RefreshAccessTokenError" as const }
     }
 }
 

@@ -79,10 +79,8 @@ export default function MovieCarousel({ movies, text }: Props) {
                             <div className='carousel-item'>
                                 <MovieCard
                                     isCarousel={true}
-                                    key={index}
-                                    title={movie.title}
-                                    description={movie.description}
-                                    imageUrl={urlm} />
+                                    movie={movie}
+                                    key={index} />
                             </div>
                         ))}
                     </Carousel>

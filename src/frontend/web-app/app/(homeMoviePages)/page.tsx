@@ -1,11 +1,18 @@
 import { Fragment } from "react";
-import AppContainer from "./app-container";
+import { getCurrentUser } from "../actions/auth-actions";
+import HomePage from "./home/home-page";
 
-export default function Home() {
-  
+export default async function Home() {
+
+  const user = await getCurrentUser();
+
+  if (user) {
+    return <HomePage />
+  }
+
   return (
-    <Fragment>
-      <AppContainer />
-    </Fragment>
-  );
+    <div>
+      <h1>Normal page for non-logged in</h1>
+    </div>
+  )
 }

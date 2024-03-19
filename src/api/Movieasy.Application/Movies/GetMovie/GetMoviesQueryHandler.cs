@@ -44,6 +44,7 @@ namespace Movieasy.Application.Movies.GetMovie
                 .Include(m => m.Photo)
                 .Select(m => new MovieResponse
                 {
+                    Id = m.Id.ToString(),
                     Title = m.Title.Value,
                     Description = m.Description.Value,
                     Duration = m.Duration.Value,
