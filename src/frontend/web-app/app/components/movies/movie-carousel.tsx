@@ -38,7 +38,7 @@ export default function MovieCarousel({ movies, text }: Props) {
         })
     }, [movies])
 
-    const urlm = "https://cdn.pixabay.com/photo/2023/11/09/19/36/zoo-8378189_1280.jpg";
+    // const urlm = "https://cdn.pixabay.com/photo/2023/11/09/19/36/zoo-8378189_1280.jpg";
 
     if (!data) return <h3>Loading...</h3>
 

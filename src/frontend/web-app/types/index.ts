@@ -3,11 +3,19 @@ export interface Movie {
     title: string
     description: string
     releaseDate: Date | null
-    addedOn: Date
-    rating: string
+    uploadDate: Date
+    rating: MovieRating
     duration: number
     imageUrl: string
   }
+
+  export enum MovieRating {
+    G = 'G',
+    PG = 'PG',
+    PG13 = 'PG13',
+    R = 'R',
+    NC17 = 'NC17',
+}
 
   export interface PagedResult<T>{
     items: T[]

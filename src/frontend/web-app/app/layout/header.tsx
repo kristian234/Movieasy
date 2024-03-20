@@ -1,8 +1,8 @@
 import { getServerSession } from "next-auth";
-import Logo from "./headerComponents/logo";
-import Search from "./headerComponents/search";
-import LoginButton from "./headerComponents/login";
-import LogoutButton from "./headerComponents/logout";
+import Logo from "../components/header/logo";
+import Search from "../components/header/search";
+import LoginButton from "../components/header/login";
+import LogoutButton from "../components/header/logout";
 
 export default async function Header() {
     const session = await getServerSession();

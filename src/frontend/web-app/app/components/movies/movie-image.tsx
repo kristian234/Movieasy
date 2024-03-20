@@ -11,13 +11,15 @@ export default function MovieImage({ src }: Props) {
     const [isLoading, setLoading] = useState(true);
 
     return (
-        <div className="bg-secondary rounded-lg overflow-hidden">
+        <div className="h-full w-full bg-secondary rounded-lg overflow-hidden">
             <Image
                 src={src}
                 alt="image"
-                fill
+                layout="fill"
                 priority
-                className={`object-cover rounded-2xl group-hover:opacity-75 duration-700 ease-in-out ${isLoading ? 'grayscale blur-md scale-110' : 'grayscale-0 blur-0 scale-100'}
+                objectFit="cover"
+                className={`object-cover rounded-2xl group-hover:opacity-75 duration-700 ease-in-out 
+                ${isLoading ? 'grayscale blur-md scale-110' : 'grayscale-0 blur-0 scale-100'}
             `}
                 onLoad={() => setLoading(false)}
             />

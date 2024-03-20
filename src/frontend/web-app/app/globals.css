@@ -20,3 +20,15 @@ body {
     color: theme('colors.black');
 }
 
+.player-wrapper {
+  position: relative;
+  padding-top: 75%; /* Adjust the aspect ratio and padding-top as needed */
+}
+
+.react-player {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; /* Set height to 100% to fill the entire space */
+}
