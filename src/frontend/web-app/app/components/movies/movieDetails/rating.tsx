@@ -35,7 +35,7 @@ export default function Rating({ rating }: Props) {
     }
 
     return (
-        <div className="flex-row items-center text-secondary font-extrabold text-2xl">
+        <div className="flex-row flex-wrap text-secondary font-extrabold text-2xl">
             <div className="flex flex-row items-center mr-2">{ratingIcon} <span className="ml-1">{rating}</span></div>
         </div>
     )

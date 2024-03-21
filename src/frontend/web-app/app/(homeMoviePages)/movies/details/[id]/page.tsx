@@ -1,8 +1,8 @@
 import { getDetailedData } from "@/app/actions/movie-actions"
-import MovieImage from "@/app/components/movies/movie-image";
 import Duration from "@/app/components/movies/movieDetails/duration";
 import Genres from "@/app/components/movies/movieDetails/genres";
 import Rating from "@/app/components/movies/movieDetails/rating";
+import ReleaseDate from "@/app/components/movies/movieDetails/release-date";
 import VideoPlayer from "@/app/components/movies/movieDetails/videoPlayer";
 
 export default async function DetailsPage({ params }: { params: { id: string } }) {
@@ -20,20 +20,18 @@ export default async function DetailsPage({ params }: { params: { id: string } }
 
         <div className="ml-2 relative">
           <h2 className="text-3xl font-bold text-third">{movie.title}</h2>
-          <div className="mt-2 mb-4">
+          <div className="mt-3 mb-4">
             <Genres genres={['Action']} />
-            <div className="mt-2">
+
+            <div className="mt-3 flex justify-start md:justify-between">
               <Rating rating={movie.rating} />
+              <ReleaseDate date={movie.releaseDate ? new Date(movie.releaseDate) : null} />
+              <Duration duration={movie.duration} />
             </div>
           </div>
 
-          <div className="space-y-3">
+          <div className="space-y-3 mt-6">
             <p className="text-gray-600 font-semibold">{movie.description}</p>
-
-            <p className="text-gray-600">Release Date: {movie.releaseDate != null && new Date(movie.releaseDate).toLocaleDateString()}</p>
-
-
-            <Duration duration={movie.duration} />
           </div>
         </div>
       </div>

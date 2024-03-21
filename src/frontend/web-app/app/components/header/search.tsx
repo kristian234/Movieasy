@@ -46,7 +46,8 @@ export default function Search() {
                         border-secondary
                         border-b-2
                         focus:border-third
-                        focus:ring-0"
+                        focus:ring-0
+"
                 />
                 <button onClick={search} className="bg-header text-secondary p-2 rounded-md ml-2">
                     <FaSearch />

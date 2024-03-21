@@ -3,6 +3,7 @@ import Logo from "../components/header/logo";
 import Search from "../components/header/search";
 import LoginButton from "../components/header/login";
 import LogoutButton from "../components/header/logout";
+import UtilityDropdown from "../components/header/utility-dropdown";
 
 export default async function Header() {
     const session = await getServerSession();
@@ -11,7 +12,7 @@ export default async function Header() {
             <Logo />
             <Search />
             {session?.user && !session.error? (
-                <LogoutButton />
+                <UtilityDropdown />
 
             ) : (
                 < LoginButton />
