@@ -1,17 +1,19 @@
 'use client'
+
 import {
     FiChevronDown,
 } from "react-icons/fi";
-
 import { IoHomeOutline } from "react-icons/io5";
 import { IoLogOutOutline } from "react-icons/io5";
 import { IoMenu } from "react-icons/io5";
-
 import { MdOutlineAdminPanelSettings } from "react-icons/md";
-
 import { motion } from "framer-motion";
 import { Dispatch, SetStateAction, useState } from "react";
 import { IconType } from "react-icons";
+import Link from "next/link";
+import { signOut } from "next-auth/react";
+
+
 
 export default function UtilityDropdown() {
     const [open, setOpen] = useState(false);
@@ -36,10 +38,11 @@ export default function UtilityDropdown() {
                     style={{ originY: "top", translateX: "-80%" }}
                     className="flex flex-col gap-2 p-2 rounded-lg bg-header shadow-3xl absolute top-[120%] left-[50%] w-48 overflow-hidden"
                 >
-                    <Option setOpen={setOpen} Icon={IoHomeOutline} text="Home" />
-                    <Option setOpen={setOpen} Icon={MdOutlineAdminPanelSettings} text="Admin" />
+                    <Option setOpen={setOpen} Icon={IoHomeOutline} text="Home" href="/" />
+                    <Option setOpen={setOpen} Icon={MdOutlineAdminPanelSettings} text="Admin" href="/admin/dashboard" />
+
                     <hr className="border-0 bg-third w-full h-px bg-dropdown-border" />
-                    <Option setOpen={setOpen} Icon={IoLogOutOutline} text="Logout" />
+                    <Option setOpen={setOpen} Icon={IoLogOutOutline} text="Logout" method={signOut} />
 
                 </motion.ul>
             </motion.div>
@@ -51,31 +54,52 @@ const Option = ({
     text,
     Icon,
     setOpen,
+    href,
+    method,
 }: {
     text: string;
     Icon: IconType;
     setOpen: Dispatch<SetStateAction<boolean>>;
+    href?: string;
+    method?: () => void;
 }) => {
     return (
         <motion.li
             variants={itemVariants}
             onClick={() => setOpen(false)}
             className="
-                flex
-                items-center
-                gap-2
-                w-full
-                p-2
-                text-xs
-                font-medium
-                whitespace-nowrap
-                rounded-md hover:bg-secondary text-third hover:text-body transition-colors cursor-pointer"
+        flex
+        items-center
+        gap-2
+        w-full
+        p-2
+        text-1xs
+        font-medium
+        whitespace-nowrap
+        rounded-md hover:bg-secondary text-third hover:text-body transition-colors cursor-pointer"
         >
-            <motion.span variants={actionIconVariants}>
-                <Icon />
-            </motion.span>
-            <span>{text}</span>
+            {href ? (
+                <Link href={href} className="w-full">
+                    <motion.span variants={actionIconVariants} className="flex items-center gap-2">
+                        <Icon />
+                        <span>{text}</span>
+                    </motion.span>
+                </Link>
+            ) : (
+                method ? (
+                    <motion.span variants={actionIconVariants} onClick={() => method()} className="flex gap-2 w-full items-center">
+                        <Icon />
+                        <span>{text}</span>
+                    </motion.span>
+                ) : (
+                    <motion.span variants={actionIconVariants} className="flex items-center gap-2">
+                        <Icon />
+                        <span>{text}</span>
+                    </motion.span>
+                )
+            )}
         </motion.li>
+
     );
 };
 
