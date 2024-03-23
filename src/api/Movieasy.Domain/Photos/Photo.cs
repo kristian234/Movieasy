@@ -28,5 +28,18 @@ namespace Movieasy.Domain.Photos
 
             return photo;
         }
+
+        public Result Update(
+            string publicId,
+            string url)
+        {
+            PublicId newPublicId = new PublicId(publicId);
+            Url newUrl = new Url(url);
+
+            PublicId = newPublicId;
+            Url = newUrl;
+
+            return Result.Success();
+        }
     }
 }

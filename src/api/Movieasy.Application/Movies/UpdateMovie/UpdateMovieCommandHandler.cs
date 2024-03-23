@@ -12,7 +12,6 @@ namespace Movieasy.Application.Movies.UpdateMovie
         private readonly IMovieRepository _movieRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IPhotoAccessor _photoAccessor;
-        private readonly IPhotoRepository _photoRepository;
 
         public UpdateMovieCommandHandler(
             IMovieRepository movieRepository,
@@ -23,7 +22,6 @@ namespace Movieasy.Application.Movies.UpdateMovie
             _movieRepository = movieRepository;
             _unitOfWork = unitOfWork;
             _photoAccessor = photoAccessor;
-            _photoRepository = photoRepository;
         }
 
         public async Task<Result> Handle(UpdateMovieCommand request, CancellationToken cancellationToken)
@@ -53,9 +51,7 @@ namespace Movieasy.Application.Movies.UpdateMovie
                 return Result.Success();
             }
 
-            Photo oldPhoto = movie.Photo;
-            // Add photo
-
+            // Add photo to cloudinary
             Result<PhotoUploadResult> result = await _photoAccessor.AddPhoto(request.Photo);
 
             if (result.IsFailure)
@@ -63,30 +59,22 @@ namespace Movieasy.Application.Movies.UpdateMovie
                 return Result.Failure(result.Error);
             }
 
+            Photo oldPhoto = movie.Photo;
 
-            Photo moviePhoto = Photo.Create(
-                new PublicId(result.Value.PublicId),
-                new Url(result.Value.Url));
-
-            await _photoRepository.AddAsync(moviePhoto);
-            await _unitOfWork.SaveChangesAsync();
-
-            // Change old photo to new
-            movie.ChangePhoto(moviePhoto);
-            await _unitOfWork.SaveChangesAsync();
-
-
-            // Remove old photo 
-            bool photoDeletionResult = await _photoAccessor.DeletePhoto(oldPhoto.PublicId.Value);
-
-            if(!photoDeletionResult)
+            // Remove old photo from cloudinary
+            bool deleteResult = await _photoAccessor.DeletePhoto(oldPhoto.PublicId.Value);
+            if (!deleteResult)
             {
                 return Result.Failure(MovieErrors.UpdateFailed);
             }
 
-            _photoRepository.Remove(oldPhoto);
+            // Change old photo to new
+            movie.Photo.Update(
+                result.Value.PublicId,
+                result.Value.Url);
 
             await _unitOfWork.SaveChangesAsync();
+
             return Result.Success();
         }
     }

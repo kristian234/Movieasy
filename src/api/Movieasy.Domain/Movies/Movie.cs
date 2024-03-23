@@ -84,10 +84,5 @@ namespace Movieasy.Domain.Movies
 
             return Result.Success();
         }
-
-        public void ChangePhoto(Photo photo)
-        {
-            Photo = photo;
-        }
     }
 }

@@ -14,5 +14,7 @@ namespace Movieasy.Infrastructure.Repositories
         {
             _context.Remove(photo);
         }
+
+
     }
 }
