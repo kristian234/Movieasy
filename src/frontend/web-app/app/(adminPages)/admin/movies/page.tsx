@@ -1,5 +1,10 @@
+import MovieForm from "@/app/components/admin-movies/movie-form";
+
 export default function MovieAdminPage() {
     return (
-        <h1>Movie admin page</h1>
+        <div>
+            <h1>Movie admin page</h1>
+            <MovieForm></MovieForm>
+        </div>
     )
 }

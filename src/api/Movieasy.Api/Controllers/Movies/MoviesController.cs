@@ -14,7 +14,7 @@ namespace Movieasy.Api.Controllers.Movies
     [ApiController]
     public class MoviesController : ControllerBase
     {
-        private readonly ISender _sender;
+        private readonly ISender _sender; 
         public MoviesController(ISender sender)
         {
             _sender = sender;
@@ -73,7 +73,7 @@ namespace Movieasy.Api.Controllers.Movies
 
         [HttpPut]
         public async Task<IActionResult> UpdateMovie(
-            UpdateMovieRequest request,
+            [FromForm] UpdateMovieRequest request,
             CancellationToken cancellationToken)
         {
             var command = new UpdateMovieCommand(
@@ -82,7 +82,8 @@ namespace Movieasy.Api.Controllers.Movies
                 request.Description,
                 request.Rating,
                 request.ReleaseDate,
-                request.Duration);
+                request.Duration,
+                request.Photo);
 
             Result result = await _sender.Send(command, cancellationToken);
 

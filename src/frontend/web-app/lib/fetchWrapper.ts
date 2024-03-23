@@ -23,6 +23,17 @@ async function post(url: string, body: {}) {
     return await handleResponse(response);
 }
 
+async function postForm(url: string, formData: FormData) {
+    const requestOptions = {
+        method: 'POST',
+        headers: await getAuthenticationHeader(),
+        body: formData
+    }
+
+    const response = await fetch(baseUrl + url, requestOptions);
+    return await handleResponse(response);
+}
+
 async function put(url: string, body: {}) {
     const requestOptions = {
         method: 'PUT',
@@ -42,6 +53,16 @@ async function del(url: string) {
 
     const response = await fetch(baseUrl + url, requestOptions);
     return await handleResponse(response);
+}
+
+async function getAuthenticationHeader() {
+    const token = await getTokenWorkaround();
+    const headers = {} as any;
+    if (token) {
+        headers.Authorization = 'Bearer ' + token.accessToken
+    }
+
+    return headers;
 }
 
 async function getHeaders() {
@@ -81,5 +102,6 @@ export const fetchWrapper = {
     get,
     post,
     put,
-    del
+    del,
+    postForm
 }

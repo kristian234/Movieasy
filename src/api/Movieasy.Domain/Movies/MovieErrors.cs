@@ -7,5 +7,9 @@ namespace Movieasy.Domain.Movies
         public static Error NotFound = new Error(
             "Movie.NotFound",
             "The movie with the specified identifier was not found");
+
+        public static Error UpdateFailed = new Error(
+            "Movie.UpdateFailed",
+            "An error occurred while attempting to update the movie");
     }
 }

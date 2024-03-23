@@ -1,6 +1,5 @@
 import { Metadata } from "next";
 import "../globals.css";
-import Header from "../layout/header";
 import Provider from "../Provider";
 import RefreshClientComponent from "../components/shared/refresh-component";
 import AdminHeader from "../components/admin-header/header";
@@ -19,7 +18,9 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body>
+
         <div className="min-h-screen flex-auto max-h-screen overflow-auto">
+
           <Provider>
             <RefreshClientComponent />
             <div className="flex">
@@ -31,6 +32,6 @@ export default async function RootLayout({
           </Provider>
         </div>
       </body>
-    </html>
+    </html >
   )
 }

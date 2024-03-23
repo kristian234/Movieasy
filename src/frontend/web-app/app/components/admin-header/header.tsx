@@ -5,12 +5,13 @@ import { Sidebar, Menu, MenuItem } from 'react-pro-sidebar';
 import { IoMenu, IoClose } from "react-icons/io5";
 import { RiMovieLine } from "react-icons/ri";
 import { MdOutlineMovie } from "react-icons/md";
-import { LiaTheaterMasksSolid } from "react-icons/lia";
 import { MdOutlineDashboard } from "react-icons/md";
+import { IoLogOutOutline } from "react-icons/io5";
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import MenuItemWithState from './menu-item';
+import { signOut } from 'next-auth/react';
 
 export default function AdminHeader() {
     const [isMobile, setIsMobile] = useState(false);
@@ -64,8 +65,10 @@ export default function AdminHeader() {
 
                     <MenuItemWithState icon={<MdOutlineDashboard />} isActive={activeItem === '/admin/dashboard'} text='Dashboard' href='/admin/dashboard'></MenuItemWithState>
                     <MenuItemWithState icon={<MdOutlineMovie />} isActive={activeItem === '/admin/movies'} text='Movies' href='/admin/movies'></MenuItemWithState>
-
-                    <MenuItem> Logout </MenuItem>
+                    
+                    <div onClick={() => signOut()}>
+                        <MenuItemWithState icon={<IoLogOutOutline />} text='Logout' isActive={false} href='' />
+                    </div>
                 </Menu>
             </Sidebar>
         </div>

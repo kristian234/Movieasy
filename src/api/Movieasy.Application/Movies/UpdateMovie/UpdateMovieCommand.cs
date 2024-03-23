@@ -1,4 +1,6 @@
-﻿using Movieasy.Application.Abstractions.Messaging;
+﻿using Microsoft.AspNetCore.Http;
+using Movieasy.Application.Abstractions.Messaging;
+using Movieasy.Domain.Photos;
 
 namespace Movieasy.Application.Movies.UpdateMovie
 {
@@ -8,5 +10,6 @@ namespace Movieasy.Application.Movies.UpdateMovie
         string Description,
         int Rating,
         DateOnly? ReleaseDate,
-        double Duration) : ICommand;
+        double Duration,
+        IFormFile? Photo) : ICommand;
 }

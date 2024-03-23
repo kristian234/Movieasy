@@ -36,3 +36,7 @@ body {
 .custom-menu-item.active {
   background-color: #8888af;  
 }
+
+.react-datepicker-wrapper{
+  width: 100%;
+}
