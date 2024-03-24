@@ -7,7 +7,7 @@ export default withAuth(
         authorized: ({ req, token }) => {
 
             if(req.nextUrl.pathname.startsWith('/admin')){
-                return token?.croles.includes('Admin') ?? false;
+                return token?.croles?.includes('Admin') ?? false;
             }
             
             return Boolean(token);

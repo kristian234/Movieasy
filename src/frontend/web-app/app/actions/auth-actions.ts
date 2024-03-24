@@ -23,6 +23,18 @@ export async function getCurrentUser() {
     }
 }
 
+export async function getLoggedOut() {
+    try {
+        const session = await getSession();
+
+        if (!session) return null;
+
+        return session.error
+    } catch (error) {
+        return null;
+    }
+}
+
 export async function getTokenWorkaround() {
     const req = {
         headers: Object.fromEntries(headers() as Headers),

@@ -58,14 +58,17 @@ export default function AdminHeader() {
                         },
                     }
                 }}>
-                    <div className={`flex items-center text-secondary mt-5 mb-3 ${isMobile ? 'justify-center' : 'justify-left ml-3'}`}>
-                        <RiMovieLine className="text-3xl" />
-                        {!isMobile && (<span className="text-3xl font-bold">Movieasy</span>)}
-                    </div>
+                    <Link href='/'>
+
+                        <div className={`flex items-center text-secondary mt-5 mb-3 ${isMobile ? 'justify-center' : 'justify-left ml-3'}`}>
+                            <RiMovieLine className="text-3xl" />
+                            {!isMobile && (<span className="text-3xl font-bold">Movieasy</span>)}
+                        </div>
+                    </Link>
 
                     <MenuItemWithState icon={<MdOutlineDashboard />} isActive={activeItem === '/admin/dashboard'} text='Dashboard' href='/admin/dashboard'></MenuItemWithState>
                     <MenuItemWithState icon={<MdOutlineMovie />} isActive={activeItem === '/admin/movies'} text='Movies' href='/admin/movies'></MenuItemWithState>
-                    
+
                     <div onClick={() => signOut()}>
                         <MenuItemWithState icon={<IoLogOutOutline />} text='Logout' isActive={false} href='' />
                     </div>
