@@ -8,13 +8,13 @@ import DateInput from "../shared/date-input";
 import { createMovie } from "@/app/actions/movie-actions";
 import { error } from "console";
 
-enum MovieRating {
-    G = 1,
-    PG = 2,
-    PG13 = 3,
-    R = 4,
-    NC17 = 5,
-}
+const MovieRating = {
+    G: 1,
+    PG: 2,
+    PG13: 3,
+    R: 4,
+    NC17: 5,
+} as const;
 
 export default function MovieForm() {
     const { control, register, handleSubmit, setFocus,
@@ -86,8 +86,8 @@ export default function MovieForm() {
                             <CustomInput label="Duration" name="duration" control={control} type="number" rules={{ required: 'Duration is required' }}></CustomInput>
                             <div>
                                 <select {...register('rating', { required: 'Rating is required' })} id="rating" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-18 p-2.5">
-                                    {Object.values(MovieRating).map((rating) => (
-                                        <option key={rating} value={rating}>{rating}</option>
+                                    {Object.entries(MovieRating).map(([rating, value]) => (
+                                        <option key={value} value={value}>{rating}</option>
                                     ))}
                                 </select>
                             </div>

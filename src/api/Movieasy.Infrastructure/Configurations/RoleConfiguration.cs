@@ -16,6 +16,7 @@ namespace Movieasy.Infrastructure.Configurations
                 .WithMany(user => user.Roles);
 
             builder.HasData(Role.Registered);
+            builder.HasData(Role.Admin);
         }
     }
 }

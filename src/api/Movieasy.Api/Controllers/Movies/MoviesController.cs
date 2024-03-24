@@ -49,6 +49,7 @@ namespace Movieasy.Api.Controllers.Movies
         }
 
         [HttpPost]
+        [Authorize(Roles.Admin)]
         public async Task<IActionResult> AddMovie(
            [FromForm] AddMovieRequest request,
             CancellationToken cancellationToken)
@@ -72,6 +73,7 @@ namespace Movieasy.Api.Controllers.Movies
         }
 
         [HttpPut]
+        [Authorize(Roles.Admin)]
         public async Task<IActionResult> UpdateMovie(
             [FromForm] UpdateMovieRequest request,
             CancellationToken cancellationToken)

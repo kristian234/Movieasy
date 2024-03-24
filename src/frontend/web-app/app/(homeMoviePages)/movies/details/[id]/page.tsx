@@ -4,6 +4,7 @@ import Genres from "@/app/components/movies/movieDetails/genres";
 import Rating from "@/app/components/movies/movieDetails/rating";
 import ReleaseDate from "@/app/components/movies/movieDetails/release-date";
 import VideoPlayer from "@/app/components/movies/movieDetails/videoPlayer";
+import Link from "next/link";
 
 export default async function DetailsPage({ params }: { params: { id: string } }) {
   const movie = await getDetailedData(params.id);
@@ -11,9 +12,18 @@ export default async function DetailsPage({ params }: { params: { id: string } }
 
   return (
     <div className="mt-8 ">
-      <div className="flex flex-grow justify-end  mx-auto max-w-full w-[900px] items-center">
-        <p className="text-gray-800 font-semibold">Added On: {new Date(movie.uploadDate).toLocaleString()}</p>
+
+      <div className="flex flex-grow justify-start mx-auto max-w-full w-[900px] items-center mb-1">
+
+          <Link href={`/admin/movies/edit/${params.id}`} className="flex flex-grow justify-start px-6 py-1 text-xs font-medium leading-6 text-center text-primary transition bg-secondary rounded shadow ripple hover:shadow-lg hover:bg-third focus:outline-none">
+            Edit
+          </Link>
+
+        <div className="flex flex-grow justify-end  mx-auto max-w-full w-[900px] items-center">
+          <p className="text-gray-800 font-semibold">Added On: {new Date(movie.uploadDate).toLocaleString()}</p>
+        </div>
       </div>
+
 
       <div className="grid md:grid-cols-2 bg-black bg-opacity-15 gap-3  shadow-3xl max-w-4xl mx-auto p-3 rounded-lg  relative">
         <VideoPlayer imageUrl={movie.imageUrl} videoUrl="https://www.youtube.com/watch?v=mqqft2x_Aa4" />

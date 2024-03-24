@@ -6,6 +6,7 @@ import MovieCard from './movie-card';
 import { Fragment } from 'react';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
+import LoadingComponent from '../shared/loading-component';
 
 interface Props {
     movies: () => Promise<PagedResult<Movie>>
@@ -40,7 +41,7 @@ export default function MovieCarousel({ movies, text }: Props) {
 
     // const urlm = "https://cdn.pixabay.com/photo/2023/11/09/19/36/zoo-8378189_1280.jpg";
 
-    if (!data) return <h3>Loading...</h3>
+    if (!data) return <LoadingComponent></LoadingComponent>
 
     return (
         <div>
