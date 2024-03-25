@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Movieasy.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240318185956_inito")]
-    partial class inito
+    [Migration("20240325172749_cascadePhoto")]
+    partial class cascadePhoto
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -162,6 +162,11 @@ namespace Movieasy.Infrastructure.Migrations
                         {
                             Id = 1,
                             Name = "Registered"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Admin"
                         });
                 });
 

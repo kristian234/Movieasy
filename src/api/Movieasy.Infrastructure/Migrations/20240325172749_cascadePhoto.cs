@@ -4,10 +4,12 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace Movieasy.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class inito : Migration
+    public partial class cascadePhoto : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -132,7 +134,11 @@ namespace Movieasy.Infrastructure.Migrations
             migrationBuilder.InsertData(
                 table: "roles",
                 columns: new[] { "id", "name" },
-                values: new object[] { 1, "Registered" });
+                values: new object[,]
+                {
+                    { 1, "Registered" },
+                    { 2, "Admin" }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "ix_movies_photo_id",

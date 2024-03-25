@@ -11,5 +11,9 @@ namespace Movieasy.Domain.Movies
         public static Error UpdateFailed = new Error(
             "Movie.UpdateFailed",
             "An error occurred while attempting to update the movie");
+
+        public static Error DeleteFailed = new Error(
+            "Movie.DeleteFailed",
+            "An unexpected error occured while attempting to delete the movie");
     }
 }

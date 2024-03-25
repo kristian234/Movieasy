@@ -11,13 +11,19 @@ namespace Movieasy.Application.Movies.DeleteMovie
     {
         private readonly IMovieRepository _movieRepository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IPhotoRepository _photoRepository;
+        private readonly IPhotoAccessor _photoAccessor;
 
         public DeleteMovieCommandHandler(
             IMovieRepository movieRepository,
-            IUnitOfWork unitOfWork)
+            IUnitOfWork unitOfWork,
+            IPhotoRepository photoRepository,
+            IPhotoAccessor photoAccessor)
         {
             _movieRepository = movieRepository;
             _unitOfWork = unitOfWork;
+            _photoRepository = photoRepository;
+            _photoAccessor = photoAccessor;
         }
 
         public async Task<Result> Handle(DeleteMovieCommand request, CancellationToken cancellationToken)
@@ -28,6 +34,14 @@ namespace Movieasy.Application.Movies.DeleteMovie
             {
                 return Result.Failure(MovieErrors.NotFound);
             }
+
+            bool result = await _photoAccessor.DeletePhoto(movie.Photo.PublicId.Value);
+            if (!result)
+            {
+                return Result.Failure(MovieErrors.DeleteFailed);
+            }
+
+            _photoRepository.Remove(movie.Photo);
 
             _movieRepository.Remove(movie);
 
