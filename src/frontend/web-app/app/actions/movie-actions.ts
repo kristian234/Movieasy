@@ -21,6 +21,13 @@ export async function getTrending(): Promise<PagedResult<Movie>> {
 }
 
 export async function createMovie(data: FormData){
-    console.log("9GJEA9GEAJ9GAEJHG");
     return await fetchWrapper.postForm('/api/Movies', data);
+}
+
+export async function updateMovie(data: FormData){
+    return await fetchWrapper.putForm('/api/Movies', data);
+}
+
+export async function deleteMovie(movieId: string){
+    return await fetchWrapper.del(`/api/Movies/${movieId}`)
 }

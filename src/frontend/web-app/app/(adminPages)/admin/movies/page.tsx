@@ -4,7 +4,7 @@ export default function MovieAdminPage() {
     return (
         <div>
             <h1>Movie admin page</h1>
-            <MovieForm></MovieForm>
+            <MovieForm title="Create Movie"></MovieForm>
         </div>
     )
 }

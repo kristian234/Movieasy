@@ -15,6 +15,8 @@ const config: Config = {
         third: '#676790',
         header: '#0D0D1A',
         body: '#080212',
+        danger: '#D74338',
+        superdanger: '#C91D12'
       },
       boxShadow:{
         '3xl': '0 35px 60px -15px rgba(0, 0, 0, 0.3)',

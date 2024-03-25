@@ -1,5 +1,13 @@
-export default function MovieEditPage(){
-    return(
-        <h1>MOVIE EDIT PAGE</h1>
+import { getDetailedData } from "@/app/actions/movie-actions";
+import MovieForm from "@/app/components/admin-movies/movie-form";
+
+export default async function MovieEditPage({ params }: { params: { id: string } }) {
+    const movie = await getDetailedData(params.id);
+
+    return (
+        <div>
+            <MovieForm movie={movie} title="Update Movie"></MovieForm>
+
+        </div>
     )
 }

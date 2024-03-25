@@ -3,10 +3,11 @@
 import { FieldValues, useForm } from "react-hook-form";
 import { Button, CustomFlowbiteTheme, Dropdown, FileInput, TextInput } from "flowbite-react";
 import CustomInput from "../shared/custom-input";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import DateInput from "../shared/date-input";
-import { createMovie } from "@/app/actions/movie-actions";
-import { error } from "console";
+import { createMovie, updateMovie } from "@/app/actions/movie-actions";
+import { Movie } from "@/types";
+import MovieImage from "../movies/movie-image";
 
 const MovieRating = {
     G: 1,
@@ -16,13 +17,28 @@ const MovieRating = {
     NC17: 5,
 } as const;
 
-export default function MovieForm() {
-    const { control, register, handleSubmit, setFocus,
+interface Props {
+    title: string
+    movie?: Movie
+}
+
+export default function MovieForm({ title, movie }: Props) {
+    const { control, register, handleSubmit, setFocus, reset,
         formState: { isSubmitting, isValid, isDirty, errors } } = useForm({
             mode: 'onTouched'
         });
 
     useEffect(() => {
+        if (movie) {
+            const { title, description, releaseDate, duration, rating, imageUrl } = movie;
+            const photo = imageUrl;
+            reset({
+                title, description, releaseDate,
+                duration: Math.round((duration + Number.EPSILON) * 100) / 100,
+                rating: MovieRating[rating], photo
+            });
+        }
+
         setFocus('title')
     }, [setFocus])
 
@@ -54,14 +70,18 @@ export default function MovieForm() {
             formData.append('releaseDate', formattedReleaseDate);
         }
 
-        const res = await createMovie(formData);
+        let res;
+        if (movie) {
+            formData.append('MovieId', movie.id);
+            res = await updateMovie(formData);
+        } else {
+            res = await createMovie(formData);
+        }
         console.log(res.error);
         if (res.error) {
             throw new Error(res.error);
         }
     }
-
-
 
     const customTheme: CustomFlowbiteTheme['button'] = {
         color: {
@@ -74,13 +94,16 @@ export default function MovieForm() {
             <div className="w-full bg-header rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0">
                 <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                     <h1 className="text-xl font-bold leading-tight tracking-tight text-secondary md:text-2xl">
-                        Create a movie
+                        {title}
                     </h1>
                     <form onSubmit={(e) => { handleSubmit(onSubmit)(e); }} className="space-y-4 md:space-y-6" action="#">
 
-                        <CustomInput label="Title" name="title" control={control} rules={{ required: 'Make is required' }}></CustomInput>
-                        <CustomInput label="Description" name="description" control={control} rules={{ required: 'Description is required' }}></CustomInput>
-                        <DateInput dateFormat={'yyyy/MM/dd'} label="Release Date" name="releaseDate" type="date" control={control}></DateInput>
+                        <CustomInput label="Title" name="title" control={control}
+                            rules={{ required: 'Make is required' }} />
+                        <CustomInput label="Description" name="description" control={control}
+                            rules={{ required: 'Description is required' }} />
+                        <DateInput dateFormat={'yyyy-MM-dd'} label="Release Date" name="releaseDate" type="date"
+                            control={control} />
 
                         <div className="flex flex-row justify-between">
                             <CustomInput label="Duration" name="duration" control={control} type="number" rules={{ required: 'Duration is required' }}></CustomInput>
@@ -93,11 +116,24 @@ export default function MovieForm() {
                             </div>
                         </div>
 
-                        <FileInput {...register('photo')} name="photo" />
+
+                        <FileInput {...register('photo')} required={movie == null} name="photo" />
+
+                        {movie && (
+                            <p className="text-primary font-semibold">This movie currently has a photo, leave to none to not change</p>
+                        )}
 
                         <Button isProcessing={isSubmitting} disabled={!isValid}
                             type="submit" theme={customTheme} color="primary">
-                            Create
+                            {movie ? (
+                                <Fragment>
+                                    Update
+                                </Fragment>
+                            ) : (
+                                <Fragment>
+                                    Create
+                                </Fragment>
+                            )}
                         </Button>
                     </form>
                 </div>

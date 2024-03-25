@@ -45,11 +45,24 @@ async function put(url: string, body: {}) {
     return await handleResponse(response);
 }
 
+async function putForm(url: string, formData: FormData) {
+    const requestOptions = {
+        method: 'PUT',
+        headers: await getAuthenticationHeader(),
+        body: formData
+    }
+
+    const response = await fetch(baseUrl + url, requestOptions);
+    return await handleResponse(response);
+}
+
+
 async function del(url: string) {
     const requestOptions = {
         method: 'DELETE',
         headers: await getHeaders(),
     }
+ 
 
     const response = await fetch(baseUrl + url, requestOptions);
     return await handleResponse(response);
@@ -103,5 +116,6 @@ export const fetchWrapper = {
     post,
     put,
     del,
-    postForm
+    postForm,
+    putForm
 }

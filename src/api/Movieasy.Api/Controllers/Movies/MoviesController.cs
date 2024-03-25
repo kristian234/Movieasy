@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Movieasy.Application.Movies.AddMovie;
+using Movieasy.Application.Movies.DeleteMovie;
 using Movieasy.Application.Movies.GetMovie;
 using Movieasy.Application.Movies.GetMovieById;
 using Movieasy.Application.Movies.UpdateMovie;
@@ -49,7 +50,7 @@ namespace Movieasy.Api.Controllers.Movies
         }
 
         [HttpPost]
-        [Authorize(Roles.Admin)]
+        [Authorize(Roles = Roles.Admin)]
         public async Task<IActionResult> AddMovie(
            [FromForm] AddMovieRequest request,
             CancellationToken cancellationToken)
@@ -73,7 +74,7 @@ namespace Movieasy.Api.Controllers.Movies
         }
 
         [HttpPut]
-        [Authorize(Roles.Admin)]
+        [Authorize(Roles = Roles.Admin)]
         public async Task<IActionResult> UpdateMovie(
             [FromForm] UpdateMovieRequest request,
             CancellationToken cancellationToken)
@@ -95,6 +96,24 @@ namespace Movieasy.Api.Controllers.Movies
             }
 
             return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        [Authorize(Roles = Roles.Admin)]
+        public async Task<IActionResult> DeleteMovie(
+            Guid id,
+            CancellationToken cancellationToken)
+        {
+            var command = new DeleteMovieCommand(id);
+
+            Result result = await _sender.Send(command, cancellationToken);
+
+            if (result.IsFailure)
+            {
+                return BadRequest(result.Error);
+            }
+
+            return NoContent();
         }
     }
 }

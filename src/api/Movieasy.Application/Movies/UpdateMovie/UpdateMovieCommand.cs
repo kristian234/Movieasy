@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Movieasy.Application.Abstractions.Messaging;
-using Movieasy.Domain.Photos;
 
 namespace Movieasy.Application.Movies.UpdateMovie
 {
