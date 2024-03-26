@@ -1,6 +1,6 @@
 import { Fragment } from "react";
-import { getCurrentUser } from "../actions/auth-actions";
 import HomePage from "./home/home-page";
+import { getCurrentUser } from "./actions/auth-actions";
 
 export default async function Home() {
 

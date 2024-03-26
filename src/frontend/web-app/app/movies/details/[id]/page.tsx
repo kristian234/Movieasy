@@ -1,4 +1,5 @@
-import { deleteMovie, getDetailedData } from "@/app/actions/movie-actions"
+import { getCurrentUser } from "@/app/actions/auth-actions";
+import { getDetailedData } from "@/app/actions/movie-actions"
 import DeleteButton from "@/app/components/admin-movies/delete-button";
 import Duration from "@/app/components/movies/movieDetails/duration";
 import Genres from "@/app/components/movies/movieDetails/genres";
@@ -6,9 +7,19 @@ import Rating from "@/app/components/movies/movieDetails/rating";
 import ReleaseDate from "@/app/components/movies/movieDetails/release-date";
 import VideoPlayer from "@/app/components/movies/movieDetails/videoPlayer";
 import Link from "next/link";
+import { notFound } from "next/navigation";
+import { Fragment } from "react";
 
 export default async function DetailsPage({ params }: { params: { id: string } }) {
   const movie = await getDetailedData(params.id);
+
+  const session = await getCurrentUser();
+  const isAdmin = session?.roles.includes('Admin') ?? false;
+
+  if ((movie as any).error) {
+    return notFound();
+  }
+
   //console.log(movie);
 
   return (
@@ -16,11 +27,16 @@ export default async function DetailsPage({ params }: { params: { id: string } }
 
       <div className="flex flex-grow justify-start mx-auto max-w-full w-[900px] items-center mb-1">
 
-        <Link href={`/admin/movies/edit/${params.id}`} className="flex flex-grow justify-start px-6 py-1 text-xs font-medium leading-6 text-center text-primary transition bg-secondary rounded shadow ripple hover:shadow-lg hover:bg-third focus:outline-none">
-          Edit
-        </Link>
+        {isAdmin && (
+          <Fragment>
+            <Link href={`/admin/movies/edit/${params.id}`} className="flex flex-grow justify-start px-6 py-1 text-xs font-medium leading-6 text-center text-primary transition bg-secondary rounded shadow ripple hover:shadow-lg hover:bg-third focus:outline-none">
+              Edit
+            </Link>
 
-          <DeleteButton movieId={params.id} />
+            <DeleteButton movieId={params.id} />
+          </Fragment>
+        )}
+
 
         <div className="flex flex-grow justify-end  mx-auto max-w-full w-[900px] items-center ml-3">
           <p className="text-gray-800 font-semibold">Added On: {new Date(movie.uploadDate).toLocaleString()}</p>

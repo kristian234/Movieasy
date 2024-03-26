@@ -9,6 +9,13 @@ export interface Movie {
     imageUrl: string
   }
 
+  export interface Error{
+    error: {
+      status: number,
+      message: string
+    }
+  }
+
   export enum MovieRating {
     G = 'G',
     PG = 'PG',
