@@ -1,4 +1,4 @@
-import MovieForm from "@/app/components/admin-movies/movie-form";
+import MovieForm from "@/app/components/admin/admin-movies/movie-form";
 
 export default function MovieAdminPage() {
     return (

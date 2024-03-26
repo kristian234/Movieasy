@@ -1,8 +1,8 @@
 import { Metadata } from "next";
-import "./globals.css";
-import Header from "./layout/header";
-import Provider from "./Provider";
-import RefreshClientComponent from "./components/shared/refresh-component";
+import "../globals.css";
+import Provider from "../Provider";
+import RefreshClientComponent from "../components/shared/refresh-component";
+import Header from "../layout/header";
 
 export const metadata: Metadata = {
   title: "Movieasy",

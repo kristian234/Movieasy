@@ -23,6 +23,7 @@ using AuthenticationService = Movieasy.Infrastructure.Authentication.Authenticat
 using Movieasy.Application.Abstractions.Photos;
 using Movieasy.Infrastructure.Photos;
 using Movieasy.Domain.Photos;
+using Movieasy.Domain.Genres;
 
 namespace Movieasy.Infrastructure
 {
@@ -97,6 +98,8 @@ namespace Movieasy.Infrastructure
             services.AddScoped<IReviewRepository, ReviewRepository>();
 
             services.AddScoped<IPhotoRepository, PhotoRepository>();
+
+            services.AddScoped<IGenreRepository, GenreRepository>();
 
             // Photo (cloudinary) related 
             services.AddScoped<IPhotoAccessor, PhotoAccessor>();

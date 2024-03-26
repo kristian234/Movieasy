@@ -1,6 +1,6 @@
 import { getCurrentUser } from "@/app/actions/auth-actions";
 import { getDetailedData } from "@/app/actions/movie-actions"
-import DeleteButton from "@/app/components/admin-movies/delete-button";
+import DeleteButton from "@/app/components/admin/admin-movies/delete-button";
 import Duration from "@/app/components/movies/movieDetails/duration";
 import Genres from "@/app/components/movies/movieDetails/genres";
 import Rating from "@/app/components/movies/movieDetails/rating";

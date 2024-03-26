@@ -9,6 +9,11 @@ export interface Movie {
     imageUrl: string
   }
 
+export interface Genre{
+  id: string,
+  name: string
+}
+
   export interface Error{
     error: {
       status: number,

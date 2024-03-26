@@ -1,13 +1,11 @@
 'use client'
 
 import { FieldValues, useForm } from "react-hook-form";
-import { Button, CustomFlowbiteTheme, Dropdown, FileInput, TextInput } from "flowbite-react";
-import CustomInput from "../shared/custom-input";
-import { Fragment, useEffect, useState } from "react";
-import DateInput from "../shared/date-input";
+import { Button, CustomFlowbiteTheme } from "flowbite-react";
+import CustomInput from "../../shared/custom-input";
+import { Fragment, useEffect } from "react";
 import { createMovie, updateMovie } from "@/app/actions/movie-actions";
-import { Movie } from "@/types";
-import MovieImage from "../movies/movie-image";
+import { Genre, Movie } from "@/types";
 
 const MovieRating = {
     G: 1,
@@ -19,27 +17,24 @@ const MovieRating = {
 
 interface Props {
     title: string
-    movie?: Movie
+    genre?: Genre
 }
 
-export default function MovieForm({ title, movie }: Props) {
+export default function GenreForm({ title, genre }: Props) {
     const { control, register, handleSubmit, setFocus, reset,
         formState: { isSubmitting, isValid, isDirty, errors } } = useForm({
             mode: 'onTouched'
         });
 
     useEffect(() => {
-        if (movie) {
-            const { title, description, releaseDate, duration, rating, imageUrl } = movie;
-            const photo = imageUrl;
+        if (genre) {
+            const { name } = genre;
             reset({
-                title, description, releaseDate,
-                duration: Math.round((duration + Number.EPSILON) * 100) / 100,
-                rating: MovieRating[rating], photo
+                name
             });
         }
 
-        setFocus('title')
+        setFocus('name')
     }, [setFocus])
 
     async function onSubmit(data: FieldValues) {
@@ -98,34 +93,12 @@ export default function MovieForm({ title, movie }: Props) {
                     </h1>
                     <form onSubmit={(e) => { handleSubmit(onSubmit)(e); }} className="space-y-4 md:space-y-6" action="#">
 
-                        <CustomInput label="Title" name="title" control={control}
+                        <CustomInput label="Name" name="title" control={control}
                             rules={{ required: 'Make is required' }} />
-                        <CustomInput label="Description" name="description" control={control}
-                            rules={{ required: 'Description is required' }} />
-                        <DateInput dateFormat={'yyyy-MM-dd'} label="Release Date" name="releaseDate" type="date"
-                            control={control} />
-
-                        <div className="flex flex-row justify-between">
-                            <CustomInput label="Duration" name="duration" control={control} type="number" rules={{ required: 'Duration is required' }}></CustomInput>
-                            <div>
-                                <select {...register('rating', { required: 'Rating is required' })} id="rating" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-18 p-2.5">
-                                    {Object.entries(MovieRating).map(([rating, value]) => (
-                                        <option key={value} value={value}>{rating}</option>
-                                    ))}
-                                </select>
-                            </div>
-                        </div>
-
-
-                        <FileInput {...register('photo')} required={movie == null} name="photo" />
-
-                        {movie && (
-                            <p className="text-primary font-semibold">This movie currently has a photo, leave to none to not change</p>
-                        )}
 
                         <Button isProcessing={isSubmitting} disabled={!isValid}
                             type="submit" theme={customTheme} color="primary">
-                            {movie ? (
+                            {name ? (
                                 <Fragment>
                                     Update
                                 </Fragment>

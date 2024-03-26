@@ -1,5 +1,5 @@
 import { getDetailedData } from "@/app/actions/movie-actions";
-import MovieForm from "@/app/components/admin-movies/movie-form";
+import MovieForm from "@/app/components/admin/admin-movies/movie-form";
 
 export default async function MovieEditPage({ params }: { params: { id: string } }) {
     const movie = await getDetailedData(params.id);

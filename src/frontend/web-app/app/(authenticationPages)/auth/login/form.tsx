@@ -24,6 +24,8 @@ export default function LoginForm() {
         if (!result?.error) {
             router.push("/")
             router.refresh();
+            router.refresh();
+
         }
     };
 
