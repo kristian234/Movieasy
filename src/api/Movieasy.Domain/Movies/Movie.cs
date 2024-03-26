@@ -1,4 +1,5 @@
 ﻿using Movieasy.Domain.Abstractions;
+using Movieasy.Domain.Genres;
 using Movieasy.Domain.Photos;
 
 namespace Movieasy.Domain.Movies
@@ -36,7 +37,9 @@ namespace Movieasy.Domain.Movies
         public DateOnly? ReleaseDate { get; internal set; }
         public Rating Rating { get; private set; }
 
-        // TO DO: Remember to add Genres
+        private List<Genre> _genres = new List<Genre>();
+        public IReadOnlyCollection<Genre> Genres => _genres.AsReadOnly();
+
         public Duration Duration { get; private set; }
         public DateTime UploadDate { get; internal set; }
 

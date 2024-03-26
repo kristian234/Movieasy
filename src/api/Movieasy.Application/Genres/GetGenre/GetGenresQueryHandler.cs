@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using Microsoft.EntityFrameworkCore;
 using Movieasy.Application.Abstractions.Data;
 using Movieasy.Application.Abstractions.Messaging;
 using Movieasy.Domain.Abstractions;
@@ -14,9 +14,19 @@ namespace Movieasy.Application.Genres.GetGenre
             _context = context;
         }
 
-        public Task<Result<IEnumerable<GenreResponse>>> Handle(GetGenresQuery request, CancellationToken cancellationToken)
+        public async Task<Result<IEnumerable<GenreResponse>>> Handle(GetGenresQuery request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            List<GenreResponse> genres = await _context
+                .Genres
+                .Select(x => new GenreResponse()
+                {
+                    Id = x.Id.ToString(),
+                    Name = x.Name.Value
+                })
+                .AsNoTracking()
+                .ToListAsync();
+
+            return genres;
         }
     }
 }

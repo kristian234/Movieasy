@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Movieasy.Domain.Movies;
-using Movieasy.Domain.Photos;
 
 namespace Movieasy.Infrastructure.Configurations
 {
@@ -27,6 +26,9 @@ namespace Movieasy.Infrastructure.Configurations
             builder.HasOne(movie => movie.Photo)
                 .WithOne()
                 .HasForeignKey<Movie>(movie => movie.PhotoId);
+
+            builder.HasMany(movie => movie.Genres)
+                .WithMany();
         }
     }
 }

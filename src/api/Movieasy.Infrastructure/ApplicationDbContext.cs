@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Movieasy.Application.Abstractions.Data;
 using Movieasy.Domain.Abstractions;
+using Movieasy.Domain.Genres;
 using Movieasy.Domain.Movies;
 using Movieasy.Domain.Photos;
 using Movieasy.Domain.Reviews;
@@ -17,6 +18,7 @@ namespace Movieasy.Infrastructure
         public DbSet<User> Users { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Photo> Photos { get; set; }
+        public DbSet<Genre> Genres { get; set; }
 
         public ApplicationDbContext(DbContextOptions options, IPublisher publisher)
             : base(options)
