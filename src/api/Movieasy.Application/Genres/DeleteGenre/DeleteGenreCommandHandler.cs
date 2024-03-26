@@ -1,21 +1,37 @@
 ﻿using Movieasy.Application.Abstractions.Messaging;
 using Movieasy.Application.Movies.DeleteMovie;
 using Movieasy.Domain.Abstractions;
+using Movieasy.Domain.Genres;
 
 namespace Movieasy.Application.Genres.DeleteGenre
 {
     internal class DeleteGenreCommandHandler : ICommandHandler<DeleteGenreCommand>
-    { 
+    {
+        private readonly IGenreRepository _genreRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-
-        public DeleteGenreCommandHandler()
+        public DeleteGenreCommandHandler(
+            IGenreRepository genreRepository,
+            IUnitOfWork unitOfWork)
         {
-
+            _genreRepository = genreRepository;
+            _unitOfWork = unitOfWork;
         }
 
-        public Task<Result> Handle(DeleteGenreCommand request, CancellationToken cancellationToken)
+        public async Task<Result> Handle(DeleteGenreCommand request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            Genre? genre = await _genreRepository.GetByIdAsync(request.GenreId);
+
+            if (genre == null)
+            {
+                return Result.Failure(GenreErrors.NotFound);
+            }
+
+            _genreRepository.Remove(genre);
+
+            await _unitOfWork.SaveChangesAsync();
+
+            return Result.Success();
         }
     }
 }
