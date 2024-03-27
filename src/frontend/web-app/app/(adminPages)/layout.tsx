@@ -4,6 +4,7 @@ import Provider from "../Provider";
 import RefreshClientComponent from "../components/shared/refresh-component";
 import AdminHeader from "../components/admin/admin-header/header";
 import { ProSidebarProvider } from "react-pro-sidebar";
+import Head from "next/head";
 
 export const metadata: Metadata = {
   title: "Movieasy",

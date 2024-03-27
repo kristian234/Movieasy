@@ -2,7 +2,6 @@
 
 import { Movie, PagedResult } from "@/types";
 import { fetchWrapper } from "@/lib/fetchWrapper";
-import { FieldValues } from "react-hook-form";
 
 export async function getData(query: string): Promise<PagedResult<Movie>> {
     return await fetchWrapper.get(`/api/Movies${query}`);

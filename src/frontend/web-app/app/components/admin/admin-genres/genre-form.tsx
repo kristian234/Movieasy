@@ -5,15 +5,9 @@ import { Button, CustomFlowbiteTheme } from "flowbite-react";
 import CustomInput from "../../shared/custom-input";
 import { Fragment, useEffect } from "react";
 import { createMovie, updateMovie } from "@/app/actions/movie-actions";
-import { Genre, Movie } from "@/types";
-
-const MovieRating = {
-    G: 1,
-    PG: 2,
-    PG13: 3,
-    R: 4,
-    NC17: 5,
-} as const;
+import { Genre } from "@/types";
+import { createGenre, getGenres } from "@/app/actions/genre-actions";
+import { useGenresStore } from "@/hooks/useGenresStore";
 
 interface Props {
     title: string
@@ -26,6 +20,8 @@ export default function GenreForm({ title, genre }: Props) {
             mode: 'onTouched'
         });
 
+    const setGenres = useGenresStore((state) => state.setGenres);
+
     useEffect(() => {
         if (genre) {
             const { name } = genre;
@@ -35,46 +31,26 @@ export default function GenreForm({ title, genre }: Props) {
         }
 
         setFocus('name')
-    }, [setFocus])
+    }, [setFocus, setGenres])
 
     async function onSubmit(data: FieldValues) {
-        const { photo, releaseDate, ...otherData } = data;
+        try {
+            let res;
 
-        const formData = new FormData();
+            if (!genre) { // No genre has been passed in, automatically decide its to CREATE an auction POST
+                res = await createGenre(data);
 
-        // Append the photo to formData
-        formData.append('photo', photo[0]);
+                if (!res.error) {
+                    const genres = await getGenres();
 
+                    setGenres(genres);
+                }
+            }
 
-        Object.keys(otherData).forEach(key => {
-            let value = otherData[key];
+            // TO DO: Add a way to edit a genre.
 
-            formData.append(key, value);
-        });
-
-        if (releaseDate) {
-            // Get the selected release date
-            const selectedDate = new Date(releaseDate);
-
-            // Set the time zone offset to zero (UTC)
-            selectedDate.setMinutes(selectedDate.getMinutes() - selectedDate.getTimezoneOffset());
-
-            // Convert to ISO string
-            const formattedReleaseDate = selectedDate.toISOString().split('T')[0];
-
-            formData.append('releaseDate', formattedReleaseDate);
-        }
-
-        let res;
-        if (movie) {
-            formData.append('MovieId', movie.id);
-            res = await updateMovie(formData);
-        } else {
-            res = await createMovie(formData);
-        }
-        console.log(res.error);
-        if (res.error) {
-            throw new Error(res.error);
+        } catch (error: any) {
+            // TO DO: Add a toast notification that the submission failed.
         }
     }
 
@@ -93,12 +69,12 @@ export default function GenreForm({ title, genre }: Props) {
                     </h1>
                     <form onSubmit={(e) => { handleSubmit(onSubmit)(e); }} className="space-y-4 md:space-y-6" action="#">
 
-                        <CustomInput label="Name" name="title" control={control}
-                            rules={{ required: 'Make is required' }} />
+                        <CustomInput label="Name" name="name" control={control}
+                            rules={{ required: 'Name is required' }} />
 
                         <Button isProcessing={isSubmitting} disabled={!isValid}
                             type="submit" theme={customTheme} color="primary">
-                            {name ? (
+                            {genre ? (
                                 <Fragment>
                                     Update
                                 </Fragment>
