@@ -7,7 +7,9 @@ import { Fragment, useEffect, useState } from "react";
 import DateInput from "../../shared/date-input";
 import { createMovie, updateMovie } from "@/app/actions/movie-actions";
 import { Movie } from "@/types";
-import MovieImage from "../../movies/movie-image";
+import { MultiSelect } from "react-multi-select-component";
+import { useGenresStore } from "@/hooks/useGenresStore";
+import { getGenres } from "@/app/actions/genre-actions";
 
 const MovieRating = {
     G: 1,
@@ -23,15 +25,36 @@ interface Props {
 }
 
 export default function MovieForm({ title, movie }: Props) {
-    const { control, register, handleSubmit, setFocus, reset,
+    const { control, register, handleSubmit, setFocus, reset, getValues, setValue,
         formState: { isSubmitting, isValid, isDirty, errors } } = useForm({
             mode: 'onTouched'
         });
+
+    const genres = useGenresStore(state => state.genres)
+    const setGenres = useGenresStore(state => state.setGenres)
+    const [selectedGenres, setSelectedGenres] = useState([])
+
+
+    useEffect(() => {
+        getGenres().then(result => {
+            if ((result as any).error) {
+                // TO DO: add a toast
+
+                return;
+            }
+
+            setGenres(result);
+        });
+    }, [])
+
+    const options = genres.map(genre => ({ label: genre.name, value: genre.id }))
+
 
     useEffect(() => {
         if (movie) {
             const { title, description, releaseDate, duration, rating, imageUrl } = movie;
             const photo = imageUrl;
+
             reset({
                 title, description, releaseDate,
                 duration: Math.round((duration + Number.EPSILON) * 100) / 100,
@@ -40,7 +63,7 @@ export default function MovieForm({ title, movie }: Props) {
         }
 
         setFocus('title')
-    }, [setFocus])
+    }, [setFocus, reset])
 
     async function onSubmit(data: FieldValues) {
         const { photo, releaseDate, ...otherData } = data;
@@ -57,6 +80,11 @@ export default function MovieForm({ title, movie }: Props) {
             formData.append(key, value);
         });
 
+        
+        selectedGenres.forEach((genre: { label: string, value: string }) => {
+            formData.append('genres', genre.value);
+        });
+
         if (releaseDate) {
             // Get the selected release date
             const selectedDate = new Date(releaseDate);
@@ -70,11 +98,13 @@ export default function MovieForm({ title, movie }: Props) {
             formData.append('releaseDate', formattedReleaseDate);
         }
 
+
         let res;
         if (movie) {
             formData.append('MovieId', movie.id);
             res = await updateMovie(formData);
         } else {
+            console.log(data);
             res = await createMovie(formData);
         }
         console.log(res.error);
@@ -122,6 +152,13 @@ export default function MovieForm({ title, movie }: Props) {
                         {movie && (
                             <p className="text-primary font-semibold">This movie currently has a photo, leave to none to not change</p>
                         )}
+
+                        <MultiSelect
+                            options={options}
+                            value={selectedGenres}
+                            onChange={setSelectedGenres}
+                            labelledBy="Select Genres"
+                        />
 
                         <Button isProcessing={isSubmitting} disabled={!isValid}
                             type="submit" theme={customTheme} color="primary">
