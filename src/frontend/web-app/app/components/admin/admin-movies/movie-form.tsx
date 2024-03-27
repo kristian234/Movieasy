@@ -30,6 +30,8 @@ export default function MovieForm({ title, movie }: Props) {
             mode: 'onTouched'
         });
 
+        // TO DO: consider directly fetching and not using the zustand store
+
     const genres = useGenresStore(state => state.genres)
     const setGenres = useGenresStore(state => state.setGenres)
     const [selectedGenres, setSelectedGenres] = useState([])
@@ -45,7 +47,7 @@ export default function MovieForm({ title, movie }: Props) {
 
             setGenres(result);
         });
-    }, [])
+    }, [setGenres])
 
     const options = genres.map(genre => ({ label: genre.name, value: genre.id }))
 
@@ -80,7 +82,7 @@ export default function MovieForm({ title, movie }: Props) {
             formData.append(key, value);
         });
 
-        
+
         selectedGenres.forEach((genre: { label: string, value: string }) => {
             formData.append('genres', genre.value);
         });
