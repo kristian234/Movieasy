@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Movieasy.Application.Genres.AddGenre;
 using Movieasy.Application.Genres.DeleteGenre;
 using Movieasy.Application.Genres.GetGenre;
+using Movieasy.Application.Genres.GetGenreById;
+using Movieasy.Application.Genres.UpdateGenre;
 using Movieasy.Domain.Abstractions;
 
 namespace Movieasy.Api.Controllers.Genres
@@ -17,6 +19,16 @@ namespace Movieasy.Api.Controllers.Genres
         public GenresController(ISender sender)
         {
             _sender = sender;
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetGenre(Guid id, CancellationToken cancellationToken)
+        {
+            var query = new GetGenreByIdQuery(id);
+
+            Result<GenreResponse> result = await _sender.Send(query, cancellationToken);
+
+            return result.IsSuccess ? Ok(result.Value) : NotFound();
         }
 
         [HttpGet]
@@ -44,6 +56,25 @@ namespace Movieasy.Api.Controllers.Genres
             }
 
             return CreatedAtAction(nameof(GetGenres), new { id = result.Value }, result.Value);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateGenre(
+            UpdateGenreRequest request,
+            CancellationToken cancellationToken)
+        {
+            var command = new UpdateGenreCommand(
+                request.GenreId,
+                request.Name);
+
+            Result result = await _sender.Send(command, cancellationToken);
+
+            if (result.IsFailure)
+            {
+                return BadRequest(result.Error);
+            }
+
+            return Ok();
         }
 
         [HttpDelete("{id}")]

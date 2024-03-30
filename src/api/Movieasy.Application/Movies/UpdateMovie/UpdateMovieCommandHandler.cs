@@ -4,11 +4,10 @@ using Movieasy.Domain.Abstractions;
 using Movieasy.Domain.Genres;
 using Movieasy.Domain.Movies;
 using Movieasy.Domain.Photos;
-using System.Runtime.InteropServices;
 
 namespace Movieasy.Application.Movies.UpdateMovie
 {
-    internal class UpdateMovieCommandHandler : ICommandHandler<UpdateMovieCommand>
+    internal sealed class UpdateMovieCommandHandler : ICommandHandler<UpdateMovieCommand>
     {
         private readonly IMovieRepository _movieRepository;
         private readonly IUnitOfWork _unitOfWork;

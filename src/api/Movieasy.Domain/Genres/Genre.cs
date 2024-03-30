@@ -23,5 +23,14 @@ namespace Movieasy.Domain.Genres
             return genre;   
         }
 
+        public Result Update(string name)
+        {
+            Name newName = new Name(name);
+
+            Name = newName;
+
+            return Result.Success();
+        }
+
     }
 }

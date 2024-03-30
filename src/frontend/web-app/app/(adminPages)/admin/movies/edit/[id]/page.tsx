@@ -7,7 +7,6 @@ export default async function MovieEditPage({ params }: { params: { id: string }
     return (
         <div>
             <MovieForm movie={movie} title="Update Movie"></MovieForm>
-
         </div>
     )
 }
