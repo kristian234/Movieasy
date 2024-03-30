@@ -87,5 +87,12 @@ namespace Movieasy.Domain.Movies
 
             return Result.Success();
         }
+
+        public Result SetGenres(IEnumerable<Genre> genres)
+        {
+            _genres = genres.ToList();
+
+            return Result.Success();
+        }
     }
 }

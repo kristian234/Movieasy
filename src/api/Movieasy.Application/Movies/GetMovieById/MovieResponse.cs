@@ -1,4 +1,6 @@
-﻿namespace Movieasy.Application.Movies.GetMovieById
+﻿using Movieasy.Application.Genres.GetGenre;
+
+namespace Movieasy.Application.Movies.GetMovieById
 {
     public sealed class MovieResponse
     {
@@ -10,5 +12,6 @@
         public string Rating { get; init; } = string.Empty;
         public double Duration { get; init; }
         public string ImageUrl { get; init; } = string.Empty;
+        public IEnumerable<GenreResponse> Genres { get; init; } = new List<GenreResponse>();
     }
 }

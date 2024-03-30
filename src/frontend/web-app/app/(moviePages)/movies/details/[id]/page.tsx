@@ -50,7 +50,7 @@ export default async function DetailsPage({ params }: { params: { id: string } }
         <div className="ml-2 relative">
           <h2 className="text-3xl font-bold text-third">{movie.title}</h2>
           <div className="mt-3 mb-4">
-            <Genres genres={['Action']} />
+            <Genres genres={movie.genres.map(genre => genre.name)} />
 
             <div className="mt-3 flex justify-start md:justify-between">
               <Rating rating={movie.rating} />

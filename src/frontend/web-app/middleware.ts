@@ -14,7 +14,7 @@ export default withAuth(
           return false;
         }
 
-        return Boolean(token);
+        return Boolean(token?.accessToken);
       }
     },
   }
@@ -22,6 +22,7 @@ export default withAuth(
 export const config = {
   matcher: [
     '/movies/search',
+    '/home',
     '/movies/details/:path*',
     '/admin/:path*'
   ]

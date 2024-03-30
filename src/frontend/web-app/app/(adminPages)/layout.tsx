@@ -23,13 +23,14 @@ export default async function RootLayout({
         <div className="min-h-screen flex-auto max-h-screen overflow-auto">
 
           <Provider>
-            <RefreshClientComponent />
-            <div className="flex">
-              <AdminHeader />
-              <main className="flex-grow">
-                {children}
-              </main>
-            </div>
+            <RefreshClientComponent >
+              <div className="flex">
+                <AdminHeader />
+                <main className="flex-grow">
+                  {children}
+                </main>
+              </div>
+            </RefreshClientComponent>
           </Provider>
         </div>
       </body>

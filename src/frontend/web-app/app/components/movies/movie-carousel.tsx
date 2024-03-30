@@ -3,10 +3,9 @@
 import { Movie, PagedResult } from '@/types';
 import React, { useEffect, useState } from "react";
 import MovieCard from './movie-card';
-import { Fragment } from 'react';
 import Carousel from 'react-multi-carousel';
-import 'react-multi-carousel/lib/styles.css';
 import LoadingComponent from '../shared/loading-component';
+import 'react-multi-carousel/lib/styles.css';
 
 interface Props {
     movies: () => Promise<PagedResult<Movie>>
@@ -41,14 +40,13 @@ export default function MovieCarousel({ movies, text }: Props) {
 
     // const urlm = "https://cdn.pixabay.com/photo/2023/11/09/19/36/zoo-8378189_1280.jpg";
 
-    if (!data) return <LoadingComponent></LoadingComponent>
+    if (!data?.items) return <LoadingComponent></LoadingComponent>
 
     return (
         <div>
             <div className="p-2 w-[90%] ssm:w-[70%] mx-auto">
-                {text.length > 0 && (
-                    <h1 className="font-bold text-secondary ml-3">{text}:</h1>
-                )}
+
+                <h1 className="font-bold text-secondary ml-3">{text}:</h1>
 
                 <div className="items-center justify-center">
                     <Carousel
@@ -76,8 +74,8 @@ export default function MovieCarousel({ movies, text }: Props) {
                         showDots={false}
                         sliderClass=""
                         swipeable>
-                        {data.items?.map((movie, index) => (
-                            <div className='carousel-item'>
+                        {data?.items?.map((movie, index) => (
+                            <div className=''>
                                 <MovieCard
                                     isCarousel={true}
                                     movie={movie}

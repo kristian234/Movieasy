@@ -10,5 +10,6 @@ namespace Movieasy.Application.Movies.UpdateMovie
         int Rating,
         DateOnly? ReleaseDate,
         double Duration,
+        List<Guid> Genres,
         IFormFile? Photo) : ICommand;
 }

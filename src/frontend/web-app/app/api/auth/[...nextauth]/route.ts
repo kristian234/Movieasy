@@ -5,6 +5,7 @@ import { jwtDecode } from "jwt-decode";
 import { getIsTokenValid } from "./helper";
 import { JWT } from "next-auth/jwt";
 import { parse } from "cookie";
+import mem from 'mem';
 
 interface TokenDecode {
     email: string,
@@ -91,7 +92,7 @@ export const authOptions: NextAuthOptions = {
             }
 
             if (token.refreshToken) {
-                return refreshAccessToken(token);
+                return memoizedRefreshAccessToken(token);
             }
 
             return token;
@@ -153,12 +154,11 @@ export const handler = async (req: any, res: any) => {
     })
 }
 
-
 async function refreshAccessToken(token: JWT) {
     console.log("Refreshing access token");
     try {
         if (!token.refreshToken) {
-            return { ...token, refreshToken: undefined, error: "RefreshAccessTokenError" as const }
+            return { ...token, refreshToken: undefined, roles: undefined, error: "RefreshAccessTokenError" as const }
         }
 
         const response = await axios.post(process.env.URL + "/api/user/refresh", {
@@ -193,8 +193,15 @@ async function refreshAccessToken(token: JWT) {
     } catch (error) {
         console.log("ERROR ERROR ERROR ERROR " + error);
 
-        return { ...token, refreshToken: undefined, error: "RefreshAccessTokenError" as const }
+        return { ...token, refreshToken: undefined, roles: undefined, error: "RefreshAccessTokenError" as const }
     }
 }
 
-export { handler as GET, handler as POST }
+const memoizedRefreshAccessToken = mem(refreshAccessToken, {
+    maxAge: 2000,
+    cacheKey: (args) => {
+        return args[0].refreshToken
+    },
+});
+
+export { handler as GET, handler as POST };

@@ -1,9 +1,13 @@
 'use client'
 
 import { signOut, useSession } from "next-auth/react";
-import { Fragment, useEffect } from "react";
+import { Fragment, ReactNode, useEffect } from "react";
 
-export default function RefreshClientComponent() {
+interface Props {
+    children: ReactNode;
+}
+
+export default function RefreshClientComponent({children} : Props) {
     const { data: session } = useSession();
 
     useEffect(() => {
@@ -14,8 +18,8 @@ export default function RefreshClientComponent() {
     }, [session]);
 
     return(
-        <Fragment>
-            
-        </Fragment>
+        <div>
+            {children}
+        </div>
     )
 }

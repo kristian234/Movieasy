@@ -7,6 +7,7 @@ export interface Movie {
     rating: MovieRating
     duration: number
     imageUrl: string
+    genres: Genre[]
   }
 
 export interface Genre{

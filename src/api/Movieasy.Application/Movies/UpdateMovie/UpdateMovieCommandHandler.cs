@@ -1,6 +1,7 @@
 ﻿using Movieasy.Application.Abstractions.Messaging;
 using Movieasy.Application.Abstractions.Photos;
 using Movieasy.Domain.Abstractions;
+using Movieasy.Domain.Genres;
 using Movieasy.Domain.Movies;
 using Movieasy.Domain.Photos;
 using System.Runtime.InteropServices;
@@ -12,16 +13,18 @@ namespace Movieasy.Application.Movies.UpdateMovie
         private readonly IMovieRepository _movieRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IPhotoAccessor _photoAccessor;
+        private readonly IGenreRepository _genreRepository;
 
         public UpdateMovieCommandHandler(
             IMovieRepository movieRepository,
             IUnitOfWork unitOfWork,
             IPhotoAccessor photoAccessor,
-            IPhotoRepository photoRepository)
+            IGenreRepository genreRepository)
         {
             _movieRepository = movieRepository;
             _unitOfWork = unitOfWork;
             _photoAccessor = photoAccessor;
+            _genreRepository = genreRepository;
         }
 
         public async Task<Result> Handle(UpdateMovieCommand request, CancellationToken cancellationToken)
@@ -44,6 +47,14 @@ namespace Movieasy.Application.Movies.UpdateMovie
             {
                 return updateResult;
             }
+
+            IEnumerable<Genre> genres = await _genreRepository.GetByIdsAsync(request.Genres);
+            if (genres.Count() != request.Genres.Count)
+            {
+                return Result.Failure<Guid>(GenreErrors.NotFound);
+            }
+
+            movie.SetGenres(genres);
 
             if (request.Photo == null)
             {

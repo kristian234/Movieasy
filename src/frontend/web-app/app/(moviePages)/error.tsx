@@ -25,7 +25,7 @@ export default function Error({
                 <div className='justify-center items-center flex'>
                     <button
                         className="mt-6 font-semibold rounded-md items-center justify-center bg-secondary px-4 py-2 text-sm text-primary transition-colors hover:bg-third"
-                        onClick={reset}
+                        onClick={() => reset()}
                     >
                         Try again
                     </button>

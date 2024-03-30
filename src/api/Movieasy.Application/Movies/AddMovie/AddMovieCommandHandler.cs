@@ -2,6 +2,7 @@
 using Movieasy.Application.Abstractions.Messaging;
 using Movieasy.Application.Abstractions.Photos;
 using Movieasy.Domain.Abstractions;
+using Movieasy.Domain.Genres;
 using Movieasy.Domain.Movies;
 using Movieasy.Domain.Photos;
 
@@ -14,32 +15,39 @@ namespace Movieasy.Application.Movies.AddMovie
         private readonly IDateTimeProvider _dateTimeProvider;
         private readonly IPhotoAccessor _photoAccessor;
         private readonly IPhotoRepository _photoRepository;
+        private readonly IGenreRepository _genreRepository;
 
         public AddMovieCommandHandler(
             IMovieRepository movieRepository,
             IUnitOfWork unitOfWork,
             IDateTimeProvider dateTimeProvider,
             IPhotoAccessor photoAccessor,
-            IPhotoRepository photoRepository)
+            IPhotoRepository photoRepository,
+            IGenreRepository genreRepository)
         {
             _movieRepository = movieRepository;
             _unitOfWork = unitOfWork;
             _dateTimeProvider = dateTimeProvider;
             _photoAccessor = photoAccessor;
             _photoRepository = photoRepository;
+            _genreRepository = genreRepository;
         }
 
         public async Task<Result<Guid>> Handle(AddMovieCommand request, CancellationToken cancellationToken)
         {
             Result<Duration> movieDuration = Duration.Create(request.Duration);
-
             if (movieDuration.IsFailure)
             {
                 return Result.Failure<Guid>(Duration.Invalid);
             }
 
-            Result<PhotoUploadResult> result = await _photoAccessor.AddPhoto(request.Photo);
+            IEnumerable<Genre> genres = await _genreRepository.GetByIdsAsync(request.Genres);
+            if (genres.Count() != request.Genres.Count)
+            {
+                return Result.Failure<Guid>(GenreErrors.NotFound);
+            }
 
+            Result<PhotoUploadResult> result = await _photoAccessor.AddPhoto(request.Photo);
             if (result.IsFailure)
             {
                 return Result.Failure<Guid>(result.Error);
@@ -53,7 +61,6 @@ namespace Movieasy.Application.Movies.AddMovie
 
             Title movieTitle = new Title(request.Title);
             Description movieDescription = new Description(request.Description);
-
             Rating movieRating = (Rating)request.Rating;
 
             Movie movie = Movie.Create(
@@ -64,6 +71,8 @@ namespace Movieasy.Application.Movies.AddMovie
                 _dateTimeProvider.UtcNow,
                 moviePhoto,
                 request.ReleaseDate);
+
+            movie.SetGenres(genres);
 
             await _movieRepository.AddAsync(movie);
             await _unitOfWork.SaveChangesAsync(cancellationToken);

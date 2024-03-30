@@ -61,6 +61,7 @@ namespace Movieasy.Api.Controllers.Movies
                 request.Rating,
                 request.ReleaseDate,
                 request.Duration,
+                request.Genres,
                 request.Photo);
 
             Result<Guid> result = await _sender.Send(command, cancellationToken);
@@ -86,6 +87,7 @@ namespace Movieasy.Api.Controllers.Movies
                 request.Rating,
                 request.ReleaseDate,
                 request.Duration,
+                request.Genres,
                 request.Photo);
 
             Result result = await _sender.Send(command, cancellationToken);

@@ -3,6 +3,7 @@ import "../globals.css";
 import Provider from "../Provider";
 import RefreshClientComponent from "../components/shared/refresh-component";
 import Header from "../layout/header";
+import 'react-multi-carousel/lib/styles.css';
 
 export const metadata: Metadata = {
   title: "Movieasy",
@@ -19,11 +20,12 @@ export default async function RootLayout({
       <body>
         <div className="min-h-screen flex-auto max-h-screen overflow-auto">
           <Provider>
-            <RefreshClientComponent />
-            <Header />
-            <main>
-              {children}
-            </main>
+            <RefreshClientComponent >
+              <Header />
+              <main>
+                {children}
+              </main>
+            </RefreshClientComponent>
           </Provider>
         </div>
       </body>

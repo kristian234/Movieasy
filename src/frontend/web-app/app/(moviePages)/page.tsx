@@ -1,13 +1,12 @@
-import { Fragment } from "react";
-import { getCurrentUser } from "../actions/auth-actions";
-import HomePage from "../home/home-page";
+import { getSession } from "../actions/auth-actions";
+import { redirect } from "next/navigation";
 
 export default async function Home() {
 
-  const user = await getCurrentUser();
+  const session = await getSession();
 
-  if (user) {
-    return <HomePage />
+  if (session?.user && !session?.error) {
+    redirect('/home')
   }
 
   return (

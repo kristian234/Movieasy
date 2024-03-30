@@ -2,7 +2,7 @@ interface Props {
     user: any
 }
 
-export default async function WelcomeGreeting({ user }: Props) {
+export default function WelcomeGreeting({ user }: Props) {
     return (
         <div className="text-center p-4">
             <h1 className="text-4xl font-bold text-secondary mb-2">

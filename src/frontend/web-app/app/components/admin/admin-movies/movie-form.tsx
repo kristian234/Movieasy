@@ -30,7 +30,7 @@ export default function MovieForm({ title, movie }: Props) {
             mode: 'onTouched'
         });
 
-        // TO DO: consider directly fetching and not using the zustand store
+    // TO DO: consider directly fetching and not using the zustand store
 
     const genres = useGenresStore(state => state.genres)
     const setGenres = useGenresStore(state => state.setGenres)
@@ -38,6 +38,20 @@ export default function MovieForm({ title, movie }: Props) {
 
 
     useEffect(() => {
+        if (movie) {
+            const { title, description, releaseDate, duration, rating, imageUrl } = movie;
+            const photo = imageUrl;
+
+            const selectedGenres = movie.genres.map(genre => ({ value: genre.id, label: genre.name }));
+            setSelectedGenres(selectedGenres as any);
+
+            reset({
+                title, description, releaseDate,
+                duration: Math.round((duration + Number.EPSILON) * 100) / 100,
+                rating: MovieRating[rating], photo
+            });
+        }
+
         getGenres().then(result => {
             if ((result as any).error) {
                 // TO DO: add a toast
@@ -47,25 +61,12 @@ export default function MovieForm({ title, movie }: Props) {
 
             setGenres(result);
         });
-    }, [setGenres])
+
+        setFocus('title')
+    }, [setFocus, reset, setGenres, setSelectedGenres])
 
     const options = genres.map(genre => ({ label: genre.name, value: genre.id }))
 
-
-    useEffect(() => {
-        if (movie) {
-            const { title, description, releaseDate, duration, rating, imageUrl } = movie;
-            const photo = imageUrl;
-
-            reset({
-                title, description, releaseDate,
-                duration: Math.round((duration + Number.EPSILON) * 100) / 100,
-                rating: MovieRating[rating], photo
-            });
-        }
-
-        setFocus('title')
-    }, [setFocus, reset])
 
     async function onSubmit(data: FieldValues) {
         const { photo, releaseDate, ...otherData } = data;
@@ -86,6 +87,7 @@ export default function MovieForm({ title, movie }: Props) {
         selectedGenres.forEach((genre: { label: string, value: string }) => {
             formData.append('genres', genre.value);
         });
+
 
         if (releaseDate) {
             // Get the selected release date
@@ -158,6 +160,7 @@ export default function MovieForm({ title, movie }: Props) {
                         <MultiSelect
                             options={options}
                             value={selectedGenres}
+                            hasSelectAll={false}
                             onChange={setSelectedGenres}
                             labelledBy="Select Genres"
                         />

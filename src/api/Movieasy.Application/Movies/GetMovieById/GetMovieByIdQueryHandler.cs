@@ -21,6 +21,7 @@ namespace Movieasy.Application.Movies.GetMovieById
                 .Movies
                 .Where(m => m.Id == request.MovieId)
                 .Include(m => m.Photo)
+                .Include(m => m.Genres)
                 .Select(m => new MovieResponse
                 {
                     Id = m.Id.ToString(),
@@ -33,6 +34,11 @@ namespace Movieasy.Application.Movies.GetMovieById
                         : null,
                     UploadDate = m.UploadDate.ToString("f", CultureInfo.InvariantCulture),
                     ImageUrl = m.Photo.Url.Value,
+                    Genres = m.Genres.Select(genre => new Genres.GetGenre.GenreResponse()
+                    {
+                        Id = genre.Id.ToString(),
+                        Name = genre.Name.Value,
+                    }),
                 })
                 .AsNoTracking()
                 .FirstOrDefaultAsync(cancellationToken);
