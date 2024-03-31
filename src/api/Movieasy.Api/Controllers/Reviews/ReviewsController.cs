@@ -1,10 +1,10 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Movieasy.Api.Controllers.Genres;
 using Movieasy.Application.Movies.GetMovie;
 using Movieasy.Application.Reviews.AddReview;
 using Movieasy.Application.Reviews.GetReview;
+using Movieasy.Application.Reviews.GetReviewById;
 using Movieasy.Domain.Abstractions;
 
 namespace Movieasy.Api.Controllers.Reviews
@@ -19,6 +19,18 @@ namespace Movieasy.Api.Controllers.Reviews
         public ReviewsController(ISender sender)
         {
             _sender = sender;
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetReview(
+            Guid id,
+            CancellationToken cancellationToken)
+        {
+            var query = new GetReviewByIdQuery(id);
+
+            Result<ReviewResponse> result = await _sender.Send(query, cancellationToken);
+
+            return result.IsSuccess ? Ok(result.Value) : NotFound();
         }
 
         [HttpGet]
@@ -55,7 +67,7 @@ namespace Movieasy.Api.Controllers.Reviews
                 return BadRequest(result.Error);
             }
 
-            return Ok(); // TO DO: fix this so it returns an endpoint to only get the review itself and nothing more.
+            return CreatedAtAction(nameof(GetReview), new { id = result.Value }, result.Value);
         }
     }
 }

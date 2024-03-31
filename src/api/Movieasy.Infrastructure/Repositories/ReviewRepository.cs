@@ -9,7 +9,7 @@ namespace Movieasy.Infrastructure.Repositories
         {
         }
 
-        public async Task<Review?> GetByUserAndMovieIdAsync(Guid userId, Guid movieId, CancellationToken  = default)
+        public async Task<Review?> GetByUserAndMovieIdAsync(Guid userId, Guid movieId, CancellationToken cancellationToken = default)
         {
             return await DbContext.Reviews
                 .FirstOrDefaultAsync(r => r.UserId == userId && r.MovieId == movieId);
