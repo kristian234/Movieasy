@@ -1,4 +1,5 @@
-﻿using Movieasy.Domain.Reviews;
+﻿using Microsoft.EntityFrameworkCore;
+using Movieasy.Domain.Reviews;
 
 namespace Movieasy.Infrastructure.Repositories
 {
@@ -6,6 +7,12 @@ namespace Movieasy.Infrastructure.Repositories
     {
         public ReviewRepository(ApplicationDbContext context) : base(context)
         {
+        }
+
+        public async Task<Review?> GetByUserAndMovieIdAsync(Guid userId, Guid movieId, CancellationToken  = default)
+        {
+            return await DbContext.Reviews
+                .FirstOrDefaultAsync(r => r.UserId == userId && r.MovieId == movieId);
         }
     }
 }

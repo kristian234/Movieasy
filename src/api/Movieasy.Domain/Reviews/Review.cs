@@ -32,7 +32,7 @@ namespace Movieasy.Domain.Reviews
 
         public static Result<Review> Create(
             Movie movie,
-            User user,
+            Guid userId,
             Rating rating,
             Comment comment,
             DateTime createdOnUtc
@@ -46,7 +46,7 @@ namespace Movieasy.Domain.Reviews
             Review review = new Review(
                 Guid.NewGuid(),
                 movie.Id,
-                user.Id,
+                userId,
                 createdOnUtc,
                 comment,
                 rating);
