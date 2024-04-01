@@ -3,14 +3,15 @@
 import { deleteGenre, getGenres } from "@/app/actions/genre-actions";
 import { useGenresStore } from "@/hooks/useGenresStore";
 import { useEffect, useState } from "react";
-import { LoadingSpinner } from "video-react";
-import LoadingComponent from "../../shared/loading-component";
 import { Spinner } from "flowbite-react";
+import { useRouter } from "next/navigation";
 
 export default function GenreListing() {
     const genres = useGenresStore((state) => state.genres);
     const setGenres = useGenresStore(state => state.setGenres);
     const delGenre = useGenresStore(state => state.deleteGenre);
+    const router = useRouter();
+
     useEffect(() => {
         getGenres().then(result => {
             if ((result as any).error) {
@@ -54,7 +55,7 @@ export default function GenreListing() {
                                 <li key={genre.id} className={`flex justify-between items-center p-4 bg-opacity-55 bg-third rounded-lg shadow-md ${index !== 0 ? 'mt-4' : ''}`}> { }
                                     <span className="text-lg font-semibold text-primary">{genre.name}</span>
                                     <div className="flex space-x-2">
-                                        <button className="bg-secondary hover:bg-third text-primary px-2 py-1 rounded-md">Edit</button>
+                                        <button onClick={() => router.push(`/admin/genres/edit/${genre.id}`)} className="bg-secondary hover:bg-third text-primary px-2 py-1 rounded-md">Edit</button>
                                         <button onClick={() => removeGenre(genre.id)} className="bg-danger hover:bg-superdanger text-primary px-2 py-1 rounded-md">Delete</button>
                                     </div>
                                 </li>

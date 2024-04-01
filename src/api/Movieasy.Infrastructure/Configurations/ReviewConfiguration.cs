@@ -14,7 +14,7 @@ namespace Movieasy.Infrastructure.Configurations
             builder.HasKey(review => review.Id);
 
             builder.Property(review => review.Comment)
-                .HasMaxLength(1000)
+                .HasMaxLength(500)
                 .HasConversion(comment => comment.Value, value => new Comment(value));
 
             builder.Property(review => review.Rating)
@@ -24,7 +24,7 @@ namespace Movieasy.Infrastructure.Configurations
                 .WithMany()
                 .HasForeignKey(review => review.MovieId);
 
-            builder.HasOne<User>()
+            builder.HasOne(review => review.User)
                 .WithMany()
                 .HasForeignKey(review => review.UserId);
 

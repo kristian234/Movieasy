@@ -7,10 +7,12 @@ namespace Movieasy.Domain.Reviews
 {
     public sealed class Review : Entity
     {
+        private Review(Guid id) : base(id) { }
+
         private Review(
             Guid id,
             Guid movieId,
-            Guid userId,
+            User user,
             DateTime createdOnUtc,
             Comment comment,
             Rating rating
@@ -18,21 +20,25 @@ namespace Movieasy.Domain.Reviews
             : base(id)
         {
             MovieId = movieId;
-            UserId = userId;
+            User = user;
+            UserId = user.Id;
             CreatedOnUtc = createdOnUtc;
             Comment = comment;
             Rating = rating;
         }
 
         public Guid MovieId { get; private set; }
+
         public Guid UserId { get; private set; }
+        public User User { get; private set; }
+
         public DateTime CreatedOnUtc { get; private set; }
         public Comment Comment { get; private set; }
         public Rating Rating { get; private set; }
 
         public static Result<Review> Create(
             Movie movie,
-            Guid userId,
+            User user,
             Rating rating,
             Comment comment,
             DateTime createdOnUtc
@@ -46,7 +52,7 @@ namespace Movieasy.Domain.Reviews
             Review review = new Review(
                 Guid.NewGuid(),
                 movie.Id,
-                userId,
+                user,
                 createdOnUtc,
                 comment,
                 rating);

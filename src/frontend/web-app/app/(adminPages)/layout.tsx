@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import "../globals.css";
-import Provider from "../Provider";
+import Provider from "../Providers/Provider";
 import RefreshClientComponent from "../components/shared/refresh-component";
 import AdminHeader from "../components/admin/admin-header/header";
 import { ProSidebarProvider } from "react-pro-sidebar";

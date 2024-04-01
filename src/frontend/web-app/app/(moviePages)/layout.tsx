@@ -1,9 +1,11 @@
 import { Metadata } from "next";
 import "../globals.css";
-import Provider from "../Provider";
+import Provider from "../Providers/Provider";
 import RefreshClientComponent from "../components/shared/refresh-component";
 import Header from "../layout/header";
 import 'react-multi-carousel/lib/styles.css';
+import { ToastContainer } from "react-toastify";
+import ToasterProvider from "../Providers/ToasterProvider";
 
 export const metadata: Metadata = {
   title: "Movieasy",
@@ -23,6 +25,7 @@ export default async function RootLayout({
             <RefreshClientComponent >
               <Header />
               <main>
+                <ToasterProvider />
                 {children}
               </main>
             </RefreshClientComponent>

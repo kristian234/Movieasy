@@ -4,6 +4,7 @@ using Movieasy.Application.Abstractions.Messaging;
 using Movieasy.Domain.Abstractions;
 using Movieasy.Domain.Movies;
 using Movieasy.Domain.Reviews;
+using Movieasy.Domain.Users;
 
 namespace Movieasy.Application.Reviews.AddReview
 {
@@ -12,12 +13,14 @@ namespace Movieasy.Application.Reviews.AddReview
         private readonly IReviewRepository _reviewRepository;
         private readonly IMovieRepository _movieRepository;
         private readonly IUserContext _userContext;
+        private readonly IUserRepository _userRepository;
         private readonly IDateTimeProvider _dateTimeProvider;
         private readonly IUnitOfWork _unitOfWork;
 
         public AddReviewCommandHandler(
             IReviewRepository reviewRepository,
             IMovieRepository movieRepository,
+            IUserRepository userRepository,
             IUserContext userContext,
             IDateTimeProvider dateTimeProvider,
             IUnitOfWork unitOfWork)
@@ -27,6 +30,7 @@ namespace Movieasy.Application.Reviews.AddReview
             _movieRepository = movieRepository;
             _dateTimeProvider = dateTimeProvider;
             _unitOfWork = unitOfWork;
+            _userRepository = userRepository;
         }
 
         public async Task<Result<Guid>> Handle(AddReviewCommand request, CancellationToken cancellationToken)
@@ -42,6 +46,12 @@ namespace Movieasy.Application.Reviews.AddReview
 
             // Check if there's such a review that exists.
             Guid userId = _userContext.UserId;
+            User? user = await _userRepository.GetByIdAsync(userId, cancellationToken);
+            if (user == null)
+            {
+                return Result.Failure<Guid>(ReviewErrors.NotEligible);
+            }
+
             Review? existingReview = await _reviewRepository.GetByUserAndMovieIdAsync(
                 userId,
                 request.MovieId,
@@ -62,7 +72,7 @@ namespace Movieasy.Application.Reviews.AddReview
 
             Result<Review> reviewCreateResult = Review.Create(
                 movie,
-                userId,
+                user,
                 rating.Value,
                 new Comment(request.Comment),
                 _dateTimeProvider.UtcNow);

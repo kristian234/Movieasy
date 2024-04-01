@@ -9,11 +9,23 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Movieasy.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class cascadePhoto : Migration
+    public partial class NewStuff : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "genres",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_genres", x => x.id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "photos",
                 columns: table => new
@@ -104,6 +116,30 @@ namespace Movieasy.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "genre_movie",
+                columns: table => new
+                {
+                    genres_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    movie_id = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_genre_movie", x => new { x.genres_id, x.movie_id });
+                    table.ForeignKey(
+                        name: "fk_genre_movie_genres_genres_id",
+                        column: x => x.genres_id,
+                        principalTable: "genres",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_genre_movie_movies_movie_id",
+                        column: x => x.movie_id,
+                        principalTable: "movies",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "reviews",
                 columns: table => new
                 {
@@ -111,7 +147,7 @@ namespace Movieasy.Infrastructure.Migrations
                     movie_id = table.Column<Guid>(type: "uuid", nullable: false),
                     user_id = table.Column<Guid>(type: "uuid", nullable: false),
                     created_on_utc = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    comment = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: false),
+                    comment = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
                     rating = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
@@ -141,6 +177,17 @@ namespace Movieasy.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "ix_genre_movie_movie_id",
+                table: "genre_movie",
+                column: "movie_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_genres_name",
+                table: "genres",
+                column: "name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "ix_movies_photo_id",
                 table: "movies",
                 column: "photo_id",
@@ -152,9 +199,10 @@ namespace Movieasy.Infrastructure.Migrations
                 column: "movie_id");
 
             migrationBuilder.CreateIndex(
-                name: "ix_reviews_user_id",
+                name: "ix_reviews_user_id_movie_id",
                 table: "reviews",
-                column: "user_id");
+                columns: new[] { "user_id", "movie_id" },
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "ix_role_user_users_id",
@@ -178,10 +226,16 @@ namespace Movieasy.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "genre_movie");
+
+            migrationBuilder.DropTable(
                 name: "reviews");
 
             migrationBuilder.DropTable(
                 name: "role_user");
+
+            migrationBuilder.DropTable(
+                name: "genres");
 
             migrationBuilder.DropTable(
                 name: "movies");

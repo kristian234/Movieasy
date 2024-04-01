@@ -6,8 +6,9 @@ import CustomInput from "../../shared/custom-input";
 import { Fragment, useEffect } from "react";
 import { createMovie, updateMovie } from "@/app/actions/movie-actions";
 import { Genre } from "@/types";
-import { createGenre, getGenres } from "@/app/actions/genre-actions";
+import { createGenre, getGenres, updateGenre } from "@/app/actions/genre-actions";
 import { useGenresStore } from "@/hooks/useGenresStore";
+import { useRouter } from "next/navigation";
 
 interface Props {
     title: string
@@ -20,6 +21,7 @@ export default function GenreForm({ title, genre }: Props) {
             mode: 'onTouched'
         });
 
+    const router = useRouter();
     const setGenres = useGenresStore((state) => state.setGenres);
 
     useEffect(() => {
@@ -45,10 +47,17 @@ export default function GenreForm({ title, genre }: Props) {
 
                     setGenres(genres);
                 }
+
+                return;
             }
 
-            // TO DO: Add a way to edit a genre.
+            // Edit a genre
+            data = {...data, genreId: genre.id};
 
+            res = await updateGenre(data);
+            if(!(res as any).error){
+                router.back();
+            }
         } catch (error: any) {
             // TO DO: Add a toast notification that the submission failed.
         }

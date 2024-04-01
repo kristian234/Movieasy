@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Movieasy.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240326194449_Initialo")]
-    partial class Initialo
+    [Migration("20240401135332_NewStuff")]
+    partial class NewStuff
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -148,8 +148,8 @@ namespace Movieasy.Infrastructure.Migrations
 
                     b.Property<string>("Comment")
                         .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("character varying(1000)")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)")
                         .HasColumnName("comment");
 
                     b.Property<DateTime>("CreatedOnUtc")
@@ -174,8 +174,9 @@ namespace Movieasy.Infrastructure.Migrations
                     b.HasIndex("MovieId")
                         .HasDatabaseName("ix_reviews_movie_id");
 
-                    b.HasIndex("UserId")
-                        .HasDatabaseName("ix_reviews_user_id");
+                    b.HasIndex("UserId", "MovieId")
+                        .IsUnique()
+                        .HasDatabaseName("ix_reviews_user_id_movie_id");
 
                     b.ToTable("reviews", (string)null);
                 });
@@ -313,12 +314,14 @@ namespace Movieasy.Infrastructure.Migrations
                         .IsRequired()
                         .HasConstraintName("fk_reviews_movies_movie_id");
 
-                    b.HasOne("Movieasy.Domain.Users.User", null)
+                    b.HasOne("Movieasy.Domain.Users.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_reviews_users_user_id");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("RoleUser", b =>

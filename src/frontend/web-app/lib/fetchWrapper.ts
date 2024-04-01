@@ -62,7 +62,7 @@ async function del(url: string) {
         method: 'DELETE',
         headers: await getHeaders(),
     }
- 
+
 
     const response = await fetch(baseUrl + url, requestOptions);
     return await handleResponse(response);
@@ -104,7 +104,7 @@ async function handleResponse(response: Response) {
     } else {
         const error = {
             status: response.status,
-            message: typeof (data) === 'string' ? data : response.statusText
+            message: (typeof data === 'object' && data.name) ? data.name : response.statusText
         }
 
         return { error }

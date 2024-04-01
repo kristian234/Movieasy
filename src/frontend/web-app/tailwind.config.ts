@@ -14,6 +14,7 @@ const config: Config = {
         secondary: '#52527A',
         third: '#676790',
         header: '#0D0D1A',
+        darkHeader: '#0b0b17',
         body: '#080212',
         danger: '#D74338',
         superdanger: '#C91D12'

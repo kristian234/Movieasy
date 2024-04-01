@@ -22,10 +22,12 @@ namespace Movieasy.Application.Reviews.GetReview
             IQueryable<Review> reviewsQuery = _context.Reviews;
 
             var reviewResponseQuery = reviewsQuery
+                .Include(r => r.User)
                 .Select(r => new ReviewResponse()
                 {
                     Id = r.Id.ToString(),
                     Comment = r.Comment.Value,
+                    ReviewerName = $"{r.User.FirstName} {r.User.LastName}",
                     Rating = r.Rating.Value,
                     CreatedOnDate = r.CreatedOnUtc.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)
                 })
