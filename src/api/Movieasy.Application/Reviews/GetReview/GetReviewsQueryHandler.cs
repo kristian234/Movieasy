@@ -2,7 +2,6 @@
 using Movieasy.Application.Abstractions.Data;
 using Movieasy.Application.Abstractions.Messaging;
 using Movieasy.Application.Movies.GetMovie;
-using Movieasy.Application.Movies.GetMovieById;
 using Movieasy.Domain.Abstractions;
 using Movieasy.Domain.Reviews;
 using System.Globalization;

@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import EmptyFilter from "../movies/empty-filter";
 import ReviewCard from "./review-card";
 import ReviewFilters from "./review-filter";
+import EmptyReviewFilter from "./empty-review-filter";
 
 interface Props {
     movieId: string
@@ -33,7 +34,7 @@ export default function ReviewListing({ movieId }: Props) {
 
     useEffect(() => {
         const fetchReviews = async () => {
-            const url = qs.stringifyUrl({ url: '', query: {...params, movieId} })
+            const url = qs.stringifyUrl({ url: '', query: { ...params, movieId } })
 
             const response = await getReviews(url);
 
@@ -49,13 +50,21 @@ export default function ReviewListing({ movieId }: Props) {
         fetchReviews();
     }, [params])
 
+    const resetFilters = () => {
+        setParams({
+            page: 1,
+            pageSize: 12,
+            rating: null
+        });
+    };
+
     return (
         <div className="relative">
             <div className="flex flex-grow justify-end mt-8 mx-auto max-w-full px-8 w-[900px] sm:px-8 items-center">
                 <ReviewFilters onFilterChange={handleFilterChange} />
             </div>
             {data?.totalPages === 0 ? (
-                <EmptyFilter />
+                <EmptyReviewFilter reset={resetFilters} />
             ) : (
                 <>
                     <div className="flex flex-grow flex-col justify-center p-6 mx-auto max-w-full px-8 w-[900px] sm:px-8">
