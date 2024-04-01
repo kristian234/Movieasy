@@ -6,5 +6,6 @@ namespace Movieasy.Application.Reviews.GetReview
     public sealed record GetReviewsQuery(
         Guid MovieId,
         int Page,
-        int PageSize) : IQuery<PagedList<ReviewResponse>>;
+        int PageSize,
+        int? Rating) : IQuery<PagedList<ReviewResponse>>;
 }

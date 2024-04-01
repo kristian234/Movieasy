@@ -17,5 +17,7 @@ namespace Movieasy.Domain.Reviews
 
             return new Rating(value);
         }
+
+        public static implicit operator int(Rating rating) => rating.Value;
     }
 }

@@ -21,15 +21,22 @@ namespace Movieasy.Application.Reviews.GetReview
         {
             IQueryable<Review> reviewsQuery = _context.Reviews;
 
+            if (request.Rating != null)
+            {
+                reviewsQuery = reviewsQuery.Where(r =>
+                    ((int)r.Rating) == request.Rating);
+            }
+
             var reviewResponseQuery = reviewsQuery
+                .Where(r => r.MovieId == request.MovieId)
                 .Include(r => r.User)
                 .Select(r => new ReviewResponse()
                 {
                     Id = r.Id.ToString(),
                     Comment = r.Comment.Value,
-                    ReviewerName = $"{r.User.FirstName} {r.User.LastName}",
+                    ReviewerName = $"{r.User.FirstName.Value} {r.User.LastName.Value}",
                     Rating = r.Rating.Value,
-                    CreatedOnDate = r.CreatedOnUtc.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)
+                    CreatedOnDate = r.CreatedOnUtc.ToString("d", CultureInfo.InvariantCulture)
                 })
                 .AsNoTracking();
 

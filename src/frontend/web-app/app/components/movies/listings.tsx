@@ -24,7 +24,7 @@ export default function Listings() {
 
     const url = qs.stringifyUrl({ url: '', query: params })
 
-    const urlm = "https://cdn.pixabay.com/photo/2023/11/09/19/36/zoo-8378189_1280.jpg";
+    //const urlm = "https://cdn.pixabay.com/photo/2023/11/09/19/36/zoo-8378189_1280.jpg";
 
     function setPageNumber(pageNumber: number) {
         setParams({ pageNumber });

@@ -37,13 +37,15 @@ namespace Movieasy.Api.Controllers.Reviews
         public async Task<IActionResult> GetReviews(
             Guid movieId,
             CancellationToken cancellationToken,
+            int? rating,
             int pageNumber = 1,
             int pageSize = 12)
         {
             var query = new GetReviewsQuery(
                 movieId,
                 pageNumber,
-                pageSize);
+                pageSize,
+                rating);
 
             Result<PagedList<ReviewResponse>> result = await _sender.Send(query, cancellationToken);
 
