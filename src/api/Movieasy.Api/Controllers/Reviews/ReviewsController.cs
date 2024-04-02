@@ -5,6 +5,7 @@ using Movieasy.Application.Movies.GetMovie;
 using Movieasy.Application.Reviews.AddReview;
 using Movieasy.Application.Reviews.GetReview;
 using Movieasy.Application.Reviews.GetReviewById;
+using Movieasy.Application.Reviews.GetReviewSummary;
 using Movieasy.Domain.Abstractions;
 
 namespace Movieasy.Api.Controllers.Reviews
@@ -33,11 +34,24 @@ namespace Movieasy.Api.Controllers.Reviews
             return result.IsSuccess ? Ok(result.Value) : NotFound();
         }
 
+        [HttpGet("summary/{id}")]
+        public async Task<IActionResult> GetReviewSummary(
+            Guid id,
+            CancellationToken cancellationToken)
+        {
+            var query = new GetReviewSummaryQuery(id);
+
+            Result<ReviewSummaryResponse> result = await _sender.Send(query, cancellationToken);
+
+            return result.IsSuccess ? Ok(result.Value) : NotFound();
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetReviews(
             Guid movieId,
             CancellationToken cancellationToken,
             int? rating,
+            string? sortTerm,
             int pageNumber = 1,
             int pageSize = 12)
         {
@@ -45,7 +59,8 @@ namespace Movieasy.Api.Controllers.Reviews
                 movieId,
                 pageNumber,
                 pageSize,
-                rating);
+                rating,
+                sortTerm);
 
             Result<PagedList<ReviewResponse>> result = await _sender.Send(query, cancellationToken);
 

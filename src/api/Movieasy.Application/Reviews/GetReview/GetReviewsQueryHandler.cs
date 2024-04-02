@@ -26,6 +26,15 @@ namespace Movieasy.Application.Reviews.GetReview
                     ((int)r.Rating) == request.Rating);
             }
 
+            IQueryable<Review> sortQuery = request.SortTerm switch
+            {
+                "newest" => reviewsQuery.OrderByDescending(r => r.CreatedOnUtc),
+                "oldest" => reviewsQuery.OrderBy(r => r.CreatedOnUtc),
+                _ => reviewsQuery.OrderByDescending(r => r.Id)
+            };
+
+            reviewsQuery = sortQuery;
+
             var reviewResponseQuery = reviewsQuery
                 .Where(r => r.MovieId == request.MovieId)
                 .Include(r => r.User)

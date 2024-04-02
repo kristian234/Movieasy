@@ -16,7 +16,7 @@ export default function ReviewCard({ review }: Props) {
                 <p className="text-gray-700 cursor-pointer">
                     {review.comment}
                 </p>
-                <p className="text-right text-xs font-semibold text-third">Posted on {new Date(review.createdOnDate).toLocaleString()}</p>
+                <p className="text-right text-xs font-semibold text-third">Posted on {new Date(review.createdOnDate).toLocaleDateString()}</p>
             </div>
         </div>
     )

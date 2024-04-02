@@ -21,7 +21,7 @@ export default function UtilityDropdown({ isAdmin }: Props) {
     const [open, setOpen] = useState(false);
 
     return (
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center  relative z-50">
             <motion.div animate={open ? "open" : "closed"} className="relative">
                 <button
                     onClick={() => setOpen((pv) => !pv)}
@@ -40,12 +40,11 @@ export default function UtilityDropdown({ isAdmin }: Props) {
                     style={{ originY: "top", translateX: "-80%" }}
                     className="flex flex-col gap-2 p-2 rounded-lg bg-header shadow-3xl absolute top-[120%] left-[50%] w-48 overflow-hidden"
                 >
-                    <Option setOpen={setOpen} Icon={IoHomeOutline} text="Home" href="/" />
+                        <Option setOpen={setOpen} Icon={IoHomeOutline} text="Home" href="/" />
 
-                    {isAdmin && (
-                        <Option setOpen={setOpen} Icon={MdOutlineAdminPanelSettings} text="Admin" href="/admin/dashboard" />
-                    )}
-
+                        {isAdmin && (
+                            <Option setOpen={setOpen} Icon={MdOutlineAdminPanelSettings} text="Admin" href="/admin/dashboard" />
+                        )}
                     <hr className="border-0 bg-third w-full h-px bg-dropdown-border" />
                     <Option setOpen={setOpen} Icon={IoLogOutOutline} text="Logout" method={signOut} />
 
@@ -85,7 +84,7 @@ const Option = ({
         >
             {href ? (
                 <Link href={href} className="w-full h-full">
-                    <motion.span variants={actionIconVariants} className="flex items-center gap-2">
+                    <motion.span variants={actionIconVariants} className="flex gap-2 w-full h-full items-center">
                         <Icon />
                         <span>{text}</span>
                     </motion.span>
@@ -97,7 +96,7 @@ const Option = ({
                         <span>{text}</span>
                     </motion.span>
                 ) : (
-                    <motion.span variants={actionIconVariants} className="flex items-center gap-2">
+                    <motion.span variants={actionIconVariants} className="flex h-full w-full items-center gap-2">
                         <Icon />
                         <span>{text}</span>
                     </motion.span>

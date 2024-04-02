@@ -18,6 +18,11 @@ export interface Review{
   createdOnDate: Date
 }
 
+export interface DetailedReviewData{
+  averageRating: number,
+  totalRatings: number
+}
+
 export interface Genre {
   id: string,
   name: string

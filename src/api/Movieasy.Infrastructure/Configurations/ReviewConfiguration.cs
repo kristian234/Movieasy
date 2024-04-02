@@ -29,6 +29,8 @@ namespace Movieasy.Infrastructure.Configurations
                 .HasForeignKey(review => review.UserId);
 
             builder.HasIndex(review => new { review.UserId, review.MovieId }).IsUnique(true);
+
+            builder.HasIndex(review => review.CreatedOnUtc).IsUnique(false); // Because of the order by newest/oldest functionality
         }
     }
 }
