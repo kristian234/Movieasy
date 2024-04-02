@@ -1,6 +1,6 @@
 {
-  "id": "Bookify",
-  "realm": "bookify",
+  "id": "movieasy",
+  "realm": "movieasy",
   "notBefore": 0,
   "defaultSignatureAlgorithm": "RS256",
   "revokeRefreshToken": false,
@@ -9,8 +9,8 @@
   "accessTokenLifespanForImplicitFlow": 900,
   "ssoSessionIdleTimeout": 1800,
   "ssoSessionMaxLifespan": 36000,
-  "ssoSessionIdleTimeoutRememberMe": 0,
-  "ssoSessionMaxLifespanRememberMe": 0,
+  "ssoSessionIdleTimeoutRememberMe": 7200,
+  "ssoSessionMaxLifespanRememberMe": 7200,
   "offlineSessionIdleTimeout": 2592000,
   "offlineSessionMaxLifespanEnabled": false,
   "offlineSessionMaxLifespan": 5184000,
@@ -51,7 +51,7 @@
         "description": "${role_uma_authorization}",
         "composite": false,
         "clientRole": false,
-        "containerId": "Bookify",
+        "containerId": "movieasy",
         "attributes": {}
       },
       {
@@ -72,7 +72,7 @@
           }
         },
         "clientRole": false,
-        "containerId": "Bookify",
+        "containerId": "movieasy",
         "attributes": {}
       },
       {
@@ -81,7 +81,7 @@
         "description": "${role_offline-access}",
         "composite": false,
         "clientRole": false,
-        "containerId": "Bookify",
+        "containerId": "movieasy",
         "attributes": {}
       }
     ],
@@ -254,22 +254,22 @@
           "composites": {
             "client": {
               "realm-management": [
-                "manage-events",
                 "impersonation",
+                "manage-events",
                 "query-groups",
                 "view-realm",
                 "query-realms",
                 "manage-realm",
-                "view-authorization",
                 "manage-authorization",
+                "view-authorization",
                 "manage-clients",
                 "manage-identity-providers",
                 "create-client",
                 "view-users",
                 "query-clients",
                 "view-clients",
-                "view-identity-providers",
                 "query-users",
+                "view-identity-providers",
                 "manage-users",
                 "view-events"
               ]
@@ -298,10 +298,10 @@
           "attributes": {}
         }
       ],
+      "movieasy-admin-client": [],
+      "movieasy-auth-client": [],
       "security-admin-console": [],
-      "bookify-auth-client": [],
       "admin-cli": [],
-      "bookify-admin-client": [],
       "account-console": [],
       "broker": [
         {
@@ -402,7 +402,7 @@
     "description": "${role_default-roles}",
     "composite": true,
     "clientRole": false,
-    "containerId": "Bookify"
+    "containerId": "movieasy"
   },
   "requiredCredentials": [
     "password"
@@ -445,11 +445,11 @@
     {
       "id": "3538994f-b095-45f6-8f98-a95dd61b84c1",
       "createdTimestamp": 1689227091368,
-      "username": "service-account-bookify-admin-client",
+      "username": "service-account-movieasy-admin-client",
       "enabled": true,
       "totp": false,
       "emailVerified": false,
-      "serviceAccountClientId": "bookify-admin-client",
+      "serviceAccountClientId": "movieasy-admin-client",
       "disableableCredentialTypes": [],
       "requiredActions": [],
       "realmRoles": [
@@ -615,15 +615,52 @@
       ]
     },
     {
+      "id": "4bbd22e5-1ca4-46e7-b5b5-067ca4ef355a",
+      "clientId": "broker",
+      "name": "${client_broker}",
+      "surrogateAuthRequired": false,
+      "enabled": true,
+      "alwaysDisplayInConsole": false,
+      "clientAuthenticatorType": "client-secret",
+      "redirectUris": [],
+      "webOrigins": [],
+      "notBefore": 0,
+      "bearerOnly": true,
+      "consentRequired": false,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+      "publicClient": false,
+      "frontchannelLogout": false,
+      "protocol": "openid-connect",
+      "attributes": {},
+      "authenticationFlowBindingOverrides": {},
+      "fullScopeAllowed": false,
+      "nodeReRegistrationTimeout": 0,
+      "defaultClientScopes": [
+        "web-origins",
+        "roles",
+        "profile",
+        "email"
+      ],
+      "optionalClientScopes": [
+        "address",
+        "phone",
+        "offline_access",
+        "microprofile-jwt"
+      ]
+    },
+    {
       "id": "c6bfa492-b859-47b2-96e0-18b0ad6c9b6d",
-      "clientId": "bookify-admin-client",
+      "clientId": "movieasy-admin-client",
       "rootUrl": "http://localhost:18080/",
       "adminUrl": "http://localhost:18080/",
       "surrogateAuthRequired": false,
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
-      "secret": "UZDmbNxWmV4TlpaCRcju6pMRsyuV3er1",
+      "secret": "**********",
       "redirectUris": [
         "http://localhost:18080/*"
       ],
@@ -666,7 +703,7 @@
         "saml.onetimeuse.condition": "false"
       },
       "authenticationFlowBindingOverrides": {
-        "direct_grant": "096d742b-9e85-42cc-bcac-76d49316fbf2"
+        "direct_grant": "89932061-2e52-4301-9b22-5453cd1bc772"
       },
       "fullScopeAllowed": true,
       "nodeReRegistrationTimeout": -1,
@@ -679,6 +716,7 @@
           "consentRequired": false,
           "config": {
             "user.session.note": "clientId",
+            "userinfo.token.claim": "true",
             "id.token.claim": "true",
             "access.token.claim": "true",
             "claim.name": "clientId",
@@ -693,6 +731,7 @@
           "consentRequired": false,
           "config": {
             "user.session.note": "clientAddress",
+            "userinfo.token.claim": "true",
             "id.token.claim": "true",
             "access.token.claim": "true",
             "claim.name": "clientAddress",
@@ -707,6 +746,7 @@
           "consentRequired": false,
           "config": {
             "user.session.note": "clientHost",
+            "userinfo.token.claim": "true",
             "id.token.claim": "true",
             "access.token.claim": "true",
             "claim.name": "clientHost",
@@ -729,13 +769,13 @@
     },
     {
       "id": "59327369-c4e0-4354-9de4-3194af25fd9d",
-      "clientId": "bookify-auth-client",
+      "clientId": "movieasy-auth-client",
       "rootUrl": "http://localhost:18080/",
       "surrogateAuthRequired": false,
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
-      "secret": "3E3yvXaYppoYBF3Ir6DgtEzADKKzSurZ",
+      "secret": "**********",
       "redirectUris": [],
       "webOrigins": [],
       "notBefore": 0,
@@ -774,48 +814,11 @@
         "saml.onetimeuse.condition": "false"
       },
       "authenticationFlowBindingOverrides": {
-        "direct_grant": "096d742b-9e85-42cc-bcac-76d49316fbf2",
-        "browser": "8bc20504-4740-4115-93a6-ee7b403391f6"
+        "direct_grant": "89932061-2e52-4301-9b22-5453cd1bc772",
+        "browser": "bfeed9fe-c502-4c1b-b54c-821e343c07a2"
       },
       "fullScopeAllowed": true,
       "nodeReRegistrationTimeout": -1,
-      "defaultClientScopes": [
-        "web-origins",
-        "roles",
-        "profile",
-        "email"
-      ],
-      "optionalClientScopes": [
-        "address",
-        "phone",
-        "offline_access",
-        "microprofile-jwt"
-      ]
-    },
-    {
-      "id": "4bbd22e5-1ca4-46e7-b5b5-067ca4ef355a",
-      "clientId": "broker",
-      "name": "${client_broker}",
-      "surrogateAuthRequired": false,
-      "enabled": true,
-      "alwaysDisplayInConsole": false,
-      "clientAuthenticatorType": "client-secret",
-      "redirectUris": [],
-      "webOrigins": [],
-      "notBefore": 0,
-      "bearerOnly": true,
-      "consentRequired": false,
-      "standardFlowEnabled": true,
-      "implicitFlowEnabled": false,
-      "directAccessGrantsEnabled": false,
-      "serviceAccountsEnabled": false,
-      "publicClient": false,
-      "frontchannelLogout": false,
-      "protocol": "openid-connect",
-      "attributes": {},
-      "authenticationFlowBindingOverrides": {},
-      "fullScopeAllowed": false,
-      "nodeReRegistrationTimeout": 0,
       "defaultClientScopes": [
         "web-origins",
         "roles",
@@ -1153,6 +1156,7 @@
           "consentRequired": false,
           "config": {
             "multivalued": "true",
+            "userinfo.token.claim": "true",
             "user.attribute": "foo",
             "id.token.claim": "true",
             "access.token.claim": "true",
@@ -1449,49 +1453,6 @@
   "components": {
     "org.keycloak.services.clientregistration.policy.ClientRegistrationPolicy": [
       {
-        "id": "e4199f80-cb97-4f42-b622-ed1cef6fab1b",
-        "name": "Max Clients Limit",
-        "providerId": "max-clients",
-        "subType": "anonymous",
-        "subComponents": {},
-        "config": {
-          "max-clients": [
-            "200"
-          ]
-        }
-      },
-      {
-        "id": "ac600cf8-b781-4c9a-bdc4-fbed18b830a0",
-        "name": "Allowed Protocol Mapper Types",
-        "providerId": "allowed-protocol-mappers",
-        "subType": "authenticated",
-        "subComponents": {},
-        "config": {
-          "allowed-protocol-mapper-types": [
-            "saml-user-attribute-mapper",
-            "saml-role-list-mapper",
-            "oidc-usermodel-attribute-mapper",
-            "oidc-full-name-mapper",
-            "oidc-usermodel-property-mapper",
-            "oidc-address-mapper",
-            "saml-user-property-mapper",
-            "oidc-sha256-pairwise-sub-mapper"
-          ]
-        }
-      },
-      {
-        "id": "c04eb674-b0ef-4703-8894-dfd70439656f",
-        "name": "Allowed Client Scopes",
-        "providerId": "allowed-client-templates",
-        "subType": "authenticated",
-        "subComponents": {},
-        "config": {
-          "allow-default-scopes": [
-            "true"
-          ]
-        }
-      },
-      {
         "id": "edd4c8d4-215d-4120-8db8-251534ffe5ab",
         "name": "Allowed Client Scopes",
         "providerId": "allowed-client-templates",
@@ -1520,13 +1481,13 @@
         "config": {
           "allowed-protocol-mapper-types": [
             "saml-user-property-mapper",
-            "saml-role-list-mapper",
-            "oidc-address-mapper",
-            "saml-user-attribute-mapper",
-            "oidc-sha256-pairwise-sub-mapper",
             "oidc-usermodel-attribute-mapper",
             "oidc-usermodel-property-mapper",
-            "oidc-full-name-mapper"
+            "oidc-sha256-pairwise-sub-mapper",
+            "oidc-full-name-mapper",
+            "saml-user-attribute-mapper",
+            "saml-role-list-mapper",
+            "oidc-address-mapper"
           ]
         }
       },
@@ -1537,6 +1498,18 @@
         "subType": "anonymous",
         "subComponents": {},
         "config": {}
+      },
+      {
+        "id": "e4199f80-cb97-4f42-b622-ed1cef6fab1b",
+        "name": "Max Clients Limit",
+        "providerId": "max-clients",
+        "subType": "anonymous",
+        "subComponents": {},
+        "config": {
+          "max-clients": [
+            "200"
+          ]
+        }
       },
       {
         "id": "228613e8-2ec8-428b-a58f-94b92cf7fe49",
@@ -1552,14 +1525,37 @@
             "true"
           ]
         }
-      }
-    ],
-    "org.keycloak.userprofile.UserProfileProvider": [
+      },
       {
-        "id": "eb5fced0-353c-4195-aa79-73a625ae13e8",
-        "providerId": "declarative-user-profile",
+        "id": "ac600cf8-b781-4c9a-bdc4-fbed18b830a0",
+        "name": "Allowed Protocol Mapper Types",
+        "providerId": "allowed-protocol-mappers",
+        "subType": "authenticated",
         "subComponents": {},
-        "config": {}
+        "config": {
+          "allowed-protocol-mapper-types": [
+            "oidc-address-mapper",
+            "oidc-usermodel-property-mapper",
+            "oidc-full-name-mapper",
+            "oidc-sha256-pairwise-sub-mapper",
+            "saml-user-attribute-mapper",
+            "oidc-usermodel-attribute-mapper",
+            "saml-role-list-mapper",
+            "saml-user-property-mapper"
+          ]
+        }
+      },
+      {
+        "id": "c04eb674-b0ef-4703-8894-dfd70439656f",
+        "name": "Allowed Client Scopes",
+        "providerId": "allowed-client-templates",
+        "subType": "authenticated",
+        "subComponents": {},
+        "config": {
+          "allow-default-scopes": [
+            "true"
+          ]
+        }
       }
     ],
     "org.keycloak.keys.KeyProvider": [
@@ -1619,7 +1615,7 @@
   "supportedLocales": [],
   "authenticationFlows": [
     {
-      "id": "3788a4eb-9d77-495a-b8b5-fac69d07a4c1",
+      "id": "bb89084a-50f3-4d44-8ad7-b66c3666a7cd",
       "alias": "Account verification options",
       "description": "Method with which to verity the existing account",
       "providerId": "basic-flow",
@@ -1645,7 +1641,7 @@
       ]
     },
     {
-      "id": "02b8a613-32a6-46bd-a330-e278ddecaf7a",
+      "id": "0a85d3a4-7b12-4c55-a13b-efcae7562eb3",
       "alias": "Authentication Options",
       "description": "Authentication options.",
       "providerId": "basic-flow",
@@ -1679,7 +1675,7 @@
       ]
     },
     {
-      "id": "c186a253-6710-4431-9201-690248237d50",
+      "id": "64f406fd-ff3f-48f9-83d5-bf4ea3280e1b",
       "alias": "Browser - Conditional OTP",
       "description": "Flow to determine if the OTP is required for the authentication",
       "providerId": "basic-flow",
@@ -1705,7 +1701,7 @@
       ]
     },
     {
-      "id": "84033a16-0091-43be-818a-d8f3486fd325",
+      "id": "726048b0-91a7-4b2f-9a17-49e359235560",
       "alias": "Direct Grant - Conditional OTP",
       "description": "Flow to determine if the OTP is required for the authentication",
       "providerId": "basic-flow",
@@ -1731,7 +1727,7 @@
       ]
     },
     {
-      "id": "c83bb832-45b4-41db-a61c-88ae26e0b778",
+      "id": "1c84c4e6-8033-4765-bdfc-dc1004699708",
       "alias": "First broker login - Conditional OTP",
       "description": "Flow to determine if the OTP is required for the authentication",
       "providerId": "basic-flow",
@@ -1757,7 +1753,7 @@
       ]
     },
     {
-      "id": "d2e8d6ed-e69e-405f-8636-d7b6061f57fc",
+      "id": "6e23ce4e-4d7d-4c27-8654-190ba74f9d61",
       "alias": "Handle Existing Account",
       "description": "Handle what to do if there is existing account with same email/username like authenticated identity provider",
       "providerId": "basic-flow",
@@ -1783,7 +1779,7 @@
       ]
     },
     {
-      "id": "37951745-581f-414b-8c5e-8663bfa8451c",
+      "id": "3c7665ca-0cc6-40c2-85ba-0c2887ae0ea6",
       "alias": "Reset - Conditional OTP",
       "description": "Flow to determine if the OTP should be reset or not. Set to REQUIRED to force.",
       "providerId": "basic-flow",
@@ -1809,7 +1805,7 @@
       ]
     },
     {
-      "id": "abe06f6d-303a-4050-a552-3cec54bd339e",
+      "id": "dbb04a6e-f1b4-4483-a181-bf5630616c42",
       "alias": "User creation or linking",
       "description": "Flow for the existing/non-existing user alternatives",
       "providerId": "basic-flow",
@@ -1836,7 +1832,7 @@
       ]
     },
     {
-      "id": "8ae7e04b-9c8c-4057-a394-78ebb3da0c72",
+      "id": "c7a34857-1415-4ecc-8667-582e8d3682ff",
       "alias": "Verify Existing Account by Re-authentication",
       "description": "Reauthentication of existing account",
       "providerId": "basic-flow",
@@ -1862,7 +1858,7 @@
       ]
     },
     {
-      "id": "8bc20504-4740-4115-93a6-ee7b403391f6",
+      "id": "bfeed9fe-c502-4c1b-b54c-821e343c07a2",
       "alias": "browser",
       "description": "browser based authentication",
       "providerId": "basic-flow",
@@ -1904,7 +1900,7 @@
       ]
     },
     {
-      "id": "15c1fc19-5ecb-410f-a074-6517945f650a",
+      "id": "0d9b7603-fbc3-4d3b-bac3-ca5490cdf3f0",
       "alias": "clients",
       "description": "Base authentication for clients",
       "providerId": "client-flow",
@@ -1946,7 +1942,7 @@
       ]
     },
     {
-      "id": "096d742b-9e85-42cc-bcac-76d49316fbf2",
+      "id": "89932061-2e52-4301-9b22-5453cd1bc772",
       "alias": "direct grant",
       "description": "OpenID Connect Resource Owner Grant",
       "providerId": "basic-flow",
@@ -1980,7 +1976,7 @@
       ]
     },
     {
-      "id": "892aeb02-bf02-49eb-a6f2-71f045dfe2b6",
+      "id": "80cd07f5-0f5e-403f-b734-1277e1f59e57",
       "alias": "docker auth",
       "description": "Used by Docker clients to authenticate against the IDP",
       "providerId": "basic-flow",
@@ -1998,7 +1994,7 @@
       ]
     },
     {
-      "id": "e9eba6bb-b370-4871-81c9-088a207cf231",
+      "id": "1d31d119-f2cf-4a9f-aadb-1f8f681b719f",
       "alias": "first broker login",
       "description": "Actions taken after first broker login with identity provider account, which is not yet linked to any Keycloak account",
       "providerId": "basic-flow",
@@ -2025,7 +2021,7 @@
       ]
     },
     {
-      "id": "fa7e2309-6240-45ec-aa74-d146696182cc",
+      "id": "03d29658-8dbf-4181-866b-e6ba931c5caf",
       "alias": "forms",
       "description": "Username, password, otp and other auth forms.",
       "providerId": "basic-flow",
@@ -2051,7 +2047,7 @@
       ]
     },
     {
-      "id": "38df2853-0a89-4041-bfab-40e13ee2cc97",
+      "id": "454e7e84-b41f-4136-bb6f-30927f4e6a73",
       "alias": "http challenge",
       "description": "An authentication flow based on challenge-response HTTP Authentication Schemes",
       "providerId": "basic-flow",
@@ -2077,7 +2073,7 @@
       ]
     },
     {
-      "id": "2c7dc3b8-f22a-46fc-9fe9-277fb15aab26",
+      "id": "6b9c874c-40b4-496b-b8ed-276d62f42915",
       "alias": "registration",
       "description": "registration flow",
       "providerId": "basic-flow",
@@ -2096,7 +2092,7 @@
       ]
     },
     {
-      "id": "f0677bbf-7160-468b-a62a-04e9834ae431",
+      "id": "8d08aa3e-f83a-48ba-b04f-349b8f95b267",
       "alias": "registration form",
       "description": "registration form",
       "providerId": "form-flow",
@@ -2138,7 +2134,7 @@
       ]
     },
     {
-      "id": "b377da26-bda6-4b6a-88aa-2b27981e8cfa",
+      "id": "fee977a0-7f99-4b56-bf1c-2f4490b118d3",
       "alias": "reset credentials",
       "description": "Reset credentials for a user if they forgot their password or something",
       "providerId": "basic-flow",
@@ -2180,7 +2176,7 @@
       ]
     },
     {
-      "id": "f475168e-2802-4ca2-af99-1681c64b7a9b",
+      "id": "17e061ba-12b0-47a6-a887-3d0482c64d2d",
       "alias": "saml ecp",
       "description": "SAML ECP Profile Authentication Flow",
       "providerId": "basic-flow",
@@ -2200,14 +2196,14 @@
   ],
   "authenticatorConfig": [
     {
-      "id": "ee26a5e6-6660-4083-8f15-9ac2f4daaee8",
+      "id": "dd20c834-6302-42a3-b985-f2af879fe29b",
       "alias": "create unique user config",
       "config": {
         "require.password.update.after.registration": "false"
       }
     },
     {
-      "id": "c6ad07a6-1e97-498a-a0ed-4dfa0628539b",
+      "id": "63dcbf36-ea5b-4c81-aa86-b098204bb2b9",
       "alias": "review profile config",
       "config": {
         "update.profile.on.first.login": "missing"
@@ -2290,8 +2286,8 @@
     "cibaExpiresIn": "120",
     "cibaAuthRequestedUserHint": "login_hint",
     "oauth2DeviceCodeLifespan": "600",
-    "oauth2DevicePollingInterval": "5",
     "clientOfflineSessionMaxLifespan": "0",
+    "oauth2DevicePollingInterval": "5",
     "clientSessionIdleTimeout": "0",
     "userProfileEnabled": "false",
     "parRequestUriLifespan": "60",
