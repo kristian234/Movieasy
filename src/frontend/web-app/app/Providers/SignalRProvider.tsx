@@ -4,16 +4,17 @@ import { useEffect, useState } from 'react';
 import * as signalR from '@microsoft/signalr';
 import { Movie } from '@/types';
 import { toast } from 'react-toastify';
+import MovieCreatedToast from '../components/movies/movie-created-toast';
 
-interface Props{
+interface Props {
     jwt: string
 }
 
-export default function SignalRComponent({jwt} : Props) {
+export default function SignalRComponent({ jwt }: Props) {
     const [connection, setConnection] = useState<signalR.HubConnection | null>(null);
 
     const handleNewMovieRelease = (movie: Movie) => {
-        toast("NEW MOVIE NEW MOVIE");
+        return toast(<MovieCreatedToast movie={movie} />);
     };
 
     useEffect(() => {
@@ -34,12 +35,14 @@ export default function SignalRComponent({jwt} : Props) {
         if (connection) {
             connection.start()
                 .then(() => {
+                    connection.invoke("JoinMainPageGroup")
                     connection.on("ReceiveNewMovieRelease", handleNewMovieRelease);
                 }).catch(error => console.log(error))
         }
 
         return () => {
-            connection?.stop()
+            connection?.invoke("LeaveMainPageGroup")
+                .then(() => connection.stop())
         }
     }, [connection])
 
