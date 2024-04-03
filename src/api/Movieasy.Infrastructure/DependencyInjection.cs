@@ -24,6 +24,9 @@ using Movieasy.Application.Abstractions.Photos;
 using Movieasy.Infrastructure.Photos;
 using Movieasy.Domain.Photos;
 using Movieasy.Domain.Genres;
+using Movieasy.Application.Abstractions.SignalR;
+using Movieasy.Infrastructure.SignalR;
+using CloudinaryDotNet.Core;
 
 namespace Movieasy.Infrastructure
 {
@@ -43,6 +46,8 @@ namespace Movieasy.Infrastructure
 
             AddAuthorization(services);
 
+            AddSignalR(services);
+
             return services;
         }
 
@@ -50,7 +55,24 @@ namespace Movieasy.Infrastructure
         {
             services
             .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer();
+            .AddJwtBearer(options =>
+            {
+                options.Events = new JwtBearerEvents() // A bit ugly, but removing it out of here would be even uglier
+                {                                         // consider moving this outside if more than 1 event
+                    OnMessageReceived = context =>
+                    {
+                        var accessToken = context.Request.Query["access_token"];
+                        var path = context.HttpContext.Request.Path;
+
+                        if(!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/notificationHub"))
+                        {
+                            context.Token = accessToken;
+                        }
+
+                        return Task.CompletedTask;
+                    }
+                };
+            });
 
             services.Configure<AuthenticationOptions>(configuration.GetSection("Authentication"));
 
@@ -116,6 +138,13 @@ namespace Movieasy.Infrastructure
             services.AddScoped<AuthorizationService>();
 
             services.AddTransient<IClaimsTransformation, CustomClaimsTransformation>();
+        }
+
+        private static void AddSignalR(IServiceCollection services)
+        {
+            services.AddSignalR();
+
+            services.AddSingleton<INotificationService, NotificationService>();
         }
     }
 }

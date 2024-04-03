@@ -1,6 +1,7 @@
 using Movieasy.Api.Extensions;
 using Movieasy.Application;
 using Movieasy.Infrastructure;
+using Movieasy.Infrastructure.SignalR;
 
 namespace Movieasy.Api
 {
@@ -30,10 +31,9 @@ namespace Movieasy.Api
 
                 app.ApplyMigrations();
             }
-
-            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000"));
-
             app.UseHttpsRedirection();
+
+            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("https://localhost:3000"));
 
             app.UseCustomExceptionHandler();
 
@@ -42,6 +42,8 @@ namespace Movieasy.Api
             app.UseAuthorization();
 
             app.MapControllers();
+
+            app.MapHub<NotificationHub>("/notificationHub");
 
             app.Run();
         }

@@ -1,5 +1,6 @@
 ﻿using Movieasy.Domain.Abstractions;
 using Movieasy.Domain.Genres;
+using Movieasy.Domain.Movies.Events;
 using Movieasy.Domain.Photos;
 
 namespace Movieasy.Domain.Movies
@@ -63,6 +64,8 @@ namespace Movieasy.Domain.Movies
                 duration,
                 uploadDate,
                 releaseDate);
+
+            movie.RaiseDomainEvent(new MovieCreatedDomainEvent(movie.Id));
 
             return movie;
         }
