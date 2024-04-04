@@ -62,11 +62,13 @@ namespace Movieasy.Application.Movies.AddMovie
             Title movieTitle = new Title(request.Title);
             Description movieDescription = new Description(request.Description);
             Rating movieRating = (Rating)request.Rating;
+            Trailer trailer = new Trailer(request.TrailerUrl);
 
             Movie movie = Movie.Create(
                 movieTitle,
                 movieDescription,
                 movieRating,
+                trailer,
                 movieDuration.Value,
                 _dateTimeProvider.UtcNow,
                 moviePhoto,

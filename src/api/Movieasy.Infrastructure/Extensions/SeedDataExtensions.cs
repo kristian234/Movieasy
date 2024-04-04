@@ -35,7 +35,8 @@ namespace Movieasy.Api.Extensions
                     duration: Duration.Create(faker.Random.Double(1, 120)).Value,
                     uploadDate: faker.Date.Between(new DateTime(2012, 1, 1).ToUniversalTime(), new DateTime(2024, 12, 12).ToUniversalTime()),
                     releaseDate: faker.Date.BetweenDateOnly(new DateOnly(2012, 1, 1), new DateOnly(2024, 12, 12)),
-                    photo: photo
+                    photo: photo,
+                    trailer: new Trailer("https://www.youtube.com/watch?v=mqqft2x_Aa4")
                     ));
             }
 

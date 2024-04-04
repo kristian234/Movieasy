@@ -12,6 +12,7 @@ namespace Movieasy.Domain.Movies
             Guid photoId,
             Title title,
             Description description,
+            Trailer trailer,
             Rating rating,
             Duration duration,
             DateTime uploadDate,
@@ -27,6 +28,7 @@ namespace Movieasy.Domain.Movies
             UploadDate = uploadDate;
             PhotoId = photoId;
             ReleaseDate = releaseDate;
+            Trailer = trailer;
         }
 
         public Title Title { get; private set; }
@@ -37,6 +39,7 @@ namespace Movieasy.Domain.Movies
 
         public DateOnly? ReleaseDate { get; internal set; }
         public Rating Rating { get; private set; }
+        public Trailer Trailer { get; private set; }
 
         private List<Genre> _genres = new List<Genre>();
         public IReadOnlyCollection<Genre> Genres => _genres.AsReadOnly();
@@ -50,6 +53,7 @@ namespace Movieasy.Domain.Movies
             Title title,
             Description description,
             Rating rating,
+            Trailer trailer,
             Duration duration,
             DateTime uploadDate,
             Photo photo,
@@ -60,6 +64,7 @@ namespace Movieasy.Domain.Movies
                 photo.Id,
                 title,
                 description,
+                trailer,
                 rating,
                 duration,
                 uploadDate,
@@ -70,7 +75,7 @@ namespace Movieasy.Domain.Movies
             return movie;
         }
 
-        public Result Update(string title, string description, int rating, double duration, DateOnly? releaseDate)
+        public Result Update(string title, string description, int rating, double duration, string trailer, DateOnly? releaseDate)
         {
             Result<Duration> newDuration = Duration.Create(duration);
             if (newDuration.IsFailure)
@@ -81,12 +86,14 @@ namespace Movieasy.Domain.Movies
             Title newTitle = new Title(title);
             Description newDescription = new Description(description);
             Rating newRating = (Rating)rating;
+            Trailer newTrailer = new Trailer(trailer);
 
             Title = newTitle;
             Description = newDescription;
             Rating = newRating;
             Duration = newDuration.Value;
             ReleaseDate = releaseDate;
+            Trailer = newTrailer;
 
             return Result.Success();
         }

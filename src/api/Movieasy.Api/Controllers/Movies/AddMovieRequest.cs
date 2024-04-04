@@ -3,6 +3,7 @@
     public sealed record AddMovieRequest(
         string Title,
         string Description,
+        string TrailerUrl,
         int Rating,
         DateOnly? ReleaseDate,
         double Duration,

@@ -7,6 +7,7 @@ namespace Movieasy.Application.Movies.UpdateMovie
         Guid MovieId,
         string Title,
         string Description,
+        string TrailerUrl,
         int Rating,
         DateOnly? ReleaseDate,
         double Duration,

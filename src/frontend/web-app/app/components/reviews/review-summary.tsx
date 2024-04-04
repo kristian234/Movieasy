@@ -2,7 +2,7 @@
 
 import { getDetailedReviewData } from "@/app/actions/review-actions";
 import { DetailedReviewData } from "@/types";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import ReviewRating from "./review-rating";
 
@@ -19,7 +19,6 @@ export default function ReviewSummary({ movieId }: Props) {
             const response = await getDetailedReviewData(movieId);
 
             if ((response as any).error) {
-                toast.error((response as any).error.message);
                 setIsLoading(false);
                 return;
             }
@@ -36,11 +35,13 @@ export default function ReviewSummary({ movieId }: Props) {
     }
 
     return (
-        <div>
-            <h1 className="font-semibold text-2xl text-secondary">{data?.averageRating.toFixed(2)}</h1>
-            <div>
+        <div className="">
+            <div className="text-center">
+                <h1 className="font-semibold text-2xl text-secondary justify-center items-center">{data?.averageRating.toFixed(2) || 'None'}</h1>
+            </div>
+            <div className="text-center">
                 <ReviewRating readonly={true} value={data?.averageRating || 0} />
-                <h2 className="font-semibold text-1xl text-secondary">{data?.totalRatings} total</h2>
+                <h2 className="font-semibold text-1xl text-secondary">{data?.totalRatings ? `${data.totalRatings} total reviews` : 'No reviews'}</h2>
             </div>
         </div>
     )

@@ -1,11 +1,10 @@
-﻿using Movieasy.Domain.Photos;
-
-namespace Movieasy.Api.Controllers.Movies
+﻿namespace Movieasy.Api.Controllers.Movies
 {
     public sealed record UpdateMovieRequest(
         Guid MovieId,
         string Title,
         string Description,
+        string TrailerUrl,
         int Rating,
         DateOnly? ReleaseDate,
         double Duration,

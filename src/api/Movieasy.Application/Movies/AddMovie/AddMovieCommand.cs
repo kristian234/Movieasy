@@ -6,6 +6,7 @@ namespace Movieasy.Application.Movies.AddMovie
     public record AddMovieCommand(
         string Title,
         string Description,
+        string TrailerUrl,
         int Rating,
         DateOnly? ReleaseDate,
         double Duration,

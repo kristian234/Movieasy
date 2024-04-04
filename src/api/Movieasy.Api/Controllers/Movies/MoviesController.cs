@@ -58,6 +58,7 @@ namespace Movieasy.Api.Controllers.Movies
             var command = new AddMovieCommand(
                 request.Title,
                 request.Description,
+                request.TrailerUrl,
                 request.Rating,
                 request.ReleaseDate,
                 request.Duration,
@@ -84,6 +85,7 @@ namespace Movieasy.Api.Controllers.Movies
                 request.MovieId,
                 request.Title,
                 request.Description,
+                request.TrailerUrl,
                 request.Rating,
                 request.ReleaseDate,
                 request.Duration,

@@ -34,7 +34,7 @@ services:
     - PROXY_ADDRESS_FORWARDING=true
     volumes:
     - ./.containers/identity:/opt/keycloak/data
-    - ./.files/movieasy-realm-export.json:/opt/keycloak/data/import/realm.json
+    - ./.files/movieasy-realm-export-final.json:/opt/keycloak/data/import/realm.json
     ports:
     - 18080:8080
     depends_on:

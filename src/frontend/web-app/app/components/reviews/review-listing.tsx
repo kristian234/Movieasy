@@ -51,7 +51,6 @@ export default function ReviewListing({ movieId }: Props) {
             const response = await getReviews(url);
 
             if ((response as any).error) {
-                toast.error((response as any).error.message);
                 setIsLoading(false);
                 return;
             }

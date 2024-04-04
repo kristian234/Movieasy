@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Movieasy.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240401135332_NewStuff")]
-    partial class NewStuff
+    [Migration("20240404054517_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -102,6 +102,12 @@ namespace Movieasy.Infrastructure.Migrations
                         .HasColumnType("character varying(200)")
                         .HasColumnName("title");
 
+                    b.Property<string>("Trailer")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)")
+                        .HasColumnName("trailer");
+
                     b.Property<DateTime>("UploadDate")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("upload_date");
@@ -170,6 +176,9 @@ namespace Movieasy.Infrastructure.Migrations
 
                     b.HasKey("Id")
                         .HasName("pk_reviews");
+
+                    b.HasIndex("CreatedOnUtc")
+                        .HasDatabaseName("ix_reviews_created_on_utc");
 
                     b.HasIndex("MovieId")
                         .HasDatabaseName("ix_reviews_movie_id");

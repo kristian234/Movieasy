@@ -12,7 +12,7 @@ export default function RefreshClientComponent({children} : Props) {
 
     useEffect(() => {
         if (session?.error === "RefreshAccessTokenError") {
-            //console.log("BREOAKFKOAEKOEA" + session?.error)
+            console.log("BREOAKFKOAEKOEA" + session?.error)
             signOut(); // Force sign in to hopefully resolve error
         }
     }, [session]);
