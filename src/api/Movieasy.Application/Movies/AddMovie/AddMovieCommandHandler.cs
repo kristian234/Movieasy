@@ -47,7 +47,7 @@ namespace Movieasy.Application.Movies.AddMovie
                 return Result.Failure<Guid>(GenreErrors.NotFound);
             }
 
-            Result<PhotoUploadResult> result = await _photoAccessor.AddPhoto(request.Photo);
+            Result<PhotoUploadResult> result = await _photoAccessor.AddPhotoAsync(request.Photo);
             if (result.IsFailure)
             {
                 return Result.Failure<Guid>(result.Error);

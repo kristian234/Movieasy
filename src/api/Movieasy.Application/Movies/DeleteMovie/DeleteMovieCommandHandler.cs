@@ -35,7 +35,7 @@ namespace Movieasy.Application.Movies.DeleteMovie
                 return Result.Failure(MovieErrors.NotFound);
             }
 
-            bool result = await _photoAccessor.DeletePhoto(movie.Photo.PublicId.Value);
+            bool result = await _photoAccessor.DeletePhotoAsync(movie.Photo.PublicId.Value);
             if (!result)
             {
                 return Result.Failure(MovieErrors.DeleteFailed);

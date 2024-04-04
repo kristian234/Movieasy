@@ -63,7 +63,7 @@ namespace Movieasy.Application.Movies.UpdateMovie
             }
 
             // Add photo to cloudinary
-            Result<PhotoUploadResult> result = await _photoAccessor.AddPhoto(request.Photo);
+            Result<PhotoUploadResult> result = await _photoAccessor.AddPhotoAsync(request.Photo);
 
             if (result.IsFailure)
             {
@@ -73,7 +73,7 @@ namespace Movieasy.Application.Movies.UpdateMovie
             Photo oldPhoto = movie.Photo;
 
             // Remove old photo from cloudinary
-            bool deleteResult = await _photoAccessor.DeletePhoto(oldPhoto.PublicId.Value);
+            bool deleteResult = await _photoAccessor.DeletePhotoAsync(oldPhoto.PublicId.Value);
             if (!deleteResult)
             {
                 return Result.Failure(MovieErrors.UpdateFailed);

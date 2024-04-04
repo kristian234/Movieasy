@@ -19,4 +19,8 @@
 		<ProjectReference Include="..\Movieasy.Domain\Movieasy.Domain.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+		<InternalsVisibleTo Include="Movieasy.Application.UnitTests"/>
+	</ItemGroup>
+
 </Project>

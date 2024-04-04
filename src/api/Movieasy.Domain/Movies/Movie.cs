@@ -9,7 +9,7 @@ namespace Movieasy.Domain.Movies
     {
         private Movie(
             Guid id,
-            Guid photoId,
+            Photo photo,
             Title title,
             Description description,
             Trailer trailer,
@@ -26,7 +26,8 @@ namespace Movieasy.Domain.Movies
             Rating = rating;
             Duration = duration;
             UploadDate = uploadDate;
-            PhotoId = photoId;
+            PhotoId = photo.Id;
+            Photo = photo;
             ReleaseDate = releaseDate;
             Trailer = trailer;
         }
@@ -61,7 +62,7 @@ namespace Movieasy.Domain.Movies
         {
             Movie movie = new Movie(
                 Guid.NewGuid(),
-                photo.Id,
+                photo,
                 title,
                 description,
                 trailer,

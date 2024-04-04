@@ -4,15 +4,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using Movieasy.Application.Abstractions.Photos;
 using Movieasy.Domain.Abstractions;
+using Movieasy.Domain.Photos;
 
 namespace Movieasy.Infrastructure.Photos
 {
     internal sealed class PhotoAccessor : IPhotoAccessor
     {
-        private static readonly Domain.Abstractions.Error UploadingImageFailed = new(
-           "PhotoAccessor.UploadingImageFailed",
-           "Failed to upload the image");
-
         private readonly Cloudinary _cloudinary;
         private readonly CloudinaryOptions _cloudinaryOptions;
 
@@ -34,9 +31,9 @@ namespace Movieasy.Infrastructure.Photos
             );
         }
 
-        public async Task<Result<PhotoUploadResult>> AddPhoto(IFormFile file)
+        public async Task<Result<PhotoUploadResult>> AddPhotoAsync(IFormFile file)
         {
-            if (file.Length < 0) return Result.Failure<PhotoUploadResult>(UploadingImageFailed);
+            if (file.Length < 0) return Result.Failure<PhotoUploadResult>(PhotoErrors.UploadingImageFailed);
 
             await using var stream = file.OpenReadStream();
             var uploadParams = new ImageUploadParams
@@ -49,7 +46,7 @@ namespace Movieasy.Infrastructure.Photos
 
             if (uploadResult.Error != null)
             {
-                return Result.Failure<PhotoUploadResult>(UploadingImageFailed);       
+                return Result.Failure<PhotoUploadResult>(PhotoErrors.UploadingImageFailed);       
             }
 
             return new PhotoUploadResult(
@@ -57,7 +54,7 @@ namespace Movieasy.Infrastructure.Photos
                 uploadResult.SecureUrl.ToString()); 
         }
 
-        public async Task<bool> DeletePhoto(string publicId)
+        public async Task<bool> DeletePhotoAsync(string publicId)
         {
             var deleteParams = new DeletionParams(publicId);
 

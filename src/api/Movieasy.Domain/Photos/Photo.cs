@@ -1,5 +1,4 @@
 ﻿using Movieasy.Domain.Abstractions;
-using Movieasy.Domain.Movies;
 
 namespace Movieasy.Domain.Photos
 {

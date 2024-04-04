@@ -5,8 +5,8 @@ namespace Movieasy.Application.Abstractions.Photos
 {
     public interface IPhotoAccessor
     {
-        Task<Result<PhotoUploadResult>> AddPhoto(IFormFile file);
+        Task<Result<PhotoUploadResult>> AddPhotoAsync(IFormFile file);
 
-        Task<bool> DeletePhoto(string publicId);
+        Task<bool> DeletePhotoAsync(string publicId);
     }
 }
