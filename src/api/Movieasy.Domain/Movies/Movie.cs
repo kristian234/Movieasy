@@ -7,6 +7,8 @@ namespace Movieasy.Domain.Movies
 {
     public sealed class Movie : Entity
     {
+        private Movie(Guid id) : base(id) { }
+
         private Movie(
             Guid id,
             Photo photo,

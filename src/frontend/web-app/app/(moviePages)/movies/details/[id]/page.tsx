@@ -6,7 +6,6 @@ import Genres from "@/app/components/movies/movieDetails/genres";
 import Rating from "@/app/components/movies/movieDetails/rating";
 import ReleaseDate from "@/app/components/movies/movieDetails/release-date";
 import VideoPlayer from "@/app/components/movies/movieDetails/videoPlayer";
-import ReviewCard from "@/app/components/reviews/review-card";
 import ReviewForm from "@/app/components/reviews/review-form";
 import ShowReviewsButton from "@/app/components/reviews/show-review-button";
 import Link from "next/link";
@@ -47,7 +46,7 @@ export default async function DetailsPage({ params }: { params: { id: string } }
 
 
       <div className="grid md:grid-cols-2 bg-black bg-opacity-15 gap-3  shadow-3xl max-w-4xl mx-auto p-3 rounded-lg  relative">
-        <VideoPlayer imageUrl={movie.imageUrl} videoUrl="https://www.youtube.com/watch?v=mqqft2x_Aa4" />
+        <VideoPlayer imageUrl={movie.imageUrl} videoUrl={movie.trailerUrl} />
 
         <div className="ml-2 relative flex flex-col justify-between ">
           <h2 className="text-3xl font-bold text-third">{movie.title}</h2>
@@ -65,7 +64,7 @@ export default async function DetailsPage({ params }: { params: { id: string } }
             <p className="text-gray-600 font-semibold">{movie.description}</p>
           </div>
 
-          <div className="mt-auto"> {/* Adjusted to move the ReviewForm to the bottom */}
+          <div className="mt-auto">
             <ReviewForm movieId={movie.id} />
           </div>
         </div>

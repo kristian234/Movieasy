@@ -52,7 +52,8 @@ namespace Movieasy.Application.Movies.GetMovie
                     ReleaseDate = m.ReleaseDate.HasValue ?
                         m.ReleaseDate.Value.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)
                         : null,
-                    UploadDate = m.UploadDate.ToString("f", CultureInfo.InvariantCulture), 
+                    UploadDate = m.UploadDate.ToString("f", CultureInfo.InvariantCulture),
+                    TrailerUrl = m.Trailer.Value,
                     ImageUrl = m.Photo.Url.Value,
                 })
                 .AsNoTracking();

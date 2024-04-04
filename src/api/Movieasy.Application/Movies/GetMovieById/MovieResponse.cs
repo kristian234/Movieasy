@@ -12,6 +12,7 @@ namespace Movieasy.Application.Movies.GetMovieById
         public string Rating { get; init; } = string.Empty;
         public double Duration { get; init; }
         public string ImageUrl { get; init; } = string.Empty;
+        public string TrailerUrl { get; init; } = string.Empty;
         public IEnumerable<GenreResponse> Genres { get; init; } = new List<GenreResponse>();
     }
 }

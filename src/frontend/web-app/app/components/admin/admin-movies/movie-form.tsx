@@ -152,6 +152,8 @@ export default function MovieForm({ title, movie }: Props) {
 
 
                         <FileInput {...register('photo')} required={movie == null} name="photo" />
+                        <CustomInput label="Trailer URL" name="trailerUrl" control={control}
+                            rules={{ required: 'Trailer URL is required' }} />
 
                         {movie && (
                             <p className="text-primary font-semibold">This movie currently has a photo, leave to none to not change</p>

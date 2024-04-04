@@ -21,7 +21,7 @@ export default function MovieCard({ movie, isCarousel = false }: Props) {
 
                 {!isCarousel && (
                     <p className="font-semibold text-third text-sm">
-                        Movie<span className="mx-[0.6em] text-[1em]">●</span>2011
+                        Movie<span className="mx-[0.6em] text-[1em]">●</span>{movie.releaseDate ? new Date(movie.releaseDate).getFullYear() : 'TBA'}
                     </p>
                 )}
             </div>

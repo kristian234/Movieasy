@@ -34,6 +34,7 @@ namespace Movieasy.Application.Movies.GetMovieById
                         : null,
                     UploadDate = m.UploadDate.ToString("f", CultureInfo.InvariantCulture),
                     ImageUrl = m.Photo.Url.Value,
+                    TrailerUrl = m.Trailer.Value,
                     Genres = m.Genres.Select(genre => new Genres.GetGenre.GenreResponse()
                     {
                         Id = genre.Id.ToString(),
