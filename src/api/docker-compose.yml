@@ -39,4 +39,20 @@ services:
     - 18080:8080
     depends_on:
     - postgres
- 
+  
+  # next-app:
+  #   image: ${DOCKER_REGISTRY-}next-app
+  #   build:
+  #        context: ../frontend/web-app
+  #        dockerfile: Dockerfile  # Adjusted path
+  #   container_name: nextjs
+  #   volumes:
+  #         - /var/lib/web/data
+  #   ports:
+  #   - 3000:3000
+  #   environment:
+  #   - NEXTAUTH_URL='https://next-app'
+  #   - URL='https://movieasyapi'
+  #   - NODE_TLS_REJECT_UNAUTHORIZED=0
+  #   - NEXTAUTH_SECRET=gogogogogo
+

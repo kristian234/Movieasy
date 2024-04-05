@@ -11,7 +11,7 @@ export async function getDetailedData(id: string) : Promise<Movie>{
     return await fetchWrapper.get(`/api/Movies/${id}`);
 }
 
-export async function getRecent(): Promise<PagedResult<Movie>> {
+export async function getRecentlyUploaded(): Promise<PagedResult<Movie>> {
     return await fetchWrapper.get(`/api/Movies?pageNumber=1&pageSize=12&sortColumn=upload&sortOrder=desc`)
 }
 

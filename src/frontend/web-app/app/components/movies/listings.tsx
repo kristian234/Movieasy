@@ -19,6 +19,7 @@ export default function Listings() {
         pageSize: state.pageSize,
         searchTerm: state.searchTerm,
         sortColumn: state.orderBy,
+        sortOrder: state.sortOrder
     }), shallow);
     const setParams = useParamsStore(state => state.setParams);
 

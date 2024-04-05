@@ -1,12 +1,8 @@
 import SignalRComponent from "@/app/Providers/SignalRProvider";
 import { getCurrentUser, getTokenWorkaround } from "@/app/actions/auth-actions";
-import { getRecent, getTrending } from "@/app/actions/movie-actions";
+import { getRecentlyUploaded, getTrending } from "@/app/actions/movie-actions";
 import WelcomeGreeting from "@/app/components/home/welcome-greet";
 import MovieCarousel from "@/app/components/movies/movie-carousel";
-
-interface Props {
-    user: any
-}
 
 export default async function HomePage() {
     const user = await getCurrentUser();
@@ -18,8 +14,8 @@ export default async function HomePage() {
             )}
             <WelcomeGreeting user={user} />
 
-            <MovieCarousel movies={getTrending} text="Recently Added"></MovieCarousel>
-            <MovieCarousel movies={getRecent} text="Trending"></MovieCarousel>
+            <MovieCarousel movies={getRecentlyUploaded} text="Recently Added"></MovieCarousel>
+            <MovieCarousel movies={getTrending} text="Trending"></MovieCarousel>
         </div>
     )
 }
