@@ -8,8 +8,8 @@ The backend of Movieasy adheres to the principles and practices of **clean archi
 - Next js
 - React
 - Typescript
-- HTML
 - CSS
+- TailwindCSS
 - ASP.NET
 - PostgreSQL
 - Keycloak
