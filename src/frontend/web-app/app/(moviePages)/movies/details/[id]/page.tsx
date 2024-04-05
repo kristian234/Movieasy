@@ -65,7 +65,7 @@ export default async function DetailsPage({ params }: { params: { id: string } }
           </div>
 
           <div className="mt-auto">
-            <ReviewForm movieId={movie.id} />
+            <ReviewForm userId={session?.id} movieId={movie.id} />
           </div>
         </div>
       </div>

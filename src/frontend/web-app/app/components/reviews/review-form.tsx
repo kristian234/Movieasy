@@ -1,5 +1,7 @@
 'use client'
-import { createReview } from '@/app/actions/review-actions';
+
+import { useEffect } from 'react';
+import { getUserReviewForMovie, createReview } from '@/app/actions/review-actions';
 import { Rating } from '@smastrom/react-rating'
 import '@smastrom/react-rating/style.css'
 import { Button, CustomFlowbiteTheme, Textarea } from 'flowbite-react';
@@ -16,25 +18,50 @@ const customTheme: CustomFlowbiteTheme['button'] = {
 };
 
 interface Props {
-    movieId: string
+    movieId: string;
+    userId: string;
 }
 
-export default function ReviewForm({ movieId }: Props) {
+export default function ReviewForm({ movieId, userId }: Props) {
     const [rating, setRating] = useState(1);
     const { control, register, handleSubmit, setFocus, reset, getValues, setValue,
         formState: { isSubmitting, isValid, isDirty, errors } } = useForm({
             mode: 'onTouched'
         });
 
+    useEffect(() => {
+        // Fetch existing review for the movie and user
+        async function fetchReview() {
+            try {
+                const existingReview = await getUserReviewForMovie(movieId);
+                if (existingReview) {
+                    // If review exists, populate form fields with existing data
+                    setValue('comment', existingReview.comment);
+                    setRating(existingReview.rating);
+                }
+            } catch (error) {
+                console.error('Error fetching review:', error);
+            }
+        }
+
+        fetchReview();
+    }, [movieId, userId, setValue]);
+
     async function onSubmit(data: FieldValues) {
-        const finalData = { ...data, rating, movieId }
+        const finalData = { ...data, rating, movieId };
 
-        const res = await createReview(finalData);
-
-        if ((res as any).error) {
-            toast.error((res as any).error.message)
-
-            return;
+        try {
+            // If review exists, update it; otherwise, create a new one
+            const res = await getUserReviewForMovie(movieId);
+            if (res) {
+              //  await updateReview(res.id, finalData);
+                toast.success('Review updated successfully');
+            } else {
+                await createReview(finalData);
+                toast.success('Review added successfully');
+            }
+        } catch (error) {
+            toast.error('Failed to save review');
         }
     }
 

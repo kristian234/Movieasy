@@ -33,7 +33,8 @@ namespace Movieasy.Api
             }
             app.UseHttpsRedirection();
 
-            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("https://localhost:3000"));
+            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins(builder.Configuration["Urls:Frontend"] 
+                ?? throw new ArgumentNullException()));
 
             app.UseCustomExceptionHandler();
 

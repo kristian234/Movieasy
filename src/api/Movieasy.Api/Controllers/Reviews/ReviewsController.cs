@@ -23,15 +23,13 @@ namespace Movieasy.Api.Controllers.Reviews
             _sender = sender;
         }
 
-        [HttpGet("movie/{movieId}/user/{userId}")]
+        [HttpGet("user-review/{movieId}")]
         public async Task<IActionResult> GetUserReviewForMovie(
             Guid movieId,
-            Guid userId,
             CancellationToken cancellationToken)
         {
             var query = new GetUserReviewForMovieQuery(
-                movieId,
-                userId);
+                movieId);
 
             Result<ReviewResponse> result = await _sender.Send(query, cancellationToken);
 
