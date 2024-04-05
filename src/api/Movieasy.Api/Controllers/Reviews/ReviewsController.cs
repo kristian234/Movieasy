@@ -6,6 +6,7 @@ using Movieasy.Application.Reviews.AddReview;
 using Movieasy.Application.Reviews.GetReview;
 using Movieasy.Application.Reviews.GetReviewById;
 using Movieasy.Application.Reviews.GetReviewSummary;
+using Movieasy.Application.Reviews.GetUserReviewForMovie;
 using Movieasy.Domain.Abstractions;
 
 namespace Movieasy.Api.Controllers.Reviews
@@ -20,6 +21,21 @@ namespace Movieasy.Api.Controllers.Reviews
         public ReviewsController(ISender sender)
         {
             _sender = sender;
+        }
+
+        [HttpGet("movie/{movieId}/user/{userId}")]
+        public async Task<IActionResult> GetUserReviewForMovie(
+            Guid movieId,
+            Guid userId,
+            CancellationToken cancellationToken)
+        {
+            var query = new GetUserReviewForMovieQuery(
+                movieId,
+                userId);
+
+            Result<ReviewResponse> result = await _sender.Send(query, cancellationToken);
+
+            return result.IsSuccess ? Ok(result.Value) : NotFound();
         }
 
         [HttpGet("{id}")]

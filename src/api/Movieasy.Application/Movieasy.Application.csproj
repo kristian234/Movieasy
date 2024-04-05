@@ -20,7 +20,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<InternalsVisibleTo Include="Movieasy.Application.UnitTests"/>
+		<InternalsVisibleTo Include="Movieasy.Application.UnitTests" />
 	</ItemGroup>
 
 </Project>
