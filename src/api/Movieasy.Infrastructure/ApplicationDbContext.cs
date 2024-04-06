@@ -14,8 +14,10 @@ namespace Movieasy.Infrastructure
     {
         private readonly IPublisher _publisher;
 
-        public DbSet<Movie> Movies { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
+
+        public DbSet<Movie> Movies { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Photo> Photos { get; set; }
         public DbSet<Genre> Genres { get; set; }

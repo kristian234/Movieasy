@@ -27,6 +27,7 @@ namespace Movieasy.Domain.Users
 
         public string IdentityId { get; private set; } = string.Empty;
         public IReadOnlyCollection<Role> Roles => _roles.ToImmutableList();
+
         public static User Create(FirstName firstName, LastName lastName, Email email)
         {
             User user = new User(Guid.NewGuid(), firstName, lastName, email);
@@ -36,6 +37,14 @@ namespace Movieasy.Domain.Users
             user._roles.Add(Role.Registered);
 
             return user;
+        }
+
+        public void AddUserRole(Role role)
+        {
+            if (!_roles.Contains(role))
+            {
+                _roles.Add(role);
+            }
         }
 
         public void SetIdentityId(string identityId)

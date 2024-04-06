@@ -15,19 +15,19 @@ const options = [
 ];
 
 function ReviewFilters({ onFilterChange, onSortChange }: ReviewFilterProps) {
-
     const handleFilterChange = (event: ChangeEvent<HTMLSelectElement>) => {
         const rating = event.target.value ? parseInt(event.target.value) : null;
         onFilterChange(rating);
     };
 
     return (
-        
+
         <div className="flex justify-between items-center">
+
             <div className="mr-2">
                 <label htmlFor='time-filter' className='text-secondary font-semibold'>Filter by date:</label>
                 <select id='time-filter' onChange={e => onSortChange(e.target.value as 'newest' | 'oldest' | 'none')}
-                    className="rounded-full py-2 px-4 border-2 border-third bg-secondary bg-opacity-75 font-semibold text-darkHeader focus:border-third focus:ring-third focus:outline-none">
+                    className="rounded-full py-2 px-4 border-2 border-third  bg-secondary bg-opacity-75 font-semibold text-darkHeader focus:border-third focus:ring-third focus:outline-none">
                     <option value="none">No sort</option>
                     <option value="newest">Newest first</option>
                     <option value="oldest">Oldest first</option>

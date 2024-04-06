@@ -17,7 +17,7 @@ const sortButtons = [
         value: 'rating'
     },
     {
-        label: 'Recently released',
+        label: 'Release',
         icon: BsFillStopCircleFill,
         value: 'release'
     }
@@ -44,65 +44,30 @@ export default function Filters() {
     const setParams = useParamsStore(state => state.setParams);
 
     return (
-        <div className="flex flex-row items-center md:flex-row md:items-center">
-            
-            <div className="mr-4">
-                <span className="mb-2 md:mb-0 md:mr-2 text-secondary visible smm:hidden font-bold">Sort by:</span>
-                <div className="lex rounded-2xl overflow-hidder">
+        <div className="flex flex-col md:flex-row items-center">
+
+            <div className="mb-4 md:mb-0 md:mr-4"> {/* "Order by" group */}
+                <span className="mb-2 md:mb-0 md:mr-2 text-secondary font-bold">Order by:</span>
+                <div className="flex">
                     {orderButtons.map(({ label, icon: Icon, value }, index) => (
                         <button
                             key={value}
                             onClick={() => setParams({ sortOrder: value })}
                             className={`
-                            flex-1
-                            p-2 sm:p-2 
-                            text-center
-                            border
-                            border-third
-                            bg-second py-1 
-                            leading-tight
-                            text-body 
-                            enabled:hover:bg-secondary 
-                            enabled:hover:text-gray-700 
-                            ${sortOrder === value ?
-                                    "bg-third text-body" : "bg-transparent text-third"
-                                }
-                            ${index === 0 ? "rounded-l-2xl" : ""}
-                            ${index === orderButtons.length - 1 ? "rounded-r-2xl" : ""}
-                        `}
-                        >
-                            <div className="flex items-center justify-center">
-                                <Icon className="mr-2" />
-                                {label}
-                            </div>
-                        </button>
-                    ))}
-                </div>
-            </div>
-
-            <div className="mr-4">
-                <span className="mb-2 md:mb-0 md:mr-2 text-secondary visible smm:hidden font-bold">Sort by:</span>
-                <div className="lex rounded-2xl overflow-hidder">
-                    {sortButtons.map(({ label, icon: Icon, value }, index) => (
-                        <button
-                            key={value}
-                            onClick={() => setParams({ orderBy: value })}
-                            className={`
-                                flex-1
+                                flex-shrink-0
                                 p-2 sm:p-2 
                                 text-center
                                 border
                                 border-third
-                                bg-second py-1 
+                                bg-second 
+                                py-1 
                                 leading-tight
                                 text-body 
-                                enabled:hover:bg-secondary 
-                                enabled:hover:text-gray-700 
-                                ${orderBy === value ?
-                                    "bg-third text-body" : "bg-transparent text-third"
-                                }
+                                hover:bg-secondary 
+                                hover:text-gray-700 
+                                ${sortOrder === value ? "bg-third text-body" : "bg-transparent text-third"}
                                 ${index === 0 ? "rounded-l-2xl" : ""}
-                                ${index === pageSizeButtons.length - 1 ? "rounded-r-2xl" : ""}
+                                ${index === orderButtons.length - 1 ? "rounded-r-2xl" : ""}
                             `}
                         >
                             <div className="flex items-center justify-center">
@@ -114,27 +79,59 @@ export default function Filters() {
                 </div>
             </div>
 
-            <div>
-                <span className="mb-2 md:mb-0 md:mr-2 text-secondary visible smm:hidden font-bold">Page Size:</span>
-                <div className="lex rounded-2xl overflow-hidder">
+            <div className="mb-4 md:mb-0 mr-auto md:mr-4"> {/* "Sort by" group */}
+                <span className="mb-2 md:mb-0 md:mr-2 text-secondary font-bold">Sort by:</span>
+                <div className="flex">
+                    {sortButtons.map(({ label, icon: Icon, value }, index) => (
+                        <button
+                            key={value}
+                            onClick={() => setParams({ orderBy: value })}
+                            className={`
+                                flex-shrink-0
+                                p-2 sm:p-2 
+                                text-center
+                                border
+                                border-third
+                                bg-second 
+                                py-1 
+                                leading-tight
+                                text-body 
+                                hover:bg-secondary 
+                                hover:text-gray-700 
+                                ${orderBy === value ? "bg-third text-body" : "bg-transparent text-third"}
+                                ${index === 0 ? "rounded-l-2xl" : ""}
+                                ${index === sortButtons.length - 1 ? "rounded-r-2xl" : ""}
+                            `}
+                        >
+                            <div className="flex items-center justify-center">
+                                <Icon className="mr-2" />
+                                {label}
+                            </div>
+                        </button>
+                    ))}
+                </div>
+            </div>
+
+            <div> {/* "Page Size" group */}
+                <span className="mb-2 md:mb-0 md:mr-2 text-secondary font-bold">Page Size:</span>
+                <div className="flex">
                     {pageSizeButtons.map((size, index) => (
                         <button
                             key={size}
                             onClick={() => setParams({ pageSize: size })}
                             className={`
-                                flex-1
+                                flex-shrink-0
                                 p-2 sm:p-2 
                                 text-center
                                 border
                                 border-third
-                                bg-second py-1 
+                                bg-second 
+                                py-1 
                                 leading-tight
                                 text-body 
-                                enabled:hover:bg-secondary 
-                                enabled:hover:text-gray-700 
-                                ${pageSize === size ?
-                                    "bg-third text-body" : "bg-transparent text-third"
-                                }
+                                hover:bg-secondary 
+                                hover:text-gray-700 
+                                ${pageSize === size ? "bg-third text-body" : "bg-transparent text-third"}
                                 ${index === 0 ? "rounded-l-2xl" : ""}
                                 ${index === pageSizeButtons.length - 1 ? "rounded-r-2xl" : ""}
                             `}

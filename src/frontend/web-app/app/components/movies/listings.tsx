@@ -12,37 +12,49 @@ import qs from 'query-string'
 import EmptyFilter from "./empty-filter";
 
 export default function Listings() {
-    const [data, setData] = useState<PagedResult<Movie>>();
+    const [data, setData] = useState<PagedResult<Movie> | null>(null);
 
-    const params = useParamsStore(state => ({
-        pageNumber: state.pageNumber,
-        pageSize: state.pageSize,
-        searchTerm: state.searchTerm,
-        sortColumn: state.orderBy,
-        sortOrder: state.sortOrder
-    }), shallow);
-    const setParams = useParamsStore(state => state.setParams);
+    const params = useParamsStore(
+        (state) => ({
+            pageNumber: state.pageNumber,
+            pageSize: state.pageSize,
+            searchTerm: state.searchTerm,
+            sortColumn: state.orderBy,
+            sortOrder: state.sortOrder,
+        }),
+        shallow
+    );
+    const setParams = useParamsStore((state) => state.setParams);
 
-    const url = qs.stringifyUrl({ url: '', query: params })
-
-    //const urlm = "https://cdn.pixabay.com/photo/2023/11/09/19/36/zoo-8378189_1280.jpg";
+    const url = qs.stringifyUrl({ url: "", query: params });
 
     function setPageNumber(pageNumber: number) {
         setParams({ pageNumber });
     }
 
     useEffect(() => {
-        getData(url).then(data => {
-            setData(data);
-            console.log(data);
-        })
-    }, [url])
+        getData(url)
+            .then((data) => {
+                setData(data);
+                console.log(data);
+            })
+            .catch((error) => {
+                console.error("Error fetching data:", error);
+                setData(null);
+            });
+    }, [url]);
 
-    if (!data) return <h3>Loading...</h3>
+    if (!data) {
+        return (
+            <div className="flex items-center justify-center h-screen">
+                <h3>Loading...</h3>
+            </div>
+        );
+    }
 
     return (
         <div className="relative">
-            <div className="flex flex-grow justify-end mt-8 mx-auto max-w-full px-8 w-[900px] sm:px-8 items-center">
+            <div className="flex flex-grow justify-center mt-8 mx-auto max-w-full px-8 w-[900px] sm:px-8 items-center">
                 <Filters />
             </div>
             {data.totalPages === 0 ? (
@@ -52,20 +64,22 @@ export default function Listings() {
                     <div className="flex flex-grow justify-center p-6 mx-auto max-w-full px-8 w-[900px] sm:px-8 ">
                         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-1">
                             {data.items?.map((movie, index) => (
-                                <Fragment>
-                                    <MovieCard isCarousel={false} movie={movie} key={index} />
+                                <Fragment key={index}>
+                                    <MovieCard isCarousel={false} movie={movie} />
                                 </Fragment>
                             ))}
                         </div>
                     </div>
 
                     <div className="flex justify-center p-6">
-                        <AppPagination currentPage={params.pageNumber} pageCount={data.totalPages || 0} pageChanged={setPageNumber} />
+                        <AppPagination
+                            currentPage={params.pageNumber}
+                            pageCount={data.totalPages || 0}
+                            pageChanged={setPageNumber}
+                        />
                     </div>
                 </>
-            )
-            }
-
+            )}
         </div>
     );
 }

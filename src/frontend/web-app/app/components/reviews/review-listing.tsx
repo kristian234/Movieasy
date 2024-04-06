@@ -1,9 +1,9 @@
 'use client'
 
-import { PagedResult, Review } from "@/types";
+import { DetailedReviewData, PagedResult, Review } from "@/types";
 import { Fragment, useEffect, useState } from "react";
 import qs from 'query-string'
-import { getReviews } from "@/app/actions/review-actions";
+import { getDetailedReviewData, getReviews } from "@/app/actions/review-actions";
 import { toast } from "react-toastify";
 import ReviewCard from "./review-card";
 import ReviewFilters from "./review-filter";
@@ -11,13 +11,15 @@ import EmptyReviewFilter from "./empty-review-filter";
 import AppPagination from "../shared/app-pagination";
 import { Spinner } from "flowbite-react";
 import ReviewSummary from "./review-summary";
-
+import { IoRefresh } from "react-icons/io5";
 interface Props {
     movieId: string
 }
 
 export default function ReviewListing({ movieId }: Props) {
     const [data, setData] = useState<PagedResult<Review>>();
+    const [detailedReviewData, setDetailedReviewData] = useState<DetailedReviewData | null>(null); // State for review summary data
+
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [params, setParams] = useState<{
         page: number,
@@ -48,14 +50,16 @@ export default function ReviewListing({ movieId }: Props) {
         const fetchReviews = async () => {
             const url = qs.stringifyUrl({ url: '', query: { ...params, movieId } })
 
-            const response = await getReviews(url);
+            const reviews = await getReviews(url);
+            const overallReviewData = await getDetailedReviewData(movieId);
 
-            if ((response as any).error) {
+            if ((reviews as any).error || (overallReviewData as any).error) {
                 setIsLoading(false);
                 return;
             }
 
-            setData(response);
+            setDetailedReviewData(overallReviewData);
+            setData(reviews);
             setIsLoading(false);
         }
 
@@ -76,10 +80,29 @@ export default function ReviewListing({ movieId }: Props) {
         setParams(prevParams => ({ ...prevParams, sortTerm }));
     };
 
+    const handleRefresh = async () => {
+        const url = qs.stringifyUrl({ url: '', query: { ...params, movieId } })
+
+        const reviews = await getReviews(url);
+        const overallReviewData = await getDetailedReviewData(movieId);
+
+        if ((reviews as any).error || (overallReviewData as any).error) {
+            setIsLoading(false);
+            return;
+        }
+
+        setDetailedReviewData(overallReviewData);
+        setData(reviews);
+        setIsLoading(false);
+    };
+
     return (
         <div className="relative">
             <div className="flex justify-between mt-8 mx-auto max-w-full px-8 w-[900px] sm:px-8 items-center">
-                <ReviewSummary movieId={movieId} />
+                <ReviewSummary detailedSummary={detailedReviewData} />
+                <button onClick={handleRefresh} className="bg-transparent text-secondary hover:bg-third font-bold py-2 px-4 rounded-3xl text-3xl">
+                    <IoRefresh />
+                </button>
                 <ReviewFilters onSortChange={handleSortChange} onFilterChange={handleFilterChange} />
             </div>
 

@@ -2,6 +2,7 @@
 using Movieasy.Application.Abstractions.Data;
 using Movieasy.Domain.Movies;
 using Movieasy.Domain.Photos;
+using Movieasy.Domain.Users;
 using Movieasy.Infrastructure;
 
 namespace Movieasy.Api.Extensions
@@ -39,6 +40,19 @@ namespace Movieasy.Api.Extensions
                     trailer: new Trailer("https://www.youtube.com/watch?v=mqqft2x_Aa4")
                     ));
             }
+
+            app.Attach(Role.Admin);
+            app.Attach(Role.Registered);
+
+            var user = User.Create(
+                new FirstName("kristian"),
+                new LastName("teodosiev"),
+                new Email("kristian@gmail.com"));
+
+            user.AddUserRole(Role.Admin);
+            user.SetIdentityId("3538994f-b095-45f6-8f98-a95dd61b84c2");
+
+            app.Users.Add(user);
 
             app.Photos.AddRange(photos);
             app.Movies.AddRange(movies);

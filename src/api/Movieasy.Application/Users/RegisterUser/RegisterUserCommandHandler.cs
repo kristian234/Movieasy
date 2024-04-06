@@ -33,8 +33,7 @@ namespace Movieasy.Application.Users.RegisterUser
                 request.Password,
                 cancellationToken);
 
-            user.SetIdentityId(identityId);
-
+ 
             await _userRepository.AddAsync(user);
 
             await _unitOfWork.SaveChangesAsync();
