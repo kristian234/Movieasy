@@ -2,9 +2,9 @@
 - Movieasy is a platform to share your opinion on movies and/or see others' opinion and find something to watch.
 
 ### Features
-<details>
+<pre>
   tetegaegeageagae
-</details>
+</pre>
 
 ------------
 
