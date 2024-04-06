@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Movieasy.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class inoo : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -103,7 +103,7 @@ namespace Movieasy.Infrastructure.Migrations
                 {
                     table.PrimaryKey("pk_role_user", x => new { x.roles_id, x.users_id });
                     table.ForeignKey(
-                        name: "fk_role_user_role_roles_id",
+                        name: "fk_role_user_roles_roles_id",
                         column: x => x.roles_id,
                         principalTable: "roles",
                         principalColumn: "id",

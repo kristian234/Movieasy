@@ -10,6 +10,7 @@ import { Movie } from "@/types";
 import { MultiSelect } from "react-multi-select-component";
 import { useGenresStore } from "@/hooks/useGenresStore";
 import { getGenres } from "@/app/actions/genre-actions";
+import { toast } from "react-toastify";
 
 const MovieRating = {
     G: 1,
@@ -39,14 +40,14 @@ export default function MovieForm({ title, movie }: Props) {
 
     useEffect(() => {
         if (movie) {
-            const { title, description, releaseDate, duration, rating, imageUrl } = movie;
+            const { title, description, releaseDate, duration, rating, imageUrl, trailerUrl } = movie;
             const photo = imageUrl;
 
             const selectedGenres = movie.genres.map(genre => ({ value: genre.id, label: genre.name }));
             setSelectedGenres(selectedGenres as any);
 
             reset({
-                title, description, releaseDate,
+                title, description, releaseDate, trailerUrl,
                 duration: Math.round((duration + Number.EPSILON) * 100) / 100,
                 rating: MovieRating[rating], photo
             });
@@ -111,9 +112,8 @@ export default function MovieForm({ title, movie }: Props) {
             console.log(data);
             res = await createMovie(formData);
         }
-        console.log(res.error);
         if (res.error) {
-            throw new Error(res.error);
+            toast.error(res.error);            
         }
     }
 
@@ -152,12 +152,12 @@ export default function MovieForm({ title, movie }: Props) {
 
 
                         <FileInput {...register('photo')} required={movie == null} name="photo" />
-                        <CustomInput label="Trailer URL" name="trailerUrl" control={control}
-                            rules={{ required: 'Trailer URL is required' }} />
-
                         {movie && (
                             <p className="text-primary font-semibold">This movie currently has a photo, leave to none to not change</p>
                         )}
+
+                        <CustomInput label="Trailer URL" name="trailerUrl" control={control}
+                            rules={{ required: 'Trailer URL is required' }} />
 
                         <MultiSelect
                             options={options}

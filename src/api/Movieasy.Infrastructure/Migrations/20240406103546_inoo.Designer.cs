@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Movieasy.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240404114642_Initialo")]
-    partial class Initialo
+    [Migration("20240406103546_inoo")]
+    partial class inoo
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -340,7 +340,7 @@ namespace Movieasy.Infrastructure.Migrations
                         .HasForeignKey("RolesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_role_user_role_roles_id");
+                        .HasConstraintName("fk_role_user_roles_roles_id");
 
                     b.HasOne("Movieasy.Domain.Users.User", null)
                         .WithMany()

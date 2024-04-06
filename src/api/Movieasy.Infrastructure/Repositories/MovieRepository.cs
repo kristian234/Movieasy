@@ -15,6 +15,7 @@ namespace Movieasy.Infrastructure.Repositories
         public override async Task<Movie?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
         {
             return await _context.Movies
+                .Include(x => x.Genres)
                 .Include(x => x.Photo) // Aware that this may decrease performance, but it's a worthy tradeoff given the current situation where a movie CANNOT exist without a photo
                 .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
         }

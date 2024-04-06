@@ -30,9 +30,6 @@ namespace Movieasy.Infrastructure.Configurations
             builder.HasOne(movie => movie.Photo)
                 .WithOne()
                 .HasForeignKey<Movie>(movie => movie.PhotoId);
-
-            builder.HasMany(movie => movie.Genres)
-                .WithMany();
         }
     }
 }

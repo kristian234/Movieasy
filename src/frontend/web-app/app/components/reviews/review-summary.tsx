@@ -1,9 +1,6 @@
 'use client'
 
-import { getDetailedReviewData } from "@/app/actions/review-actions";
 import { DetailedReviewData } from "@/types";
-import { Fragment, useEffect, useState } from "react";
-import { toast } from "react-toastify";
 import ReviewRating from "./review-rating";
 
 interface Props {
