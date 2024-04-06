@@ -1,53 +1,90 @@
-﻿using Bogus;
-using Movieasy.Application.Abstractions.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
+using Movieasy.Domain.Genres;
 using Movieasy.Domain.Movies;
 using Movieasy.Domain.Photos;
 using Movieasy.Domain.Users;
 using Movieasy.Infrastructure;
+using Newtonsoft.Json;
 
 namespace Movieasy.Api.Extensions
 {
+    public class MovieData
+    {
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public int Rating { get; set; }
+        public string Trailer { get; set; }
+        public double Duration { get; set; }
+        public PhotoData Photo { get; set; }
+        public string UploadDate { get; set; }
+        public string ReleaseDate { get; set; }
+        public List<string> Genres { get; set; }
+    }
+
+    public class PhotoData
+    {
+        public string Id { get; set; }
+        public string Url { get; set; }
+        public string AltText { get; set; }
+    }
+
     public static class SeedDataExtensions
     {
         public static void SeedData(this ApplicationDbContext app)
         {
-            //if (app.Movies.Any())
-            //{
-            //    return;
-            //}
+            string path = "/app/Extensions/seed.json";
+            string jsonData = File.ReadAllText(path);
 
-            //var faker = new Faker();
+            var moviesData = JsonConvert.DeserializeObject<List<MovieData>>(jsonData);
 
-            //List<Photo> photos = new List<Photo>();
-            //List<Movie> movies = new List<Movie>();
+            foreach (var movieData in moviesData)
+            {
+                var title = new Title(movieData.Title);
+                var description = new Description(movieData.Description);
+                var rating = (Rating)movieData.Rating;
+                var trailer = new Trailer(movieData.Trailer);
+                var duration = Duration.Create(movieData.Duration);
+                var uploadDate = DateTime.Parse(movieData.UploadDate).ToUniversalTime();
+                DateOnly? releaseDate = null;
+                if (movieData.ReleaseDate != null)
+                {
+                    releaseDate = DateOnly.Parse(movieData.ReleaseDate);
+                }
 
-            //for (int i = 0; i < 100; i++)
-            //{
-            //    var photo = Photo.Create(
-            //        new PublicId("xpgqeq4xjlwchheca3ul"),
-            //        new Url("https://res.cloudinary.com/dpfb4wi7z/image/upload/v1710787080/xpgqeq4xjlwchheca3ul.jpg"));
+                var photoData = movieData.Photo;
+                var photo = Photo.Create(new PublicId(photoData.Id), new Url(photoData.Url));
 
-            //    photos.Add(photo);
+                app.Photos.Add(photo);
 
-            //    movies.Add(Movie.Create(
-            //        title: new Title(faker.Commerce.ProductName()),
-            //        description: new Description(faker.Commerce.ProductDescription()),
-            //        rating: (Rating)faker.PickRandom(1, 2, 3, 4, 5),
-            //        duration: Duration.Create(faker.Random.Double(1, 120)).Value,
-            //        uploadDate: faker.Date.Between(new DateTime(2012, 1, 1).ToUniversalTime(), new DateTime(2024, 12, 12).ToUniversalTime()),
-            //        releaseDate: faker.Date.BetweenDateOnly(new DateOnly(2012, 1, 1), new DateOnly(2024, 12, 12)),
-            //        photo: photo,
-            //        trailer: new Trailer("https://www.youtube.com/watch?v=mqqft2x_Aa4")
-            //        ));
-            //}
+
+                List<Genre> genres = new List<Genre>();
+                foreach (string genreName in movieData.Genres)
+                {
+                    var genre = app.Genres.FirstOrDefault(g => ((string)g.Name) == genreName);
+                    if (genre == null)
+                    {
+                        genre = Genre.Create(new Name(genreName));
+                        app.Genres.Add(genre);
+                        app.SaveChanges();
+                    }
+                    genres.Add(genre);
+                }
+
+
+                Movie movie = Movie.Create(title, description, rating, trailer, duration.Value, uploadDate, photo, releaseDate);
+                movie.SetGenres(genres);
+
+                app.Movies.Add(movie);
+            }
 
             app.Attach(Role.Admin);
             app.Attach(Role.Registered);
 
             var user = User.Create(
-                new FirstName("kristian"),
-                new LastName("teodosiev"),
-                new Email("kristian@gmail.com"));
+                new FirstName("admin"),
+                new LastName("admin"),
+                new Email("admin@gmail.com"));
 
             user.AddUserRole(Role.Admin);
             user.SetIdentityId("3538994f-b095-45f6-8f98-a95dd61b84c2");

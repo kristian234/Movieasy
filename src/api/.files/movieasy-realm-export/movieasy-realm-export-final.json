@@ -481,19 +481,21 @@
     {
       "id": "3538994f-b095-45f6-8f98-a95dd61b84c2",
       "emailVerified": true,
-      "firstName": "kristian",
-      "lastName": "kristian",
-      "email": "kristian@gmail.com",
+      "firstName": "admin",
+      "lastName": "admin",
+      "email": "admin@gmail.com",
       "credentials": [
         {
           "type": "password",
-          "value": "kristian"
+          "value": "admin"
         }
       ],
-      "username": "kristian@gmail.com",
+      "username": "admin@gmail.com",
       "createdTimestamp": 1689227091364,
-      "enabled": true
-
+      "enabled": true,
+      "realmRoles": [
+        "default-roles-bookify"
+      ]
     }
   ],
   "scopeMappings": [

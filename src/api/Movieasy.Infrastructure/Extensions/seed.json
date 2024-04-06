@@ -1,0 +1,332 @@
+[
+  {
+    "title": "The Shawshank Redemption",
+    "description": "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.",
+    "rating": 2,
+    "trailer": "https://www.youtube.com/watch?v=6hB3S9bIaco",
+    "duration": 142,
+    "photo": {
+      "id": "1234567890",
+      "url": "https://res.cloudinary.com/dpfb4wi7z/image/upload/v1712413295/gfe2xzcmxuqwvcb1ftvd.jpg",
+      "altText": "The Shawshank Redemption poster"
+    },
+    "uploadDate": "1994-10-14",
+    "releaseDate": "1994-09-23",
+    "genres": [ "Drama" ]
+  },
+  {
+    "title": "The Godfather",
+    "description": "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.",
+    "rating": 4,
+    "trailer": "https://www.youtube.com/watch?v=sY1S34973zA",
+    "duration": 175,
+    "photo": {
+      "id": "0987654321",
+      "url": "https://res.cloudinary.com/dpfb4wi7z/image/upload/v1712413295/vhiyqpdrbdgtjqu9sswj.jpg",
+      "altText": "The Godfather poster"
+    },
+    "uploadDate": "1972-03-24",
+    "releaseDate": "1972-03-14",
+    "genres": [ "Crime", "Drama" ]
+  },
+  {
+    "title": "The Dark Knight",
+    "description": "When the menace known as The Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice.",
+    "rating": 4,
+    "trailer": "https://www.youtube.com/watch?v=EXeTwQWrcwY",
+    "duration": 152,
+    "photo": {
+      "id": "2345678901",
+      "url": "https://res.cloudinary.com/dpfb4wi7z/image/upload/v1712413295/wpiwstnwdcmixjiuu5ef.jpg",
+      "altText": "The Dark Knight poster"
+    },
+    "uploadDate": "2008-07-18",
+    "releaseDate": "2008-07-18",
+    "genres": [ "Action", "Crime", "Drama" ]
+  },
+  {
+    "title": "Forrest Gump",
+    "description": "The presidencies of Kennedy and Johnson, the events of Vietnam, Watergate, and other historical events unfold from the perspective of an Alabama man with an IQ of 75, whose only desire is to be reunited with his childhood sweetheart.",
+    "rating": 4,
+    "trailer": "https://www.youtube.com/watch?v=uPIEn0M8su0",
+    "duration": 142,
+    "photo": {
+      "id": "3456789012",
+      "url": "https://res.cloudinary.com/dpfb4wi7z/image/upload/v1712413295/kaz8ft39jhn0pwgffsig.jpg",
+      "altText": "Forrest Gump poster"
+    },
+    "uploadDate": "1994-07-06",
+    "releaseDate": "1994-07-06",
+    "genres": [ "Drama", "Romance" ]
+  },
+  {
+    "title": "Pulp Fiction",
+    "description": "The lives of two mob hitmen, a boxer, a gangster and his wife, and a pair of diner bandits intertwine in four tales of violence and redemption.",
+    "rating": 4,
+    "trailer": "https://www.youtube.com/watch?v=s7EdQ4FqbhY",
+    "duration": 154,
+    "photo": {
+      "id": "4567890123",
+      "url": "https://res.cloudinary.com/dpfb4wi7z/image/upload/v1712413295/wvei0mxvfo32svaaqruo.jpg",
+      "altText": "Pulp Fiction poster"
+    },
+    "uploadDate": "1994-10-14",
+    "releaseDate": "1994-10-14",
+    "genres": [ "Crime", "Drama" ]
+  },
+  {
+    "title": "The Matrix",
+    "description": "A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.",
+    "rating": 4,
+    "trailer": "https://www.youtube.com/watch?v=m8e-FF8MsqU",
+    "duration": 136,
+    "photo": {
+      "id": "5678901234",
+      "url": "https://res.cloudinary.com/dpfb4wi7z/image/upload/v1712413295/ghdyyzd4dofhfiauwcpg.jpg",
+      "altText": "The Matrix poster"
+    },
+    "uploadDate": "1999-03-31",
+    "releaseDate": "1999-03-31",
+    "genres": [ "Action", "Sci-Fi" ]
+  },
+  {
+    "title": "Schindler's List",
+    "description": "In German-occupied Poland during World War II, industrialist Oskar Schindler gradually becomes concerned for his Jewish workforce after witnessing their persecution by the Nazis.",
+    "rating": 4,
+    "trailer": "https://www.youtube.com/watch?v=JdRGC-w9syA",
+    "duration": 195,
+    "photo": {
+      "id": "6789012345",
+      "url": "https://res.cloudinary.com/dpfb4wi7z/image/upload/v1712413295/oq3div4aivfxmusfoar9.jpg",
+      "altText": "Schindler's List poster"
+    },
+    "uploadDate": "1993-12-15",
+    "releaseDate": "1993-12-15",
+    "genres": [ "Biography", "Drama", "History" ]
+  },
+  {
+    "title": "Fight Club",
+    "description": "An insomniac office worker and a devil-may-care soap maker form an underground fight club that evolves into much more.",
+    "rating": 4,
+    "trailer": "https://www.youtube.com/watch?v=SUXWAEX2jlg",
+    "duration": 139,
+    "photo": {
+      "id": "7890123456",
+      "url": "https://res.cloudinary.com/dpfb4wi7z/image/upload/v1712413295/qqxxoxiuaulhhpqqafow.jpg",
+      "altText": "Fight Club poster"
+    },
+    "uploadDate": "1999-10-15",
+    "releaseDate": "1999-10-15",
+    "genres": [ "Drama" ]
+  },
+  {
+    "title": "Inception",
+    "description": "A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.",
+    "rating": 3,
+    "trailer": "https://www.youtube.com/watch?v=YoHD9XEInc0",
+    "duration": 148,
+    "photo": {
+      "id": "8901234567",
+      "url": "https://res.cloudinary.com/dpfb4wi7z/image/upload/v1712413295/lwv5t6z9qm2as1itjdrs.jpg",
+      "altText": "Inception poster"
+    },
+    "uploadDate": "2010-07-16",
+    "releaseDate": "2010-07-16",
+    "genres": [ "Action", "Adventure", "Sci-Fi" ]
+  },
+  {
+    "title": "The Lord of the Rings: The Fellowship of the Ring",
+    "description": "A meek Hobbit from the Shire and eight companions set out on a journey to destroy the powerful One Ring and save Middle-earth from the Dark Lord Sauron.",
+    "rating": 3,
+    "trailer": "https://www.youtube.com/watch?v=Pki6jbSbXIY",
+    "duration": 178,
+    "photo": {
+      "id": "9012345678",
+      "url": "https://res.cloudinary.com/dpfb4wi7z/image/upload/v1712413295/lxxwn0i1pgnhvkqndbwz.jpg",
+      "altText": "The Lord of the Rings: The Fellowship of the Ring poster"
+    },
+    "uploadDate": "2001-12-19",
+    "releaseDate": "2001-12-19",
+    "genres": [ "Action", "Adventure", "Drama" ]
+  },
+  {
+    "title": "The Lion King",
+    "description": "A lion cub crown prince is tricked by a treacherous uncle into thinking he caused his father's death and flees into exile in despair, only to learn in adulthood his identity and his responsibilities.",
+    "rating": 2,
+    "trailer": "https://www.youtube.com/watch?v=4sj1MT05lAA",
+    "duration": 88,
+    "photo": {
+      "id": "0123456789",
+      "url": "https://res.cloudinary.com/dpfb4wi7z/image/upload/v1712413295/ifcjdgi9wwldo8mkj2cy.jpg",
+      "altText": "The Lion King poster"
+    },
+    "uploadDate": "1994-06-24",
+    "releaseDate": "1994-06-15",
+    "genres": [ "Animation", "Adventure", "Drama" ]
+  },
+  {
+    "title": "Titanic",
+    "description": "A seventeen-year-old aristocrat falls in love with a kind but poor artist aboard the luxurious, ill-fated R.M.S. Titanic.",
+    "rating": 3,
+    "trailer": "https://www.youtube.com/watch?v=zCy5WQ9S4c0",
+    "duration": 195,
+    "photo": {
+      "id": "1234509876",
+      "url": "https://res.cloudinary.com/dpfb4wi7z/image/upload/v1712413295/emkbmy3b1jjtc9zoomnf.jpg",
+      "altText": "Titanic poster"
+    },
+    "uploadDate": "1997-12-19",
+    "releaseDate": "1997-12-19",
+    "genres": [ "Drama", "Romance" ]
+  },
+  {
+    "title": "Inglourious Basterds",
+    "description": "In Nazi-occupied France during World War II, a plan to assassinate Nazi leaders by a group of Jewish U.S. soldiers coincides with a theatre owner's vengeful plans for the same.",
+    "rating": 4,
+    "trailer": "https://www.youtube.com/watch?v=KnrRy6kSFF0",
+    "duration": 153,
+    "photo": {
+      "id": "2345678901",
+      "url": "https://res.cloudinary.com/dpfb4wi7z/image/upload/v1712413295/yc3nl6zfxxd8aq71fim.jpg",
+      "altText": "Inglourious Basterds poster"
+    },
+    "uploadDate": "2009-08-21",
+    "releaseDate": "2009-08-21",
+    "genres": [ "Adventure", "Drama", "War" ]
+  },
+  {
+    "title": "Interstellar",
+    "description": "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.",
+    "rating": 3,
+    "trailer": "https://www.youtube.com/watch?v=zSWdZVtXT7E",
+    "duration": 169,
+    "photo": {
+      "id": "3456789012",
+      "url": "https://res.cloudinary.com/dpfb4wi7z/image/upload/v1712413295/lwv5t6z9qm2as1itjdrs.jpg",
+      "altText": "Interstellar poster"
+    },
+    "uploadDate": "2014-11-07",
+    "releaseDate": "2014-11-07",
+    "genres": [ "Adventure", "Drama", "Sci-Fi" ]
+  },
+  {
+    "title": "Harry Potter and the Sorcerer's Stone",
+    "description": "An orphaned boy enrolls in a school of wizardry, where he learns the truth about himself, his family and the terrible evil that haunts the magical world.",
+    "rating": 3,
+    "trailer": "https://www.youtube.com/watch?v=eKSB0gXl9dw",
+    "duration": 152,
+    "photo": {
+      "id": "1234567890",
+      "url": "https://res.cloudinary.com/dpfb4wi7z/image/upload/v1712413295/dnrxilm3pt6ywuneihbx.jpg",
+      "altText": "Harry Potter and the Sorcerer's Stone poster"
+    },
+    "uploadDate": "2001-11-14",
+    "releaseDate": "2001-11-14",
+    "genres": [ "Adventure", "Family", "Fantasy" ]
+  },
+  {
+    "title": "Harry Potter and the Chamber of Secrets",
+    "description": "An ancient prophecy seems to be coming true when a mysterious presence begins stalking the corridors of a school of magic and leaving its victims paralyzed.",
+    "rating": 3,
+    "trailer": "https://www.youtube.com/watch?v=qyOVdQh1ilw",
+    "duration": 161,
+    "photo": {
+      "id": "2345678901",
+      "url": "https://res.cloudinary.com/dpfb4wi7z/image/upload/v1712413295/z5voel0dxvfvrjhqgjiv.jpg",
+      "altText": "Harry Potter and the Chamber of Secrets poster"
+    },
+    "uploadDate": "2002-11-14",
+    "releaseDate": "2002-11-14",
+    "genres": [ "Adventure", "Family", "Fantasy" ]
+  },
+  {
+    "title": "Harry Potter and the Prisoner of Azkaban",
+    "description": "It's Harry's third year at Hogwarts; not only does he have a new \"Defense Against the Dark Arts\" teacher, but there is also trouble brewing. Convicted murderer Sirius Black has escaped the Wizards' Prison and is coming after Harry.",
+    "rating": 3,
+    "trailer": "https://www.youtube.com/watch?v=lAxgztbYDbs",
+    "duration": 142,
+    "photo": {
+      "id": "3456789012",
+      "url": "https://res.cloudinary.com/dpfb4wi7z/image/upload/v1712413295/dutken6ygxsqjamlggyz.jpg",
+      "altText": "Harry Potter and the Prisoner of Azkaban poster"
+    },
+    "uploadDate": "2004-11-14",
+    "releaseDate": "2004-11-14",
+    "genres": [ "Adventure", "Family", "Fantasy" ]
+  },
+  {
+    "title": "Harry Potter and the Goblet of Fire",
+    "description": "A young wizard finds himself competing in a hazardous tournament between rival schools of magic, but he is distracted by recurring nightmares.",
+    "rating": 3,
+    "trailer": "https://www.youtube.com/watch?v=y6ZW7KXaXYk",
+    "duration": 157,
+    "photo": {
+      "id": "4567890123",
+      "url": "https://res.cloudinary.com/dpfb4wi7z/image/upload/v1712413295/ka0ztxpfu92h2qd5v2si.jpg",
+      "altText": "Harry Potter and the Goblet of Fire poster"
+    },
+    "uploadDate": "2005-11-14",
+    "releaseDate": "2005-11-14",
+    "genres": [ "Adventure", "Family", "Fantasy" ]
+  },
+  {
+    "title": "Harry Potter and the Order of the Phoenix",
+    "description": "With their warning about Lord Voldemort's return scoffed at, Harry and Dumbledore are targeted by the Wizard authorities as an authoritarian bureaucrat slowly seizes power at Hogwarts.",
+    "rating": 3,
+    "trailer": "https://www.youtube.com/watch?v=y6ZW7KXaXYk",
+    "duration": 138,
+    "photo": {
+      "id": "5678901234",
+      "url": "https://res.cloudinary.com/dpfb4wi7z/image/upload/v1712413295/jjr5bno0i6trlkkhyzmb.jpg",
+      "altText": "Harry Potter and the Order of the Phoenix poster"
+    },
+    "uploadDate": "2007-11-14",
+    "releaseDate": "2007-11-14",
+    "genres": [ "Adventure", "Family", "Fantasy" ]
+  },
+  {
+    "title": "Harry Potter and the Half-Blood Prince",
+    "description": "As Harry Potter begins his sixth year at Hogwarts, he discovers an old book marked as 'the property of the Half-Blood Prince' and begins to learn more about Lord Voldemort's dark past.",
+    "rating": 3,
+    "trailer": "https://www.youtube.com/watch?v=lAxgztbYDbs",
+    "duration": 153,
+    "photo": {
+      "id": "6789012345",
+      "url": "https://res.cloudinary.com/dpfb4wi7z/image/upload/v1712413295/mzl4latetktmlhku8hgt.jpg",
+      "altText": "Harry Potter and the Half-Blood Prince poster"
+    },
+    "uploadDate": "2009-11-14",
+    "releaseDate": "2009-11-14",
+    "genres": [ "Adventure", "Family", "Fantasy" ]
+  },
+  {
+    "title": "Harry Potter and the Deathly Hallows – Part 1",
+    "description": "As Harry races against time and evil to destroy the Horcruxes, he uncovers the existence of three most powerful objects in the wizarding world: the Deathly Hallows.",
+    "rating": 3,
+    "trailer": "https://www.youtube.com/watch?v=lAxgztbYDbs",
+    "duration": 146,
+    "photo": {
+      "id": "7890123456",
+      "url": "https://res.cloudinary.com/dpfb4wi7z/image/upload/v1712413295/wlsbf2bnb7b8tgkfoy4i.jpg",
+      "altText": "Harry Potter and the Deathly Hallows – Part 1 poster"
+    },
+    "uploadDate": "2010-11-14",
+    "releaseDate": "2010-11-14",
+    "genres": [ "Adventure", "Family", "Fantasy" ]
+  },
+  {
+    "title": "Harry Potter and the Deathly Hallows – Part 2",
+    "description": "Harry, Ron, and Hermione search for Voldemort's remaining Horcruxes in their effort to destroy the Dark Lord as the final battle rages on at Hogwarts.",
+    "rating": 3,
+    "trailer": "https://www.youtube.com/watch?v=lAxgztbYDbs",
+    "duration": 130,
+    "photo": {
+      "id": "8901234567",
+      "url": "https://res.cloudinary.com/dpfb4wi7z/image/upload/v1712413295/c5oon6sgkbnoddrsq42p.jpg",
+      "altText": "Harry Potter and the Deathly Hallows – Part 2 poster"
+    },
+    "uploadDate": "2011-11-14",
+    "releaseDate": "2011-11-14",
+    "genres": [ "Adventure", "Family", "Fantasy" ]
+  }
+]

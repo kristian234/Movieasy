@@ -13,14 +13,14 @@ COPY ["Movieasy.Api/Movieasy.Api.csproj", "Movieasy.Api/"]
 COPY ["Movieasy.Domain/Movieasy.Domain.csproj", "Movieasy.Domain/"]
 COPY ["Movieasy.Infrastructure/Movieasy.Infrastructure.csproj", "Movieasy.Infrastructure/"]
 COPY ["Movieasy.Application/Movieasy.Application.csproj", "Movieasy.Application/"]
-RUN dotnet restore "Movieasy.Api/./Movieasy.Api.csproj"
+RUN dotnet restore "./Movieasy.Api/./Movieasy.Api.csproj"
 COPY . .
 WORKDIR "/src/Movieasy.Api"
-RUN dotnet build "Movieasy.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "./Movieasy.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "Movieasy.Api.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./Movieasy.Api.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 # ...
 

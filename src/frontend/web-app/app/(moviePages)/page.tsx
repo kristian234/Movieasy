@@ -69,7 +69,7 @@ export default async function Home() {
             </div>
           </div>
           <div className="mt-4">
-            <p className="text-sm">© 2024 Movieasy. All rights reserved.</p>
+            <p className="text-sm">2024 Movieasy.</p>
           </div>
         </div>
       </footer>
