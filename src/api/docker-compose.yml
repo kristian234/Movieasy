@@ -8,7 +8,7 @@ services:
        dockerfile: ./Movieasy.Api/Dockerfile
     depends_on:
      - postgres
-     # - movieasy-idp
+     - movieasy-idp
 
   postgres:
     image: postgres
@@ -21,38 +21,38 @@ services:
     volumes:
     - /var/lib/postgresql/data
 
-  # movieasy-idp:
-  #   image: quay.io/keycloak/keycloak:latest
-  #   container_name: Movieasy.Identity
-  #   command: start-dev --import-realm
-  #   environment:
-  #   - KC_DB=postgres
-  #   - KC_DB_URL=jdbc:postgresql://postgres:5432/movieasy  
-  #   - KC_DB_USERNAME=postgres
-  #   - KC_DB_PASSWORD=postgres
-  #   - KEYCLOAK_ADMIN=admin
-  #   - KEYCLOAK_ADMIN_PASSWORD=admin
-  #   - PROXY_ADDRESS_FORWARDING=true
-  #   volumes:
-  #   - ./.containers/identity:/opt/keycloak/data
-  #   - ./.files/movieasy-realm-export-final.json:/opt/keycloak/data/import/realm.json
-  #   ports:
-  #   - 18080:8080
-  #   depends_on:
-  #   - postgres
+  movieasy-idp:
+    image: quay.io/keycloak/keycloak:latest
+    container_name: Movieasy.Identity
+    command: start-dev --import-realm
+    environment:
+    - KC_DB=postgres
+    - KC_DB_URL=jdbc:postgresql://postgres:5432/movieasy  
+    - KC_DB_USERNAME=postgres
+    - KC_DB_PASSWORD=postgres
+    - KEYCLOAK_ADMIN=admin
+    - KEYCLOAK_ADMIN_PASSWORD=admin
+    - PROXY_ADDRESS_FORWARDING=true
+    volumes:
+    - ./.containers/identity:/opt/keycloak/data
+    - ./.files/movieasy-realm-export-final.json:/opt/keycloak/data/import/realm.json
+    ports:
+    - 18080:8080
+    depends_on:
+    - postgres
   
-  # next-app:
-  #   image: ${DOCKER_REGISTRY-}next-app
-  #   build:
-  #        context: ../frontend/web-app
-  #        dockerfile: Dockerfile 
-  #   container_name: nextjs
-  #   volumes:
-  #         - /var/lib/web/data
-  #   ports:
-  #   - 3000:3000
-  #   environment:
-  #     - NEXTAUTH_URL=http://localhost:3000
-  #     - URL=https://movieasy.api:5001
-  #     - NODE_TLS_REJECT_UNAUTHORIZED=0
-  #     - NEXTAUTH_SECRET=gogogogogo
+  next-app:
+    image: ${DOCKER_REGISTRY-}next-app
+    build:
+         context: ../frontend/web-app
+         dockerfile: Dockerfile 
+    container_name: nextjs
+    volumes:
+          - /var/lib/web/data
+    ports:
+    - 3000:3000
+    environment:
+      - NEXTAUTH_URL=http://localhost:3000
+      - URL=https://movieasy.api:5001
+      - NODE_TLS_REJECT_UNAUTHORIZED=0
+      - NEXTAUTH_SECRET=gogogogogo
