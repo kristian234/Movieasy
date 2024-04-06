@@ -22,8 +22,11 @@ FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
 RUN dotnet publish "Movieasy.Api.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
+# ...
+
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+COPY Movieasy.Api/Certificates/aspnetapp.pfx /app/Movieasy.Api/Certificates/aspnetapp.pfx
 
 ENTRYPOINT ["dotnet", "Movieasy.Api.dll"]

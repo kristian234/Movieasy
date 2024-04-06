@@ -15,7 +15,7 @@ import { Fragment } from "react";
 export default async function DetailsPage({ params }: { params: { id: string } }) {
   const movie = await getDetailedData(params.id);
   const session = await getCurrentUser();
-  const isAdmin = session?.roles.includes('Admin') ?? false;
+  const isAdmin = session?.roles?.includes('Admin') ?? false;
 
   if ((movie as any).error) {
     return notFound();

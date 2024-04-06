@@ -84,7 +84,7 @@ namespace Movieasy.Application.Movies.UpdateMovie
                 result.Value.PublicId,
                 result.Value.Url);
 
-            await _unitOfWork.SaveChangesAsync();
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
 
             return Result.Success();
         }

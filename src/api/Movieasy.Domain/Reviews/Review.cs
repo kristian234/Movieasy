@@ -61,5 +61,21 @@ namespace Movieasy.Domain.Reviews
 
             return review;
         }
+
+        public Result Update(string comment, int rating)
+        {
+            Comment newComment = new Comment(comment);
+
+            Result<Rating> newRatingResult = Rating.Create(rating);
+            if (newRatingResult.IsFailure)
+            {
+                return Result.Failure(Rating.Invalid);
+            }
+
+            Comment = newComment;
+            Rating = newRatingResult.Value;
+
+            return Result.Success();
+        }
     }
 }

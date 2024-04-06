@@ -7,6 +7,7 @@ using Movieasy.Application.Reviews.GetReview;
 using Movieasy.Application.Reviews.GetReviewById;
 using Movieasy.Application.Reviews.GetReviewSummary;
 using Movieasy.Application.Reviews.GetUserReviewForMovie;
+using Movieasy.Application.Reviews.UpdateReview;
 using Movieasy.Domain.Abstractions;
 
 namespace Movieasy.Api.Controllers.Reviews
@@ -99,6 +100,26 @@ namespace Movieasy.Api.Controllers.Reviews
             }
 
             return CreatedAtAction(nameof(GetReview), new { id = result.Value }, result.Value);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateReview(
+            UpdateReviewRequest request,
+            CancellationToken cancellationToken)
+        {
+            var command = new UpdateReviewCommand(
+                request.ReviewId,
+                request.Comment,
+                request.Rating);
+
+            Result result = await _sender.Send(command, cancellationToken);
+
+            if (result.IsFailure)
+            {
+                return BadRequest(result.Error);
+            }
+
+            return Ok();
         }
     }
 }

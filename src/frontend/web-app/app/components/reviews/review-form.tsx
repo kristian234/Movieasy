@@ -1,15 +1,14 @@
 'use client'
-
-import { useEffect } from 'react';
-import { getUserReviewForMovie, createReview } from '@/app/actions/review-actions';
+import { useEffect, useState } from 'react';
+import { getUserReviewForMovie, createReview, updateReview } from '@/app/actions/review-actions';
 import { Rating } from '@smastrom/react-rating'
 import '@smastrom/react-rating/style.css'
 import { Button, CustomFlowbiteTheme, Textarea } from 'flowbite-react';
-import { useState } from 'react'
 import { FieldValues, useForm } from 'react-hook-form';
 import { AiOutlineSend } from "react-icons/ai";
 import { toast } from 'react-toastify';
 import ReviewRating from './review-rating';
+import { Review } from '@/types';
 
 const customTheme: CustomFlowbiteTheme['button'] = {
     color: {
@@ -23,6 +22,8 @@ interface Props {
 }
 
 export default function ReviewForm({ movieId, userId }: Props) {
+    const [reviewData, setReviewData] = useState<Review | null>(null);
+    const [reviewId, setReviewId] = useState<string | null>(null);
     const [rating, setRating] = useState(1);
     const { control, register, handleSubmit, setFocus, reset, getValues, setValue,
         formState: { isSubmitting, isValid, isDirty, errors } } = useForm({
@@ -30,12 +31,18 @@ export default function ReviewForm({ movieId, userId }: Props) {
         });
 
     useEffect(() => {
-        // Fetch existing review for the movie and user
         async function fetchReview() {
             try {
                 const existingReview = await getUserReviewForMovie(movieId);
+
+                if(existingReview.error){
+                    setReviewData(null);
+                    return;
+                }
+
                 if (existingReview) {
-                    // If review exists, populate form fields with existing data
+                    setReviewData(existingReview);
+                    setReviewId(existingReview.id);
                     setValue('comment', existingReview.comment);
                     setRating(existingReview.rating);
                 }
@@ -44,22 +51,36 @@ export default function ReviewForm({ movieId, userId }: Props) {
             }
         }
 
-        fetchReview();
-    }, [movieId, userId, setValue]);
+        if (!reviewData) {
+            fetchReview();
+        }
+    }, [movieId, setValue, reviewData]); 
 
     async function onSubmit(data: FieldValues) {
         const finalData = { ...data, rating, movieId };
 
         try {
-            // If review exists, update it; otherwise, create a new one
-            const res = await getUserReviewForMovie(movieId);
-            if (res) {
-              //  await updateReview(res.id, finalData);
-                toast.success('Review updated successfully');
+            let res;
+    
+            // if review exists, update it; otherwise, create a new one
+            if (reviewData && reviewId) {
+                res = await updateReview({ ...data, rating, reviewId });
             } else {
                 await createReview(finalData);
-                toast.success('Review added successfully');
+                res = await getUserReviewForMovie(movieId); // Fetch review data again
             }
+    
+            if ((res as any).error) {
+                toast.error((res as any).error);
+                return;
+            }
+    
+            if (!reviewData && res) {
+                setReviewData(res);
+                setReviewId(res.id);
+            }
+    
+            toast.success('Review ' + (reviewData ? 'updated' : 'added') + ' successfully');
         } catch (error) {
             toast.error('Failed to save review');
         }
