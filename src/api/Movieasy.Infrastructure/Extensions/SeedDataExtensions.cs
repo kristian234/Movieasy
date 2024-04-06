@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
-using Movieasy.Domain.Genres;
+﻿using Movieasy.Domain.Genres;
 using Movieasy.Domain.Movies;
 using Movieasy.Domain.Photos;
 using Movieasy.Domain.Users;
@@ -33,64 +31,70 @@ namespace Movieasy.Api.Extensions
     {
         public static void SeedData(this ApplicationDbContext app)
         {
-            string path = "/app/Extensions/seed.json";
-            string jsonData = File.ReadAllText(path);
-
-            var moviesData = JsonConvert.DeserializeObject<List<MovieData>>(jsonData);
-
-            foreach (var movieData in moviesData)
+            if (app.Movies.Any() == false)
             {
-                var title = new Title(movieData.Title);
-                var description = new Description(movieData.Description);
-                var rating = (Rating)movieData.Rating;
-                var trailer = new Trailer(movieData.Trailer);
-                var duration = Duration.Create(movieData.Duration);
-                var uploadDate = DateTime.Parse(movieData.UploadDate).ToUniversalTime();
-                DateOnly? releaseDate = null;
-                if (movieData.ReleaseDate != null)
+                string path = "/app/Extensions/seed.json";
+                string jsonData = File.ReadAllText(path);
+
+                var moviesData = JsonConvert.DeserializeObject<List<MovieData>>(jsonData);
+
+                foreach (var movieData in moviesData)
                 {
-                    releaseDate = DateOnly.Parse(movieData.ReleaseDate);
-                }
-
-                var photoData = movieData.Photo;
-                var photo = Photo.Create(new PublicId(photoData.Id), new Url(photoData.Url));
-
-                app.Photos.Add(photo);
-
-
-                List<Genre> genres = new List<Genre>();
-                foreach (string genreName in movieData.Genres)
-                {
-                    var genre = app.Genres.FirstOrDefault(g => ((string)g.Name) == genreName);
-                    if (genre == null)
+                    var title = new Title(movieData.Title);
+                    var description = new Description(movieData.Description);
+                    var rating = (Rating)movieData.Rating;
+                    var trailer = new Trailer(movieData.Trailer);
+                    var duration = Duration.Create(movieData.Duration);
+                    var uploadDate = DateTime.Parse(movieData.UploadDate).ToUniversalTime();
+                    DateOnly? releaseDate = null;
+                    if (movieData.ReleaseDate != null)
                     {
-                        genre = Genre.Create(new Name(genreName));
-                        app.Genres.Add(genre);
-                        app.SaveChanges();
+                        releaseDate = DateOnly.Parse(movieData.ReleaseDate);
                     }
-                    genres.Add(genre);
+
+                    var photoData = movieData.Photo;
+                    var photo = Photo.Create(new PublicId(photoData.Id), new Url(photoData.Url));
+
+                    app.Photos.Add(photo);
+
+
+                    List<Genre> genres = new List<Genre>();
+                    foreach (string genreName in movieData.Genres)
+                    {
+                        var genre = app.Genres.FirstOrDefault(g => ((string)g.Name) == genreName);
+                        if (genre == null)
+                        {
+                            genre = Genre.Create(new Name(genreName));
+                            app.Genres.Add(genre);
+                            app.SaveChanges();
+                        }
+                        genres.Add(genre);
+                    }
+
+
+                    Movie movie = Movie.Create(title, description, rating, trailer, duration.Value, uploadDate, photo, releaseDate);
+                    movie.SetGenres(genres);
+
+                    app.Movies.Add(movie);
                 }
 
-
-                Movie movie = Movie.Create(title, description, rating, trailer, duration.Value, uploadDate, photo, releaseDate);
-                movie.SetGenres(genres);
-
-                app.Movies.Add(movie);
+                app.Attach(Role.Admin);
+                app.Attach(Role.Registered);
             }
 
-            app.Attach(Role.Admin);
-            app.Attach(Role.Registered);
+            if (app.Users.Any() == false)
+            {
 
-            var user = User.Create(
-                new FirstName("admin"),
-                new LastName("admin"),
-                new Email("admin@gmail.com"));
+                var user = User.Create(
+                    new FirstName("admin"),
+                    new LastName("admin"),
+                    new Email("admin@gmail.com"));
 
-            user.AddUserRole(Role.Admin);
-            user.SetIdentityId("3538994f-b095-45f6-8f98-a95dd61b84c2");
+                user.AddUserRole(Role.Admin);
+                user.SetIdentityId("3538994f-b095-45f6-8f98-a95dd61b84c2");
 
-            app.Users.Add(user);
-
+                app.Users.Add(user);
+            }
             //app.Photos.AddRange(photos);
             //app.Movies.AddRange(movies);
             app.SaveChanges();
