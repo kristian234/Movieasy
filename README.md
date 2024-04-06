@@ -2,17 +2,18 @@
 - Movieasy is a platform to share your opinion on movies and/or see others' opinion and find something to watch.
 
 ### Features
-<div style="background-color: #f0f0f0; padding: 10px; border-radius: 5px;">
-  
-**Movieasy** is a platform to share your opinion on movies and/or see others' opinions and find something to watch.
+<details>
+  tetegaegeageagae
+</details>
 
-</div>
+------------
 
 ### Architecture
 The backend of Movieasy adheres to the principles and practices of **clean architecture**.
 
 ![alt text](https://pbs.twimg.com/media/F92a6qvXYAA6i8K?format=png&name=4096x4096 "Logo Title Text 1")
 
+------------
 
 ### Used technologies
 - Next js
@@ -44,5 +45,7 @@ The backend of Movieasy adheres to the principles and practices of **clean archi
 - The provided docker-compose and configs seed the database when in development mode with an admin user, with the following credentials:
   email: admin@gmail.com
   password: admin
-  
+
+------------
+
 **More coming soon, to be continued**
