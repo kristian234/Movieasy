@@ -1,5 +1,12 @@
 ### What is Movieasy?
-- Movieasy is a platform to share your opinion on movies and/or see other's opinion and thus get to pick a movie to watch next. It also
+- Movieasy is a platform to share your opinion on movies and/or see others' opinion and find something to watch.
+
+### Features
+<div style="background-color: #f0f0f0; padding: 10px; border-radius: 5px;">
+  
+**Movieasy** is a platform to share your opinion on movies and/or see others' opinions and find something to watch.
+
+</div>
 
 ### Architecture
 The backend of Movieasy adheres to the principles and practices of **clean architecture**.
