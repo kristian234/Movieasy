@@ -19,7 +19,7 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Movieasy.Domain.UnitTests", "..\..\test\Movieasy.Domain.UnitTests\Movieasy.Domain.UnitTests.csproj", "{6F6DC413-F68D-42B1-A7E6-A5F0E9E4FC3E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Movieasy.Application.UnitTests", "..\..\test\Movieasy.Application.UnitTests\Movieasy.Application.UnitTests.csproj", "{D6A61239-7C13-4B7B-9C80-68BF92F75AD9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Movieasy.Application.UnitTests", "..\..\test\Movieasy.Application.UnitTests\Movieasy.Application.UnitTests.csproj", "{D6A61239-7C13-4B7B-9C80-68BF92F75AD9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

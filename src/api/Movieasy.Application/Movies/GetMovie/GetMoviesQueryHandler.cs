@@ -19,14 +19,17 @@ namespace Movieasy.Application.Movies.GetMovie
 
         public async Task<Result<PagedList<MovieResponse>>> Handle(GetMoviesQuery request, CancellationToken cancellationToken)
         {
-            IQueryable<Movie> moviesQuery = _context.Movies;
+            IQueryable<Movie> moviesQuery = _context.Movies
+                .Include(m => m.Photo)
+                .Include(m => m.Genres);
 
             // TO DO: In case at any time in the future there is a lot of entries in the database, 
             // this right here isn't really optimised for that, adding some form of an Index will be necessary.
             if (!string.IsNullOrWhiteSpace(request.SearchTerm))
             {
                 moviesQuery = moviesQuery.Where(m =>
-                    ((string)m.Title).Contains(request.SearchTerm));
+                    ((string)m.Title).Contains(request.SearchTerm) ||
+                    m.Genres.Any(g => ((string)g.Name).Contains(request.SearchTerm)));
             }
 
             Expression<Func<Movie, object>> keySelector = GetSortProperty(request);
@@ -41,7 +44,6 @@ namespace Movieasy.Application.Movies.GetMovie
             }
 
             var movieResponsesQuery = moviesQuery
-                .Include(m => m.Photo)
                 .Select(m => new MovieResponse
                 {
                     Id = m.Id.ToString(),
