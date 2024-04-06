@@ -1,9 +1,22 @@
 ### What is Movieasy?
 - Movieasy is a platform to share your opinion on movies and/or see others' opinion and find something to watch.
 
-### Features
+### Features (this list is to expand even more by 17th of April)
 <pre>
-  tetegaegeageagae
+   User:
+    - register and login
+    - search for movies by genre/movie title/actor 
+    - use the search filters
+    - leave a review consisting of a comment and star rating on any movie (except ones who are to be released)
+    - receive live notifications of a newly added movies
+    - edit their already posted reviews at any time
+    - see details about every movie
+    - watch the trailer of every movie
+  Admin:
+    - everything that the user can
+    - add/edit/delete movie/s
+    - add/edit/delete genre/s
+    - add/edit/delete actor/s
 </pre>
 
 ------------
