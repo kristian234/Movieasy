@@ -6,13 +6,17 @@ import { useEffect, useState } from "react";
 import { Spinner } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import CustomModal from "../../shared/modal";
 
 export default function GenreListing() {
     const genres = useGenresStore((state) => state.genres);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const setGenres = useGenresStore(state => state.setGenres);
+    const [showConfirmation, setShowConfirmation] = useState(false);
     const delGenre = useGenresStore(state => state.deleteGenre);
     const router = useRouter();
+
+    const [isDeleting, setIsDeleting] = useState(false);
 
     useEffect(() => {
         getGenres().then(result => {
@@ -29,14 +33,19 @@ export default function GenreListing() {
     }, [])
 
     async function removeGenre(id: string) {
+        setIsDeleting(true);
         const res = await deleteGenre(id);
 
         if (res.error) {
+            setIsDeleting(false);
+            setShowConfirmation(false);
             toast.error(res.error);
             return;
         }
 
         delGenre(id); // Delete from the zustand store
+        setShowConfirmation(false);
+        setIsDeleting(false);
     }
 
     return (
@@ -61,7 +70,18 @@ export default function GenreListing() {
                                     <span className="text-lg font-semibold text-primary">{genre.name}</span>
                                     <div className="flex space-x-2">
                                         <button onClick={() => router.push(`/admin/genres/edit/${genre.id}`)} className="bg-secondary hover:bg-third text-primary px-2 py-1 rounded-md">Edit</button>
-                                        <button onClick={() => removeGenre(genre.id)} className="bg-danger hover:bg-superdanger text-primary px-2 py-1 rounded-md">Delete</button>
+                                        <button onClick={() => setShowConfirmation(true)} className="bg-danger hover:bg-superdanger text-primary px-2 py-1 rounded-md">Delete</button>
+                                        <CustomModal
+                                            isOpen={showConfirmation}
+                                            onClose={() => setShowConfirmation(false)}
+                                            title="Confirm Deletion"
+                                            content="Are you sure you want to delete this movie?"
+                                            actionButtonLabel="Delete"
+                                            onActionButtonClick={() => removeGenre(genre.id)} // Pass the genre id to removeGenre
+                                            cancelButtonLabel="Cancel"
+                                            onCancelButtonClick={() => setShowConfirmation(false)}
+                                            loading={isDeleting}
+                                        />
                                     </div>
                                 </li>
                             ))}

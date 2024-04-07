@@ -14,6 +14,24 @@ interface ModalProps {
     loading?: boolean;
 }
 
+// Define custom CSS styles
+const customStyles = {
+    overlay: {
+        backgroundColor: 'rgba(0, 0, 0, 0.5)', // darker semi-transparent black background
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    content: {
+        border: 'none', // no border
+        borderRadius: '0.5rem', // rounded corners
+        boxShadow: '0 0 20px rgba(0, 0, 0, 0.4)', // cooler shadow effect
+        maxWidth: '500px', // maximum width of the modal
+        margin: 'auto', // center the modal horizontally
+    },
+};
+
+
 const CustomModal: React.FC<ModalProps> = ({
     isOpen,
     onClose,
@@ -29,31 +47,34 @@ const CustomModal: React.FC<ModalProps> = ({
         <Modal
             isOpen={isOpen}
             onRequestClose={onClose}
-            className="modal bg-secondary rounded-lg shadow-3xl p-6"
-            overlayClassName="overlay fixed top-0 left-0 right-0 bottom-0 bg-black bg-opacity-75 z-50 flex justify-center items-center"
+            className="modal-wrapper"
+            style={customStyles}
         >
-            <div className="flex-col flex text-center bg-third rounded-lg">
-                <div>
-                    {title && <h1 className='text-2xl font-semibold mb-2'>{title}</h1>}
+            <div className="modal-content bg-header rounded-lg shadow-3xl p-6">
+                <div className="modal-header mb-2">
+                    {title && <h1 className='text-2xl text-secondary font-semibold'>{title}</h1>}
                 </div>
-                <p className="text-lg font-semibold mb-5">{content && <p>{content}</p>}</p>
-                <div className="flex justify-center space-x-4">
-                    <div className="modal-actions flex-row flex space-x-5 mb-5">
-                        {onCancelButtonClick && (
-                            <button className="modal-cancel text-gray-600 border border-gray-400 px-4 py-2 rounded-md hover:bg-gray-100 focus:outline-none" onClick={onCancelButtonClick}>
-                                {cancelButtonLabel}
-                            </button>
-                        )}
-                        {onActionButtonClick && (
-                            <Button color='failure' isProcessing={loading} className="modal-action text-white focus:outline-none" onClick={onActionButtonClick}>
-                                {actionButtonLabel}
-                            </Button>
-                        )}
-
-                    </div>
+                <div className="modal-body mb-4">
+                    {content && <p className="text-lg text-third">{content}</p>}
+                </div>
+                <div className="modal-footer flex justify-end flex-row space-x-7">
+                    {onCancelButtonClick && (
+                        <button className="modal-cancel btn btn-secondary mr-2 bg-secondary text-primary font-semibold px-4 py-2 rounded-lg hover:bg-third focus:outline-none" onClick={onCancelButtonClick}>
+                            {cancelButtonLabel}
+                        </button>
+                    )}
+                    {onActionButtonClick && (
+                        <Button
+                            color='failure'
+                            isProcessing={loading}
+                            className="modal-action"
+                            onClick={onActionButtonClick}
+                        >
+                            {actionButtonLabel}
+                        </Button>
+                    )}
                 </div>
             </div>
-
         </Modal>
     );
 };
