@@ -58,6 +58,7 @@ The backend of Movieasy adheres to the principles and practices of **clean archi
 - The provided docker-compose and configs seed the database when in development mode with an admin user, with the following credentials:
   email: admin@gmail.com
   password: admin
+- The appsettings.Development.json file is not included as it contains a lot of sensitive information, if you wish to get it please message me. (I've already given it in the softuni form)
 
 ------------
 
