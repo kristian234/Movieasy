@@ -5,6 +5,7 @@ import RefreshClientComponent from "../components/shared/refresh-component";
 import AdminHeader from "../components/admin/admin-header/header";
 import { ProSidebarProvider } from "react-pro-sidebar";
 import Head from "next/head";
+import ToasterProvider from "../Providers/ToasterProvider";
 
 export const metadata: Metadata = {
   title: "Movieasy",
@@ -27,6 +28,7 @@ export default async function RootLayout({
               <div className="flex">
                 <AdminHeader />
                 <main className="flex-grow">
+                  <ToasterProvider />
                   {children}
                 </main>
               </div>

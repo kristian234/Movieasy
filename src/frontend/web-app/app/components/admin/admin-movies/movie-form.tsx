@@ -55,8 +55,7 @@ export default function MovieForm({ title, movie }: Props) {
 
         getGenres().then(result => {
             if ((result as any).error) {
-                // TO DO: add a toast
-
+                toast.error((result as any).error)
                 return;
             }
 
@@ -108,12 +107,21 @@ export default function MovieForm({ title, movie }: Props) {
         if (movie) {
             formData.append('MovieId', movie.id);
             res = await updateMovie(formData);
+            if (!res.error) {
+                // successfully updated movie
+                toast.success('Movie updated successfully!');
+            }
         } else {
-            console.log(data);
             res = await createMovie(formData);
+            if (!res.error) {
+                // successfully created movie
+                toast.success('Movie created successfully!');
+            }
         }
+
         if (res.error) {
-            toast.error(res.error);            
+            // Error occurred
+            toast.error(res.error);
         }
     }
 

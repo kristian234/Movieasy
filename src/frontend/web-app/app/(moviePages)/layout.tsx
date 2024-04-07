@@ -6,6 +6,7 @@ import Header from "../layout/header";
 import 'react-multi-carousel/lib/styles.css';
 import { ToastContainer } from "react-toastify";
 import ToasterProvider from "../Providers/ToasterProvider";
+import ModalWrapper from "../Providers/ModalProvider";
 
 export const metadata: Metadata = {
   title: "Movieasy",
@@ -26,7 +27,9 @@ export default async function RootLayout({
               <Header />
               <main>
                 <ToasterProvider />
-                {children}
+                <ModalWrapper>
+                  {children}
+                </ModalWrapper>
               </main>
             </RefreshClientComponent>
           </Provider>
