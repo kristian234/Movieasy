@@ -6,11 +6,11 @@ namespace Movieasy.Application.Users.RegisterUser
     {
         public RegisterUserCommandValidator()
         {
-            RuleFor(u => u.FirstName).NotEmpty();
+            RuleFor(u => u.FirstName).NotEmpty().MinimumLength(3);
 
-            RuleFor(u => u.LastName).NotEmpty();
+            RuleFor(u => u.LastName).NotEmpty().MinimumLength(3);
 
-            RuleFor(u => u.Email).NotEmpty();
+            RuleFor(u => u.Email).NotEmpty().EmailAddress();
 
             RuleFor(u => u.Password).NotEmpty().MinimumLength(5);
         }

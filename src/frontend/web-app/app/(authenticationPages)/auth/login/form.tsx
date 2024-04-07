@@ -1,22 +1,35 @@
 'use client'
+
 import { setCookie } from "cookies-next";
 import { getSession, signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+
+interface IFormInput {
+    email: string;
+    password: string;
+    rememberMe: boolean;
+}
+
+const schema = yup.object().shape({
+    email: yup.string().email().required(),
+    password: yup.string().min(2).required(),
+    rememberMe: yup.boolean().required(),
+});
 
 export default function LoginForm() {
     const router = useRouter();
-    const [email, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const [rememberMe, setRememberMe] = useState(false);
+    const { register, handleSubmit, formState: { errors } } = useForm<IFormInput>({
+        resolver: yupResolver(schema)
+    });
 
-    const handleSubmit = async (e: any) => {
-        e.preventDefault();
+    const onSubmit = async (data: IFormInput) => {
+        setCookie('rememberMe', data.rememberMe);
 
-        setCookie('rememberMe', rememberMe);
-
-        const result = await signIn("credential", { email, password, redirect: false });
+        const result = await signIn("credential", { email: data.email, password: data.password, redirect: false });
 
         const session = await getSession();
 
@@ -24,8 +37,6 @@ export default function LoginForm() {
         if (!result?.error) {
             router.push("/")
             router.refresh();
-            router.refresh();
-
         }
     };
 
@@ -36,19 +47,21 @@ export default function LoginForm() {
                     <h1 className="text-xl font-bold leading-tight tracking-tight text-secondary md:text-2xl">
                         Sign in to your account
                     </h1>
-                    <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6" action="#">
+                    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 md:space-y-6" action="#">
                         <div>
                             <label htmlFor="email" className="block mb-2 text-sm font-bold text-third">Your email</label>
-                            <input autoComplete='off' onChange={(e) => setUsername(e.target.value)} value={email} type="email" name="email" id="email" className="bg-gray-50 border border-secondary text-gray-900 sm:text-sm rounded-lg focus:ring-secondary focus-ring-6 block w-full p-2.5 " placeholder="name@company.com" />
+                            <input {...register('email')} type="email" name="email" id="email" className="bg-gray-50 border border-secondary text-gray-900 sm:text-sm rounded-lg focus:ring-secondary focus-ring-6 block w-full p-2.5 " placeholder="name@company.com" />
+                            <p>{errors.email?.message}</p>
                         </div>
                         <div>
                             <label htmlFor="password" className="block mb-2 text-sm font-bold text-third">Password</label>
-                            <input onChange={(e) => setPassword(e.target.value)} value={password} type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-secondary text-gray-900 sm:text-sm rounded-lg focus:ring-secondary focus-ring-6 block w-full p-2.5 " />
+                            <input {...register('password')} type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-secondary text-gray-900 sm:text-sm rounded-lg focus:ring-secondary focus-ring-6 block w-full p-2.5 " />
+                            <p>{errors.password?.message}</p>
                         </div>
                         <div className="flex items-center justify-between">
                             <div className="flex items-start">
                                 <div className="flex items-center h-5">
-                                    <input checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)} id="rememberMe" aria-describedby="rememberMe" type="checkbox" className="w-4 h-4 border form-checkbox text-secondary accent-gray-700 border-secondary rounded focus:outline-none focus:ring-0 focus:ring-third" />
+                                    <input {...register('rememberMe')} id="rememberMe" aria-describedby="rememberMe" type="checkbox" className="w-4 h-4 border form-checkbox text-secondary accent-gray-700 border-secondary rounded focus:outline-none focus:ring-0 focus:ring-third" />
                                 </div>
                                 <div className="ml-3 text-sm">
                                     <label htmlFor="remember" className=" text-third">Remember me</label>

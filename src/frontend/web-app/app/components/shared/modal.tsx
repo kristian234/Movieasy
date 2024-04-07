@@ -14,10 +14,9 @@ interface ModalProps {
     loading?: boolean;
 }
 
-// Define custom CSS styles
 const customStyles = {
     overlay: {
-        backgroundColor: 'rgba(0, 0, 0, 0.5)', // darker semi-transparent black background
+        backgroundColor: 'rgba(0, 0, 0, 0.5)', // darker semi transparent dark background
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
