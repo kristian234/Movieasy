@@ -8,7 +8,7 @@ type Props = {
     label: string
     type?: string
     showLabel?: boolean
-} & UseControllerProps
+} & UseControllerProps<any>
 
 export default function CustomInput(props: Props) {
     const { fieldState, field } = useController({ ...props, defaultValue: '' })

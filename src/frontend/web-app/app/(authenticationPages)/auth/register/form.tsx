@@ -17,7 +17,7 @@ interface IFormInput {
 }
 
 const schema = yup.object().shape({
-    firstName: yup.string().required("First name is required"),
+    firstName: yup.string().min(3, "At least 3 characters").required("First name is required"),
     lastName: yup.string().min(3, "At least 3 characters").required("Last name is required"),
     email: yup.string().email().required("Email is required"),
     password: yup.string().min(5, "Password must be at least 5 characters").required("Password is required"),
@@ -26,17 +26,17 @@ const schema = yup.object().shape({
 
 export default function RegisterForm() {
     const router = useRouter();
-    const { register, handleSubmit, formState: { errors } } = useForm<IFormInput>({
-        resolver: yupResolver(schema)
+    const { register, handleSubmit, formState: { isValid, errors } } = useForm<IFormInput>({
+        resolver: yupResolver(schema),
+        mode: 'onTouched'
     });
 
     const onSubmit = async (data: IFormInput) => {
         registerUser(data.firstName, data.lastName, data.email, data.password).then(res => {
-            console.log(res);
-            if(res.error){
-                toast.error(res.error);
+            if (res.error) {
+                toast.error(res.error.message);
                 return;
-            } 
+            }
 
             if (!res.error) {
                 router.push('/auth/login');
@@ -80,7 +80,7 @@ export default function RegisterForm() {
                             <input autoComplete="off" {...register('confirmPassword')} type="password" name="confirmPassword" id="confirmPassword" placeholder="••••••••" className={`bg-gray-50 border ${errors.confirmPassword ? 'border-red-500' : 'border-secondary'} text-gray-900 sm:text-sm rounded-lg focus:ring-secondary focus-ring-6 block w-full p-2.5`} />
                             {errors.confirmPassword && <p className="text-red-500">{errors.confirmPassword.message}</p>}
                         </div>
-                        <button type="submit" className="w-full text-body bg-secondary hover:bg-third focus:ring-1 focus:outline-none focus:ring-third font-bold rounded-lg text-sm px-5 py-2.5 text-center">Sign up</button>
+                        <button type="submit" disabled={!isValid} className={`${isValid ? 'cursor-pointer' : 'cursor-not-allowed opacity-50'} w-full text-body bg-secondary hover:bg-third focus:ring-1 focus:outline-none focus:ring-third font-bold rounded-lg text-sm px-5 py-2.5 text-center`}>Sign up</button>
                         <p className="text-sm font-medium text-third">
                             Already have an account? <Link href="/auth/login" className="font-bold text-secondary hover:underline">Sign in</Link>
                         </p>

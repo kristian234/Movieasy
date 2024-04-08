@@ -13,7 +13,7 @@ namespace Movieasy.Application.Users.LoginUser
                 .MinimumLength(UserConstants.PasswordMinLength)
                 .MaximumLength(UserConstants.PasswordMaxLength);
 
-            RuleFor(x => x.RememberMe).NotEmpty();
+            RuleFor(x => x.RememberMe);
         }
     }
 }

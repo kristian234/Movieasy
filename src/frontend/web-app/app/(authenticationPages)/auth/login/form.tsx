@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import { toast } from "react-toastify";
 
 interface IFormInput {
     email: string;
@@ -22,8 +23,9 @@ const schema = yup.object().shape({
 
 export default function LoginForm() {
     const router = useRouter();
-    const { register, handleSubmit, formState: { errors } } = useForm<IFormInput>({
-        resolver: yupResolver(schema)
+    const { register, handleSubmit, formState: { isValid, errors } } = useForm<IFormInput>({
+        resolver: yupResolver(schema),
+        mode: 'onTouched'
     });
 
     const onSubmit = async (data: IFormInput) => {
@@ -31,9 +33,11 @@ export default function LoginForm() {
 
         const result = await signIn("credential", { email: data.email, password: data.password, redirect: false });
 
-        const session = await getSession();
+        if (result?.error) {
+            toast.error("Error logging in");
+            return;
+        }
 
-        console.log(session);
         if (!result?.error) {
             router.push("/")
             router.refresh();
@@ -69,7 +73,7 @@ export default function LoginForm() {
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" className="w-full text-body bg-secondary hover:bg-third focus:ring-1 focus:outline-none focus:ring-third font-bold rounded-lg text-sm px-5 py-2.5 text-center">Sign in</button>
+                        <button type="submit" disabled={!isValid} className={`${isValid ? 'cursor-pointer' : 'cursor-not-allowed opacity-50'} w-full text-body bg-secondary hover:bg-third focus:ring-1 focus:outline-none focus:ring-third font-bold rounded-lg text-sm px-5 py-2.5 text-center`}>Sign in</button>
                         <p className="text-sm font-medium text-third">
                             Don’t have an account yet? <Link href="/auth/register" className="font-bold text-secondary hover:underline">Sign up</Link>
                         </p>
