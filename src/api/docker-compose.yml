@@ -41,18 +41,18 @@ services:
     depends_on:
     - postgres
   
-  # next-app:
-    # image: ${DOCKER_REGISTRY-}next-app
-    # build:
-    #      context: ../frontend/web-app
-    #      dockerfile: Dockerfile 
-    # container_name: nextjs
-    # volumes:
-    #       - /var/lib/web/data
-    # ports:
-    # - 3000:3000
-    # environment:
-    #   - NEXTAUTH_URL=http://localhost:3000
-    #   - URL=https://movieasy.api:5001
-    #   - NODE_TLS_REJECT_UNAUTHORIZED=0
-    #   - NEXTAUTH_SECRET=gogogogogo
+  next-app:
+    image: ${DOCKER_REGISTRY-}next-app
+    build:
+         context: ../frontend/web-app
+         dockerfile: Dockerfile 
+    container_name: nextjs
+    volumes:
+          - /var/lib/web/data
+    ports:
+    - 3000:3000
+    environment:
+      - NEXTAUTH_URL=http://localhost:3000
+      - URL=https://movieasy.api:5001
+      - NODE_TLS_REJECT_UNAUTHORIZED=0
+      - NEXTAUTH_SECRET=gogogogogo
