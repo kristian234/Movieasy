@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
 using Movieasy.Application.Abstractions.Messaging;
-using Movieasy.Domain.Abstractions;
 
 namespace Movieasy.Application.Abstractions.Behaviors
 {

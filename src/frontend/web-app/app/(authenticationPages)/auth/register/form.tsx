@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 interface IFormInput {
     firstName: string;
@@ -16,7 +17,7 @@ interface IFormInput {
 }
 
 const schema = yup.object().shape({
-    firstName: yup.string().min(3, "At least 3 characters").required("First name is required"),
+    firstName: yup.string().required("First name is required"),
     lastName: yup.string().min(3, "At least 3 characters").required("Last name is required"),
     email: yup.string().email().required("Email is required"),
     password: yup.string().min(5, "Password must be at least 5 characters").required("Password is required"),
@@ -31,8 +32,12 @@ export default function RegisterForm() {
 
     const onSubmit = async (data: IFormInput) => {
         registerUser(data.firstName, data.lastName, data.email, data.password).then(res => {
-            console.log(data);
             console.log(res);
+            if(res.error){
+                toast.error(res.error);
+                return;
+            } 
+
             if (!res.error) {
                 router.push('/auth/login');
                 router.refresh();

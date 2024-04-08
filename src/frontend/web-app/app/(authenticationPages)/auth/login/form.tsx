@@ -7,7 +7,6 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import CustomInput from "@/app/components/shared/custom-input";
 
 interface IFormInput {
     email: string;

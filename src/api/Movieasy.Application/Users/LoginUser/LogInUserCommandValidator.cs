@@ -3,7 +3,7 @@ using Movieasy.Domain.Users;
 
 namespace Movieasy.Application.Users.LoginUser
 {
-    internal sealed class LogInUserCommandValidator : AbstractValidator<LogInUserCommand>
+    public class LogInUserCommandValidator : AbstractValidator<LogInUserCommand>
     {
         public LogInUserCommandValidator()
         {

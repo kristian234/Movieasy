@@ -3,7 +3,7 @@ using Movieasy.Domain.Movies;
 
 namespace Movieasy.Application.Movies.AddMovie
 {
-    internal sealed class AddMovieCommandValidator : AbstractValidator<AddMovieCommand>
+    public sealed class AddMovieCommandValidator : AbstractValidator<AddMovieCommand>
     {
         public AddMovieCommandValidator()
         {

@@ -26,7 +26,6 @@ using Movieasy.Domain.Photos;
 using Movieasy.Domain.Genres;
 using Movieasy.Application.Abstractions.SignalR;
 using Movieasy.Infrastructure.SignalR;
-using CloudinaryDotNet.Core;
 
 namespace Movieasy.Infrastructure
 {
