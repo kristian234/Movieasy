@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Movieasy.Domain.Users;
 
 namespace Movieasy.Application.Users.LoginUser
 {
@@ -6,9 +7,11 @@ namespace Movieasy.Application.Users.LoginUser
     {
         public LogInUserCommandValidator()
         {
-            RuleFor(x => x.Email).NotEmpty().EmailAddress();
+            RuleFor(x => x.Email).NotEmpty().EmailAddress().MaximumLength(UserConstants.EmailMaxLength);
 
-            RuleFor(x => x.Password).NotEmpty().MinimumLength(5);
+            RuleFor(x => x.Password).NotEmpty()
+                .MinimumLength(UserConstants.PasswordMinLength)
+                .MaximumLength(UserConstants.PasswordMaxLength);
 
             RuleFor(x => x.RememberMe).NotEmpty();
         }

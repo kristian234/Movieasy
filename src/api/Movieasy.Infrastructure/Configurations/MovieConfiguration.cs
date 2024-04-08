@@ -13,18 +13,18 @@ namespace Movieasy.Infrastructure.Configurations
             builder.HasKey(movie => movie.Id);
 
             builder.Property(movie => movie.Title)
-                .HasMaxLength(200)
+                .HasMaxLength(MovieConstants.TitleMaxLength)
                 .HasConversion(title => title.Value, value => new Title(value));
 
             builder.Property(movie => movie.Description)
-                .HasMaxLength(1000)
+                .HasMaxLength(MovieConstants.DescriptionMaxLength)
                 .HasConversion(description => description.Value, value => new Description(value));
 
             builder.Property(movie => movie.Duration)
                 .HasConversion(duration => duration.Value, value => Duration.Create(value).Value);
 
             builder.Property(movie => movie.Trailer)
-                .HasMaxLength(500)
+                .HasMaxLength(MovieConstants.TitleMaxLength)
                 .HasConversion(trailer => trailer.Value, value => new Trailer(value));
 
             builder.HasOne(movie => movie.Photo)

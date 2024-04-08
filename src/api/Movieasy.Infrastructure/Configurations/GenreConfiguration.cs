@@ -12,7 +12,7 @@ namespace Movieasy.Infrastructure.Configurations
             builder.HasKey(genre => genre.Id);
 
             builder.Property(genre => genre.Name)
-                .HasMaxLength(50)
+                .HasMaxLength(GenreConstants.NameMaxLength)
                 .HasConversion(genre => genre.Value, value => new Name(value));
 
             builder.HasIndex(genre => genre.Name)

@@ -1,7 +1,6 @@
 ﻿using Movieasy.Application.Abstractions.Messaging;
 using Movieasy.Domain.Abstractions;
 using Movieasy.Domain.Genres;
-using Movieasy.Domain.Movies;
 
 namespace Movieasy.Application.Genres.UpdateGenre
 {

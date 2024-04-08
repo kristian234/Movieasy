@@ -52,18 +52,18 @@ export default function LoginForm() {
                     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 md:space-y-6" action="#">
                         <div>
                             <label htmlFor="email" className="block mb-2 text-sm font-bold text-third">Your email</label>
-                            <input {...register('email')} type="email" name="email" id="email" className={`bg-gray-50 border ${errors.email ? 'border-red-500' : 'border-secondary'} text-gray-900 sm:text-sm rounded-lg focus:ring-secondary focus-ring-6 block w-full p-2.5`} placeholder="name@company.com" />
+                            <input autoComplete="off" {...register('email')} type="email" name="email" id="email" className={`bg-gray-50 border ${errors.email ? 'border-red-500' : 'border-secondary'} text-gray-900 sm:text-sm rounded-lg focus:ring-secondary focus-ring-6 block w-full p-2.5`} placeholder="name@company.com" />
                             {errors.email && <p className="text-red-500">{errors.email.message}</p>}
                         </div>
                         <div>
                             <label htmlFor="password" className="block mb-2 text-sm font-bold text-third">Password</label>
-                            <input {...register('password')} type="password" name="password" id="password" placeholder="••••••••" className={`bg-gray-50 border ${errors.password ? 'border-red-500' : 'border-secondary'} text-gray-900 sm:text-sm rounded-lg focus:ring-secondary focus-ring-6 block w-full p-2.5`} />
+                            <input autoComplete="off" {...register('password')} type="password" name="password" id="password" placeholder="••••••••" className={`bg-gray-50 border ${errors.password ? 'border-red-500' : 'border-secondary'} text-gray-900 sm:text-sm rounded-lg focus:ring-secondary focus-ring-6 block w-full p-2.5`} />
                             {errors.password && <p className="text-red-500">{errors.password.message}</p>}
                         </div>
                         <div className="flex items-center justify-between">
                             <div className="flex items-start">
                                 <div className="flex items-center h-5">
-                                    <input {...register('rememberMe')} id="rememberMe" aria-describedby="rememberMe" type="checkbox" className="w-4 h-4 border form-checkbox text-secondary accent-gray-700 border-secondary rounded focus:outline-none focus:ring-0 focus:ring-third" />
+                                    <input autoComplete="off" {...register('rememberMe')} id="rememberMe" aria-describedby="rememberMe" type="checkbox" className="w-4 h-4 border form-checkbox text-secondary accent-gray-700 border-secondary rounded focus:outline-none focus:ring-0 focus:ring-third" />
                                 </div>
                                 <div className="ml-3 text-sm">
                                     <label htmlFor="remember" className=" text-third">Remember me</label>

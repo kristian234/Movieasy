@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Movieasy.Domain.Movies;
 using Movieasy.Domain.Reviews;
-using Movieasy.Domain.Users;
 using Rating = Movieasy.Domain.Reviews.Rating;
 
 namespace Movieasy.Infrastructure.Configurations
@@ -14,7 +13,7 @@ namespace Movieasy.Infrastructure.Configurations
             builder.HasKey(review => review.Id);
 
             builder.Property(review => review.Comment)
-                .HasMaxLength(500)
+                .HasMaxLength(ReviewConstants.CommentMaxLength)
                 .HasConversion(comment => comment.Value, value => new Comment(value));
 
             builder.Property(review => review.Rating)
