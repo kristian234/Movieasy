@@ -1,7 +1,4 @@
-﻿using Movieasy.Domain.Movies;
-using System.Runtime.CompilerServices;
-
-namespace Movieasy.Domain.Genres
+﻿namespace Movieasy.Domain.Genres
 {
     public interface IGenreRepository
     {

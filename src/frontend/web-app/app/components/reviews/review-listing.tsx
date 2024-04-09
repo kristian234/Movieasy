@@ -98,12 +98,16 @@ export default function ReviewListing({ movieId }: Props) {
 
     return (
         <div className="relative">
-            <div className="flex justify-between mt-8 mx-auto max-w-full px-8 w-[900px] sm:px-8 items-center">
+            <div className="flex sm:flex-row flex-col justify-between mt-8 mx-auto max-w-full px-8 w-[900px] sm:px-8 items-center">
                 <ReviewSummary detailedSummary={detailedReviewData} />
-                <button onClick={handleRefresh} className="bg-transparent text-secondary hover:bg-third font-bold py-2 px-4 rounded-3xl text-3xl">
-                    <IoRefresh />
-                </button>
-                <ReviewFilters onSortChange={handleSortChange} onFilterChange={handleFilterChange} />
+                <div className="flex justify-center items-center mt-2">
+                    <button onClick={handleRefresh} className="bg-transparent mr-2 text-secondary hover:bg-third font-bold py-2 px-2 rounded-3xl text-3xl">
+                        <IoRefresh />
+                    </button>
+                </div>
+                <div className="flex justify-center  items-center mt-2 ">
+                    <ReviewFilters onSortChange={handleSortChange} onFilterChange={handleFilterChange} />
+                </div>
             </div>
 
             {isLoading ? (

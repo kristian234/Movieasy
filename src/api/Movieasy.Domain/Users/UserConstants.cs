@@ -4,10 +4,10 @@
     {
         public const int EmailMaxLength = 255;
 
-        public const int FirstNameMaxLength = 200;
+        public const int FirstNameMaxLength = 80;
         public const int FirstNameMinLength = 3;
 
-        public const int LastNameMaxLength = 200;
+        public const int LastNameMaxLength = 80;
         public const int LastNameMinLength = 3;
 
         public const int PasswordMaxLength = 128;

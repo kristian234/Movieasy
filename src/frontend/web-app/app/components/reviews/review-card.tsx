@@ -21,8 +21,8 @@ export default function ReviewCard({ review }: Props) {
                     <ReviewRating value={review.rating} readonly={true} />
                 </div>
                 <p className={`text-gray-700 cursor-pointer break-words ${showFullComment ? 'overflow-y-auto' : 'overflow-hidden'}`} onClick={toggleComment}>
-                        {showFullComment ? review.comment : review.comment.slice(0, 100) + '...'} {/* Show first 100 characters */}
-                    </p>
+                    {showFullComment ? review.comment : review.comment.length > 100 ? `${review.comment.slice(0, 100)}...` : review.comment}
+                </p>
                 <p className="text-right text-xs font-semibold text-third">Posted on {new Date(review.createdOnDate).toLocaleDateString()}</p>
             </div>
         </div>

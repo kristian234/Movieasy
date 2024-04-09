@@ -22,9 +22,8 @@ function ReviewFilters({ onFilterChange, onSortChange }: ReviewFilterProps) {
 
     return (
 
-        <div className="flex justify-between items-center">
-
-            <div className="mr-2">
+        <div className="flex flex-col sm:flex-row justify-center items-center"> {/* Updated */}
+            <div className="mr-2 mb-2 sm:mb-0"> {/* Updated */}
                 <label htmlFor='time-filter' className='text-secondary font-semibold'>Filter by date:</label>
                 <select id='time-filter' onChange={e => onSortChange(e.target.value as 'newest' | 'oldest' | 'none')}
                     className="rounded-full py-2 px-4 border-2 border-third  bg-secondary bg-opacity-75 font-semibold text-darkHeader focus:border-third focus:ring-third focus:outline-none">
@@ -34,7 +33,7 @@ function ReviewFilters({ onFilterChange, onSortChange }: ReviewFilterProps) {
                 </select>
             </div>
 
-            <div>
+            <div className="ml-2"> {/* Updated */}
                 <label htmlFor="rating-filter" className='text-secondary font-semibold'>Filter by stars:</label>
                 <select id="rating-filter" onChange={handleFilterChange}
                     className="rounded-full py-2 px-4 border-2 border-third bg-secondary bg-opacity-75 font-semibold text-darkHeader focus:border-third focus:ring-third focus:outline-none">
