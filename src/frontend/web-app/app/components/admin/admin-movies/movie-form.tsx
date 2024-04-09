@@ -11,6 +11,8 @@ import { MultiSelect } from "react-multi-select-component";
 import { useGenresStore } from "@/hooks/useGenresStore";
 import { getGenres } from "@/app/actions/genre-actions";
 import { toast } from "react-toastify";
+import * as yup from 'yup';
+import { yupResolver } from "@hookform/resolvers/yup";
 
 const MovieRating = {
     G: 1,
@@ -25,10 +27,21 @@ interface Props {
     movie?: Movie
 }
 
+const validationSchema = yup.object().shape({
+    title: yup.string().required('Title is required').max(200, "Max 200 characters"),
+    description: yup.string().required('Description is required').max(1000, "Max 1000 characters"),
+    releaseDate: yup.date().nullable(),
+    duration: yup.number().required('Duration is required').positive('Duration must be a positive number').typeError("Duration must be a valid number"),
+    rating: yup.number().required('Rating is required'),
+    photo: yup.mixed().required('Photo is required'),
+    trailerUrl: yup.string().required('Trailer URL is required').max(500, "Max 500 characters"),
+});
+
 export default function MovieForm({ title, movie }: Props) {
     const { control, register, handleSubmit, setFocus, reset, getValues, setValue,
         formState: { isSubmitting, isValid, isDirty, errors } } = useForm({
-            mode: 'onTouched'
+            mode: 'onTouched',
+            resolver: yupResolver(validationSchema),
         });
 
     // TO DO: consider directly fetching and not using the zustand store
@@ -140,15 +153,13 @@ export default function MovieForm({ title, movie }: Props) {
                     </h1>
                     <form onSubmit={(e) => { handleSubmit(onSubmit)(e); }} className="space-y-4 md:space-y-6" action="#">
 
-                        <CustomInput label="Title" name="title" control={control}
-                            rules={{ required: 'Make is required' }} />
-                        <CustomInput label="Description" name="description" control={control}
-                            rules={{ required: 'Description is required' }} />
-                        <DateInput dateFormat={'yyyy-MM-dd'} label="Release Date" name="releaseDate" type="date"
+                        <CustomInput label="Title" name="title" control={control}/>
+                        <CustomInput label="Description" name="description" control={control}/>
+                        <DateInput autoComplete="off" dateFormat={'yyyy-MM-dd'} label="Release Date" name="releaseDate" type="date"
                             control={control} />
 
                         <div className="flex flex-row justify-between">
-                            <CustomInput label="Duration" name="duration" control={control} type="number" rules={{ required: 'Duration is required' }}></CustomInput>
+                            <CustomInput label="Duration" name="duration" control={control} type="number"></CustomInput>
                             <div>
                                 <select {...register('rating', { required: 'Rating is required' })} id="rating" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-18 p-2.5">
                                     {Object.entries(MovieRating).map(([rating, value]) => (
@@ -164,10 +175,9 @@ export default function MovieForm({ title, movie }: Props) {
                             <p className="text-primary font-semibold">This movie currently has a photo, leave to none to not change</p>
                         )}
 
-                        <CustomInput label="Trailer URL" name="trailerUrl" control={control}
-                            rules={{ required: 'Trailer URL is required' }} />
+                        <CustomInput label="Trailer URL" name="trailerUrl" control={control}/>
 
-                        <MultiSelect
+                        <MultiSelect                            
                             options={options}
                             value={selectedGenres}
                             hasSelectAll={false}

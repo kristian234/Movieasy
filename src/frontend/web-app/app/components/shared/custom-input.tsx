@@ -1,8 +1,6 @@
 import { Label, TextInput } from 'flowbite-react';
-import { useField } from 'formik';
-import { Form, useController } from 'react-hook-form';
+import { useController } from 'react-hook-form';
 import { UseControllerProps } from 'react-hook-form';
-import { text } from 'stream/consumers';
 
 type Props = {
     label: string
@@ -10,8 +8,9 @@ type Props = {
     showLabel?: boolean
 } & UseControllerProps<any>
 
+
 export default function CustomInput(props: Props) {
-    const { fieldState, field } = useController({ ...props, defaultValue: '' })
+    const { fieldState, field } = useController({ ...props, defaultValue: props.type == undefined ? '' : 0 })
 
     return (
         <div className='mb-3'>

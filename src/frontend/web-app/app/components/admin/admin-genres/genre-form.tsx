@@ -4,20 +4,27 @@ import { FieldValues, useForm } from "react-hook-form";
 import { Button, CustomFlowbiteTheme } from "flowbite-react";
 import CustomInput from "../../shared/custom-input";
 import { Fragment, useEffect } from "react";
-import { createMovie, updateMovie } from "@/app/actions/movie-actions";
 import { Genre } from "@/types";
 import { createGenre, getGenres, updateGenre } from "@/app/actions/genre-actions";
 import { useGenresStore } from "@/hooks/useGenresStore";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
+import * as yup from 'yup';
+import { yupResolver } from "@hookform/resolvers/yup";
 
 interface Props {
     title: string
     genre?: Genre
 }
 
+const validationSchema = yup.object().shape({
+    name: yup.string().required('Name is required').max(50, "Max 50 characters"),
+});
+
 export default function GenreForm({ title, genre }: Props) {
     const { control, register, handleSubmit, setFocus, reset,
         formState: { isSubmitting, isValid, isDirty, errors } } = useForm({
+            resolver: yupResolver(validationSchema),
             mode: 'onTouched'
         });
 
@@ -52,14 +59,20 @@ export default function GenreForm({ title, genre }: Props) {
             }
 
             // Edit a genre
-            data = {...data, genreId: genre.id};
+            data = { ...data, genreId: genre.id };
 
             res = await updateGenre(data);
-            if(!(res as any).error){
+
+            if ((res as any).error) {
+                toast.error(res.error.message);
+                return;
+            }
+
+            if (!(res as any).error) {
                 router.back();
             }
         } catch (error: any) {
-            // TO DO: Add a toast notification that the submission failed.
+            toast.error("Unexpected error");
         }
     }
 
@@ -78,8 +91,7 @@ export default function GenreForm({ title, genre }: Props) {
                     </h1>
                     <form onSubmit={(e) => { handleSubmit(onSubmit)(e); }} className="space-y-4 md:space-y-6" action="#">
 
-                        <CustomInput label="Name" name="name" control={control}
-                            rules={{ required: 'Name is required' }} />
+                        <CustomInput label="Name" name="name" control={control} />
 
                         <Button isProcessing={isSubmitting} disabled={!isValid}
                             type="submit" theme={customTheme} color="primary">

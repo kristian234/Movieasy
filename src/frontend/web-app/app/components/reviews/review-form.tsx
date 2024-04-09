@@ -1,7 +1,7 @@
 'use client'
+
 import { useEffect, useState } from 'react';
 import { getUserReviewForMovie, createReview, updateReview } from '@/app/actions/review-actions';
-import { Rating } from '@smastrom/react-rating'
 import '@smastrom/react-rating/style.css'
 import { Button, CustomFlowbiteTheme, Textarea } from 'flowbite-react';
 import { FieldValues, useForm } from 'react-hook-form';
@@ -9,6 +9,8 @@ import { AiOutlineSend } from "react-icons/ai";
 import { toast } from 'react-toastify';
 import ReviewRating from './review-rating';
 import { Review } from '@/types';
+import * as yup from 'yup';
+import { yupResolver } from "@hookform/resolvers/yup";
 
 const customTheme: CustomFlowbiteTheme['button'] = {
     color: {
@@ -20,6 +22,10 @@ interface Props {
     movieId: string;
     userId: string;
 }
+
+const validationSchema = yup.object().shape({
+    comment: yup.string().required('Comment is required').max(500, "Max 500 characters"),
+});
 
 export default function ReviewForm({ movieId, userId }: Props) {
     const [reviewData, setReviewData] = useState<Review | null>(null);

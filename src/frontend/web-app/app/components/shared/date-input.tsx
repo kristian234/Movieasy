@@ -1,4 +1,3 @@
-import { Label, TextInput } from "flowbite-react";
 import React from "react";
 import { useController, UseControllerProps } from "react-hook-form";
 import 'react-datepicker/dist/react-datepicker.css'
@@ -8,10 +7,10 @@ type Props = {
     label?: string,
     type?: string,
     showLabel?: boolean
-} & UseControllerProps & Partial<ReactDatePickerProps>
+} & UseControllerProps<any> & Partial<ReactDatePickerProps> 
 
 export default function DateInput(props: Props) {
-    const { fieldState, field } = useController({ ...props, defaultValue: '' })
+    const { fieldState, field } = useController({ ...props, defaultValue: null })
 
     return (
         <div className="mb-3 flex">
