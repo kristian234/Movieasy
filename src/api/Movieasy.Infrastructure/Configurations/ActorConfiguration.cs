@@ -14,6 +14,10 @@ namespace Movieasy.Infrastructure.Configurations
                 .HasMaxLength(ActorConstants.NameMaxLength)
                 .HasConversion(name => name.Value, value => new Name(value));
 
+            builder.Property(actor => actor.Biography)
+                .HasMaxLength(ActorConstants.BiographyMaxLength)
+                .HasConversion(biography => biography.Value, value => new Biography(value));
+
             builder.HasIndex(actor => actor.Name)
                 .IsUnique();
         }

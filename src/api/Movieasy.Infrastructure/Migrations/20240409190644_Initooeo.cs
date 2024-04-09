@@ -9,11 +9,24 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Movieasy.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class initoao : Migration
+    public partial class Initooeo : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "actors",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    name = table.Column<string>(type: "character varying(160)", maxLength: 160, nullable: false),
+                    biography = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_actors", x => x.id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "genres",
                 columns: table => new
@@ -57,9 +70,9 @@ namespace Movieasy.Infrastructure.Migrations
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false),
-                    first_name = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
-                    last_name = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
-                    email = table.Column<string>(type: "character varying(400)", maxLength: 400, nullable: false),
+                    first_name = table.Column<string>(type: "character varying(80)", maxLength: 80, nullable: false),
+                    last_name = table.Column<string>(type: "character varying(80)", maxLength: 80, nullable: false),
+                    email = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     identity_id = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
@@ -77,7 +90,7 @@ namespace Movieasy.Infrastructure.Migrations
                     photo_id = table.Column<Guid>(type: "uuid", nullable: false),
                     release_date = table.Column<DateOnly>(type: "date", nullable: true),
                     rating = table.Column<int>(type: "integer", nullable: false),
-                    trailer = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
+                    trailer = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
                     duration = table.Column<double>(type: "double precision", nullable: false),
                     upload_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -178,6 +191,12 @@ namespace Movieasy.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "ix_actors_name",
+                table: "actors",
+                column: "name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "ix_genre_movie_movie_id",
                 table: "genre_movie",
                 column: "movie_id");
@@ -231,6 +250,9 @@ namespace Movieasy.Infrastructure.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "actors");
+
             migrationBuilder.DropTable(
                 name: "genre_movie");
 

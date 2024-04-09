@@ -8,7 +8,7 @@ import { MdOutlineMovie } from "react-icons/md";
 import { MdOutlineDashboard } from "react-icons/md";
 import { IoLogOutOutline } from "react-icons/io5";
 import { GiDramaMasks } from "react-icons/gi";
-
+import { IoPeopleOutline } from "react-icons/io5";
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import MenuItemWithState from './menu-item';
@@ -69,6 +69,7 @@ export default function AdminHeader() {
 
                     <MenuItemWithState icon={<MdOutlineDashboard />} isActive={activeItem === '/admin/dashboard'} text='Dashboard' href='/admin/dashboard'></MenuItemWithState>
                     <MenuItemWithState icon={<MdOutlineMovie />} isActive={activeItem === '/admin/movies'} text='Movies' href='/admin/movies'></MenuItemWithState>
+                    <MenuItemWithState icon={<IoPeopleOutline />} isActive={activeItem === '/admin/actors'} text='Actors' href='/admin/actors'></MenuItemWithState>
                     <MenuItemWithState icon={<GiDramaMasks />} isActive={activeItem === '/admin/genres'} text='Genres' href='/admin/genres'></MenuItemWithState>
 
                     <div onClick={() => signOut()}>

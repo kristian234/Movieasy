@@ -26,6 +26,7 @@ using Movieasy.Domain.Photos;
 using Movieasy.Domain.Genres;
 using Movieasy.Application.Abstractions.SignalR;
 using Movieasy.Infrastructure.SignalR;
+using Movieasy.Domain.Actors;
 
 namespace Movieasy.Infrastructure
 {
@@ -121,6 +122,8 @@ namespace Movieasy.Infrastructure
             services.AddScoped<IPhotoRepository, PhotoRepository>();
 
             services.AddScoped<IGenreRepository, GenreRepository>();
+
+            services.AddScoped<IActorRepository, ActorRepository>();
 
             // Photo (cloudinary) related 
             services.AddScoped<IPhotoAccessor, PhotoAccessor>();

@@ -13,7 +13,8 @@ namespace Movieasy.Domain.Actors
             )
             : base(id)
         {
-
+            Name = name;
+            Biography = biography;
         }
 
         public Name Name { get; private set; }

@@ -11,6 +11,12 @@ export interface Movie {
   genres: Genre[]
 }
 
+export interface Actor{
+  id: string,
+  name: string,
+  biography: string
+}
+
 export interface Review{
   id: string,
   comment: string,

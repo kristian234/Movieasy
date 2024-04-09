@@ -4,66 +4,48 @@ import { FieldValues, useForm } from "react-hook-form";
 import { Button, CustomFlowbiteTheme } from "flowbite-react";
 import CustomInput from "../../shared/custom-input";
 import { Fragment, useEffect } from "react";
-import { Genre } from "@/types";
-import { createGenre, getGenres, updateGenre } from "@/app/actions/genre-actions";
-import { useGenresStore } from "@/hooks/useGenresStore";
-import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
+import { Actor, Movie } from "@/types";
 import * as yup from 'yup';
 import { yupResolver } from "@hookform/resolvers/yup";
+import { createActor, updateActor } from "@/app/actions/actor-actions";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 interface Props {
     title: string
-    genre?: Genre
+    actor?: Actor
 }
 
 const validationSchema = yup.object().shape({
-    name: yup.string().required('Name is required').max(50, "Max 50 characters"),
+    name: yup.string().required('Name is required').max(160, "Max 160 characters"),
+    biography: yup.string().max(1000, "Max 1000 characters"),
 });
 
-export default function GenreForm({ title, genre }: Props) {
-    const { control, register, handleSubmit, setFocus, reset,
+export default function MovieForm({ title, actor }: Props) {
+    const { control, register, handleSubmit, setFocus, reset, getValues, setValue,
         formState: { isSubmitting, isValid, isDirty, errors } } = useForm({
+            mode: 'onTouched',
             resolver: yupResolver(validationSchema),
-            mode: 'onTouched'
         });
 
     const router = useRouter();
-    const setGenres = useGenresStore((state) => state.setGenres);
 
     useEffect(() => {
-        if (genre) {
-            const { name } = genre;
-            reset({
-                name
-            });
-        }
-
         setFocus('name')
-    }, [setFocus, setGenres])
+    }, [setFocus, reset])
 
     async function onSubmit(data: FieldValues) {
         try {
             let res;
+            
+            if (!actor) {
+                res = await createActor(data);
+            } else if (actor) {
+                // Edit an actor
+                data = { ...data, genreId: actor.id };
 
-            if (!genre) { // No genre has been passed in, automatically decide its to CREATE an auction POST
-                res = await createGenre(data);
-
-                if (!res.error) {
-                    const genres = await getGenres();
-
-                    setGenres(genres);
-                }else{
-                    toast.error(res.error.message);
-                }
-
-                return;
+                res = await updateActor(data);
             }
-
-            // Edit a genre
-            data = { ...data, genreId: genre.id };
-
-            res = await updateGenre(data);
 
             if ((res as any).error) {
                 toast.error(res.error.message);
@@ -94,10 +76,11 @@ export default function GenreForm({ title, genre }: Props) {
                     <form onSubmit={(e) => { handleSubmit(onSubmit)(e); }} className="space-y-4 md:space-y-6" action="#">
 
                         <CustomInput label="Name" name="name" control={control} />
+                        <CustomInput label="Biography" name="biography" control={control} />
 
                         <Button isProcessing={isSubmitting} disabled={!isValid}
                             type="submit" theme={customTheme} color="primary">
-                            {genre ? (
+                            {actor ? (
                                 <Fragment>
                                     Update
                                 </Fragment>

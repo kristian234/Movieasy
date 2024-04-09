@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Movieasy.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240406115929_initoao")]
-    partial class initoao
+    [Migration("20240409190644_Initooeo")]
+    partial class Initooeo
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,6 +42,35 @@ namespace Movieasy.Infrastructure.Migrations
                         .HasDatabaseName("ix_genre_movie_movie_id");
 
                     b.ToTable("genre_movie", (string)null);
+                });
+
+            modelBuilder.Entity("Movieasy.Domain.Actors.Actor", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Biography")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)")
+                        .HasColumnName("biography");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("character varying(160)")
+                        .HasColumnName("name");
+
+                    b.HasKey("Id")
+                        .HasName("pk_actors");
+
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasDatabaseName("ix_actors_name");
+
+                    b.ToTable("actors", (string)null);
                 });
 
             modelBuilder.Entity("Movieasy.Domain.Genres.Genre", b =>
@@ -104,8 +133,8 @@ namespace Movieasy.Infrastructure.Migrations
 
                     b.Property<string>("Trailer")
                         .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("character varying(500)")
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)")
                         .HasColumnName("trailer");
 
                     b.Property<DateTime>("UploadDate")
@@ -231,14 +260,14 @@ namespace Movieasy.Infrastructure.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasMaxLength(400)
-                        .HasColumnType("character varying(400)")
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)")
                         .HasColumnName("email");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)")
+                        .HasMaxLength(80)
+                        .HasColumnType("character varying(80)")
                         .HasColumnName("first_name");
 
                     b.Property<string>("IdentityId")
@@ -248,8 +277,8 @@ namespace Movieasy.Infrastructure.Migrations
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)")
+                        .HasMaxLength(80)
+                        .HasColumnType("character varying(80)")
                         .HasColumnName("last_name");
 
                     b.HasKey("Id")
