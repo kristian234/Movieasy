@@ -3,9 +3,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Movieasy.Application.Actors.AddActor;
 using Movieasy.Application.Actors.DeleteActor;
+using Movieasy.Application.Actors.GetActor;
 using Movieasy.Application.Actors.UpdateActor;
+using Movieasy.Application.Movies.GetMovie;
 using Movieasy.Domain.Abstractions;
-using System.Security.Cryptography;
 
 namespace Movieasy.Api.Controllers.Actors
 {
@@ -18,6 +19,20 @@ namespace Movieasy.Api.Controllers.Actors
         public ActorsController(ISender sender)
         {
             _sender = sender;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetActors(
+            string? searchTerm,
+            CancellationToken cancellationToken,
+            int pageNumber = 1,
+            int pageSize = 12)
+        {
+            var query = new GetActorsQuery(searchTerm, pageNumber, pageSize);
+
+            Result<PagedList<PagedActorResponse>> result= await _sender.Send(query, cancellationToken);
+
+            return Ok(result.Value);
         }
 
         [HttpPost]

@@ -43,6 +43,7 @@
     "react-player": "^2.15.1",
     "react-pro-sidebar": "^1.1.0",
     "react-select": "^5.8.0",
+    "react-select-async-paginate": "^0.7.3",
     "react-toastify": "^10.0.5",
     "slick-carousel": "^1.8.1",
     "yup": "^1.4.0",
