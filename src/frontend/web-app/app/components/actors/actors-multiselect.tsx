@@ -9,36 +9,40 @@ import { IoSendSharp } from "react-icons/io5";
 
 interface Props {
     onSelect: (selectedActors: Actor[]) => void;
+    baselineActors?: Actor[];
 }
 
-export default function ActorMultiSelect({ onSelect }: Props) {
-    const [actors, setActors] = useState<Actor[]>([]); // Initialize actors state with an empty array
-    const [selectedActors, setSelectedActors] = useState<Actor[]>([]);
+export default function ActorMultiSelect({ baselineActors, onSelect }: Props) {
+    const [actors, setActors] = useState<Actor[]>([]);
+    const [selectedActors, setSelectedActors] = useState<Actor[]>(baselineActors || []); 
     const [searchTerm, setSearchTerm] = useState<string>("");
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [page, setPage] = useState<number>(1);
     const [hasMore, setHasMore] = useState<boolean>(true);
 
     useEffect(() => {
-        if (actors.length === 0) {
-            fetchData();
-        }
-    }, [actors]);
+        fetchData();
+    }, [page, searchTerm]);
 
     const fetchData = async () => {
         setIsLoading(true);
         try {
-            const res = await getData(`?page=${page}&searchTerm=${searchTerm}`);
+            const res = await getData(`?pageNumber=${page}&searchTerm=${searchTerm}`);
 
             if ((res as any).error) {
                 toast.error((res as any).error.message);
                 return;
             }
-
+            console.log(res);
             const newActors = res.items.filter((actor) => !actors.some((existingActor) => existingActor.id === actor.id));
-
-            setActors((prevActors) => [...newActors]);
-            setHasMore(res.pageCount > page);
+            
+            if (page === 1) {
+                setActors([...newActors]);
+                console.log(newActors)
+            } else {
+                setActors((prevActors) => [...prevActors, ...newActors]);
+            }
+            setHasMore(res.totalPages > page);
         } catch (error) {
             console.error("Error fetching data:", error);
         } finally {
@@ -64,8 +68,9 @@ export default function ActorMultiSelect({ onSelect }: Props) {
         setSelectedActors(updatedActors);
         onSelect(updatedActors);
     };
-
-
+    const handleLoadMore = () => {
+        setPage((prevPage) => prevPage + 1);
+    };
 
     return (
         <div className="bg-gray-100 p-4 rounded-md shadow-md">
@@ -79,7 +84,7 @@ export default function ActorMultiSelect({ onSelect }: Props) {
                 />
                 <button type="button" onClick={handleSearch} className="px-2 py-2 bg-blue-500 text-white rounded-md"><IoSendSharp /></button>
             </div>
-            <div className="overflow-y-auto max-h-36" style={{ maxHeight: "200px" }}>
+            <div className="overflow-y-auto max-h-36" style={{ maxHeight: "150px" }}>
                 {actors.map((actor) => (
                     <div key={actor.id} className="flex justify-between items-center px-4 py-2 border-b border-t border-gray-400">
                         <span>{actor.name}</span>
@@ -87,12 +92,12 @@ export default function ActorMultiSelect({ onSelect }: Props) {
                     </div>
                 ))}
                 {!isLoading && hasMore && (
-                    <button type="button" onClick={() => setPage(page + 1)} className="block w-full px-4 py-2 bg-blue-500 text-white rounded-md">Load More</button>
+                    <button type="button" onClick={() => handleLoadMore()} className="block w-full px-4 py-2 bg-blue-500 text-white rounded-md">Load More</button>
                 )}
             </div>
             <div>
                 <span className="block mb-2">Selected Actors:</span>
-                <div className="overflow-y-auto max-h-36" style={{ maxHeight: "200px" }}>
+                <div className="overflow-y-auto max-h-36" style={{ maxHeight: "100px" }}>
                     <ul>
                         {selectedActors.map((actor) => (
                             <li key={actor.id} className="flex justify-between items-center px-4 py-2 border-b border-gray-200">

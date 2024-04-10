@@ -37,7 +37,7 @@ export default function AdminHeader() {
     }, [path]);
 
     return (
-        <div style={{ display: "flex", height: "100vh"}}>
+        <div style={{ display: "flex", minHeight: "100vh" }}>
             <Sidebar collapsed={isMobile} backgroundColor='' className='bg-header'>
                 <div className='flex justify-center mt-2 text-third'>
                     <button onClick={() => setIsMobile(!isMobile)} >

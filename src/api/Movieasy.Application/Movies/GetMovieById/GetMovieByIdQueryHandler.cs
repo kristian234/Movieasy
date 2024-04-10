@@ -22,6 +22,7 @@ namespace Movieasy.Application.Movies.GetMovieById
                 .Where(m => m.Id == request.MovieId)
                 .Include(m => m.Photo)
                 .Include(m => m.Genres)
+                .Include(m => m.Actors)
                 .Select(m => new MovieResponse
                 {
                     Id = m.Id.ToString(),
@@ -40,6 +41,12 @@ namespace Movieasy.Application.Movies.GetMovieById
                         Id = genre.Id.ToString(),
                         Name = genre.Name.Value,
                     }),
+                    Actors = m.Actors.Select(actor => new Actors.GetActorById.ActorResponse()
+                    {
+                        Id = actor.Id.ToString(),
+                        Name = actor.Name.Value,
+                        Biography = actor.Biography.Value,
+                    })
                 })
                 .AsNoTracking()
                 .FirstOrDefaultAsync(cancellationToken);

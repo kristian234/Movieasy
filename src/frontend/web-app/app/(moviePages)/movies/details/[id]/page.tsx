@@ -21,7 +21,7 @@ export default async function DetailsPage({ params }: { params: { id: string } }
     return notFound();
   }
 
-  //console.log(movie);
+  console.log(movie);
 
   return (
     <div className="mt-8 relative">

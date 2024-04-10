@@ -136,7 +136,7 @@ export default function MovieForm({ title, movie }: Props) {
 
         if (res.error) {
             // Error occurred
-            toast.error(res.error);
+            toast.error(res.error.message);
         }
     }
 
@@ -187,7 +187,7 @@ export default function MovieForm({ title, movie }: Props) {
                             labelledBy="Select Genres"
                         />
 
-                        <ActorMultiSelect onSelect={handleSelectActors} />
+                        <ActorMultiSelect baselineActors={movie?.actors} onSelect={handleSelectActors} />
 
                         <Button isProcessing={isSubmitting} disabled={!isValid}
                             type="submit" theme={customTheme} color="primary">

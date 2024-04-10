@@ -1,4 +1,5 @@
-﻿using Movieasy.Domain.Genres;
+﻿using Movieasy.Domain.Actors;
+using Movieasy.Domain.Genres;
 using Movieasy.Domain.Movies;
 using Movieasy.Domain.Photos;
 using Movieasy.Domain.Users;
@@ -18,6 +19,13 @@ namespace Movieasy.Api.Extensions
         public string UploadDate { get; set; }
         public string ReleaseDate { get; set; }
         public List<string> Genres { get; set; }
+        public List<ActorData>? Actors { get; set; }
+    }
+
+    public class ActorData
+    {
+        public string Name { get; set; }
+        public string Biography { get; set; } = string.Empty;
     }
 
     public class PhotoData
@@ -64,16 +72,36 @@ namespace Movieasy.Api.Extensions
                         var genre = app.Genres.FirstOrDefault(g => ((string)g.Name) == genreName);
                         if (genre == null)
                         {
-                            genre = Genre.Create(new Name(genreName));
+                            genre = Genre.Create(new Domain.Genres.Name(genreName));
                             app.Genres.Add(genre);
                             app.SaveChanges();
                         }
                         genres.Add(genre);
                     }
 
+                    List<Actor> actors = new List<Actor>();
+                    if (movieData.Actors != null)
+                    {
+                        foreach (var actor in movieData.Actors)
+                        {
+                            var existingActor = app.Actors.FirstOrDefault(a => ((string)a.Name) == actor.Name);
+                            if (existingActor == null)
+                            {
+                                existingActor = Actor.Create(new Domain.Actors.Name(actor.Name), new Biography(actor.Biography));
+                                app.Actors.Add(existingActor);
+                                app.SaveChanges();
+                            }
+                            actors.Add(existingActor);
+                        }
+                    }
 
                     Movie movie = Movie.Create(title, description, rating, trailer, duration.Value, uploadDate, photo, releaseDate);
                     movie.SetGenres(genres);
+
+                    if(movieData.Actors != null)
+                    {
+                        movie.SetCast(actors);
+                    }
 
                     app.Movies.Add(movie);
                 }

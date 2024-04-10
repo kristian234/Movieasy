@@ -9,6 +9,7 @@ export interface Movie {
   imageUrl: string
   trailerUrl: string
   genres: Genre[]
+  actors: Actor[]
 }
 
 export interface Actor{

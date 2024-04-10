@@ -12,7 +12,17 @@
     },
     "uploadDate": "1994-10-14",
     "releaseDate": "1994-09-23",
-    "genres": [ "Drama" ]
+    "genres": [ "Drama" ],
+    "actors": [
+      {
+        "name": "Tim Robbins",
+        "biography": "Tim Robbins is an American actor, director, and producer. He has won numerous awards, including an Academy Award for his role in 'Mystic River'."
+      },
+      {
+        "name": "Morgan Freeman",
+        "biography": "Morgan Freeman is an American actor, producer, and narrator. He has won various awards throughout his career, including an Academy Award for Best Supporting Actor for his role in 'Million Dollar Baby'."
+      }
+    ]
   },
   {
     "title": "The Godfather",
@@ -27,7 +37,17 @@
     },
     "uploadDate": "1972-03-24",
     "releaseDate": "1972-03-14",
-    "genres": [ "Crime", "Drama" ]
+    "genres": [ "Crime", "Drama" ],
+    "actors": [
+      {
+        "name": "Marlon Brando",
+        "biography": "Marlon Brando was an American actor and film director. He is widely regarded as one of the greatest actors of all time."
+      },
+      {
+        "name": "Al Pacino",
+        "biography": "Al Pacino is an American actor and filmmaker. He is known for his roles in iconic films such as 'The Godfather' trilogy, 'Scarface', and 'Heat'."
+      }
+    ]
   },
   {
     "title": "The Dark Knight",
@@ -42,7 +62,17 @@
     },
     "uploadDate": "2008-07-18",
     "releaseDate": "2008-07-18",
-    "genres": [ "Action", "Crime", "Drama" ]
+    "genres": [ "Action", "Crime", "Drama" ],
+    "actors": [
+      {
+        "name": "Christian Bale",
+        "biography": "Christian Bale is a British actor known for his intense method acting and physical transformations for roles. He is best known for his portrayal of Batman in 'The Dark Knight' trilogy."
+      },
+      {
+        "name": "Heath Ledger",
+        "biography": "Heath Ledger was an Australian actor and music video director. He gained worldwide acclaim for his portrayal of the Joker in 'The Dark Knight', earning him a posthumous Academy Award for Best Supporting Actor."
+      }
+    ]
   },
   {
     "title": "Forrest Gump",
@@ -57,7 +87,17 @@
     },
     "uploadDate": "1994-07-06",
     "releaseDate": "1994-07-06",
-    "genres": [ "Drama", "Romance" ]
+    "genres": [ "Drama", "Romance" ],
+    "actors": [
+      {
+        "name": "Tom Hanks",
+        "biography": "Tom Hanks is an American actor and filmmaker. He is known for his roles in films such as 'Forrest Gump', 'Philadelphia', and 'Cast Away', and has won numerous awards, including two Academy Awards for Best Actor."
+      },
+      {
+        "name": "Robin Wright",
+        "biography": "Robin Wright is an American actress and director. She gained prominence for her role as Jenny Curran in 'Forrest Gump' and has since appeared in numerous films and television series."
+      }
+    ]
   },
   {
     "title": "Pulp Fiction",
@@ -72,7 +112,17 @@
     },
     "uploadDate": "1994-10-14",
     "releaseDate": "1994-10-14",
-    "genres": [ "Crime", "Drama" ]
+    "genres": [ "Crime", "Drama" ],
+    "actors": [
+      {
+        "name": "John Travolta",
+        "biography": "John Travolta is an American actor and singer. He rose to fame in the 1970s with his role as Vinnie Barbarino in the television series 'Welcome Back, Kotter', and later starred in films such as 'Saturday Night Fever' and 'Grease'."
+      },
+      {
+        "name": "Uma Thurman",
+        "biography": "Uma Thurman is an American actress and model. She gained acclaim for her roles in films such as 'Pulp Fiction', 'Kill Bill', and 'Gattaca'."
+      }
+    ]
   },
   {
     "title": "The Matrix",
@@ -87,7 +137,17 @@
     },
     "uploadDate": "1999-03-31",
     "releaseDate": "1999-03-31",
-    "genres": [ "Action", "Sci-Fi" ]
+    "genres": [ "Action", "Sci-Fi" ],
+    "actors": [
+      {
+        "name": "Keanu Reeves",
+        "biography": "Keanu Reeves is a Canadian actor known for his roles in action films such as 'The Matrix' trilogy, 'Speed', and 'John Wick'."
+      },
+      {
+        "name": "Laurence Fishburne",
+        "biography": "Laurence Fishburne is an American actor, playwright, producer, and director. He is best known for his roles in films such as 'The Matrix' trilogy, 'Boyz n the Hood', and 'What's Love Got to Do with It'."
+      }
+    ]
   },
   {
     "title": "Schindler's List",
@@ -102,7 +162,17 @@
     },
     "uploadDate": "1993-12-15",
     "releaseDate": "1993-12-15",
-    "genres": [ "Biography", "Drama", "History" ]
+    "genres": [ "Biography", "Drama", "History" ],
+    "actors": [
+      {
+        "name": "Liam Neeson",
+        "biography": "Liam Neeson is an Irish actor known for his powerful performances in films such as 'Schindler's List', 'Taken', and 'Michael Collins'."
+      },
+      {
+        "name": "Ben Kingsley",
+        "biography": "Ben Kingsley is a British actor with a career spanning over five decades. He has won numerous awards, including an Academy Award for his role in 'Gandhi'."
+      }
+    ]
   },
   {
     "title": "Fight Club",
@@ -117,7 +187,17 @@
     },
     "uploadDate": "1999-10-15",
     "releaseDate": "1999-10-15",
-    "genres": [ "Drama" ]
+    "genres": [ "Drama" ],
+    "actors": [
+      {
+        "name": "Brad Pitt",
+        "biography": "Brad Pitt is an American actor and film producer. He has received multiple awards, including an Academy Award and a Golden Globe Award, and has been cited as one of the most influential and powerful people in the American entertainment industry."
+      },
+      {
+        "name": "Edward Norton",
+        "biography": "Edward Norton is an American actor and filmmaker. He has been nominated for three Academy Awards for his performances in 'Primal Fear', 'American History X', and 'Birdman'."
+      }
+    ]
   },
   {
     "title": "Inception",
@@ -132,7 +212,17 @@
     },
     "uploadDate": "2010-07-16",
     "releaseDate": "2010-07-16",
-    "genres": [ "Action", "Adventure", "Sci-Fi" ]
+    "genres": [ "Action", "Adventure", "Sci-Fi" ],
+    "actors": [
+      {
+        "name": "Leonardo DiCaprio",
+        "biography": "Leonardo DiCaprio is an American actor, film producer, and environmentalist. He has been nominated for numerous awards, including seven Academy Awards, and has won several, including an Oscar for Best Actor for his role in 'The Revenant'."
+      },
+      {
+        "name": "Joseph Gordon-Levitt",
+        "biography": "Joseph Gordon-Levitt is an American actor, filmmaker, singer, and entrepreneur. He rose to prominence for his role in the television series '3rd Rock from the Sun' and has since starred in films such as '(500) Days of Summer' and 'Inception'."
+      }
+    ]
   },
   {
     "title": "The Lord of the Rings: The Fellowship of the Ring",
@@ -147,7 +237,17 @@
     },
     "uploadDate": "2001-12-19",
     "releaseDate": "2001-12-19",
-    "genres": [ "Action", "Adventure", "Drama" ]
+    "genres": [ "Action", "Adventure", "Drama" ],
+    "actors": [
+      {
+        "name": "Elijah Wood",
+        "biography": "Elijah Wood is an American actor and producer. He is best known for his role as Frodo Baggins in 'The Lord of the Rings' trilogy."
+      },
+      {
+        "name": "Viggo Mortensen",
+        "biography": "Viggo Mortensen is a Danish-American actor, author, musician, photographer, poet, and painter. He is best known for his role as Aragorn in 'The Lord of the Rings' trilogy."
+      }
+    ]
   },
   {
     "title": "The Lion King",
@@ -162,7 +262,8 @@
     },
     "uploadDate": "1994-06-24",
     "releaseDate": "1994-06-15",
-    "genres": [ "Animation", "Adventure", "Drama" ]
+    "genres": [ "Animation", "Adventure", "Drama" ],
+    "actors": []
   },
   {
     "title": "Titanic",
@@ -177,7 +278,17 @@
     },
     "uploadDate": "1997-12-19",
     "releaseDate": "1997-12-19",
-    "genres": [ "Drama", "Romance" ]
+    "genres": [ "Drama", "Romance" ],
+    "actors": [
+      {
+        "name": "Leonardo DiCaprio",
+        "biography": "Leonardo Wilhelm DiCaprio is an American actor, producer, and environmentalist. He has often played unconventional roles, particularly in biopics and period films. DiCaprio has been nominated for numerous awards, winning his first Oscar for his role in The Revenant."
+      },
+      {
+        "name": "Kate Winslet",
+        "biography": "Kate Elizabeth Winslet is an English actress known for her work in independent films, particularly period dramas and tragedies. She is the recipient of numerous accolades, including an Academy Award, three British Academy Film Awards, three Screen Actors Guild Awards, four Golden Globe Awards, and a Grammy Award."
+      }
+    ]
   },
   {
     "title": "Inglourious Basterds",
@@ -192,7 +303,17 @@
     },
     "uploadDate": "2009-08-21",
     "releaseDate": "2009-08-21",
-    "genres": [ "Adventure", "Drama", "War" ]
+    "genres": [ "Adventure", "Drama", "War" ],
+    "actors": [
+      {
+        "name": "Brad Pitt",
+        "biography": "William Bradley Pitt is an American actor and film producer. He has received multiple awards and nominations including an Academy Award as producer under his own company, Plan B Entertainment."
+      },
+      {
+        "name": "Christoph Waltz",
+        "biography": "Christoph Waltz is an Austrian-German actor and director. He is widely known for his collaborations with Quentin Tarantino, appearing in Inglourious Basterds and Django Unchained, for which he won the Academy Award for Best Supporting Actor."
+      }
+    ]
   },
   {
     "title": "Interstellar",
@@ -207,7 +328,17 @@
     },
     "uploadDate": "2014-11-07",
     "releaseDate": "2014-11-07",
-    "genres": [ "Adventure", "Drama", "Sci-Fi" ]
+    "genres": [ "Adventure", "Drama", "Sci-Fi" ],
+    "actors": [
+      {
+        "name": "Matthew McConaughey",
+        "biography": "Matthew McConaughey is an American actor and producer. He first gained notice for his supporting performance in the coming-of-age comedy Dazed and Confused, considered by many to be his breakout role."
+      },
+      {
+        "name": "Anne Hathaway",
+        "biography": "Anne Jacqueline Hathaway is an American actress. She is the recipient of various accolades, including an Academy Award, a Primetime Emmy Award, and a Golden Globe Award. Hathaway has also won a British Academy Film Award and a Screen Actors Guild Award."
+      }
+    ]
   },
   {
     "title": "Harry Potter and the Sorcerer's Stone",
@@ -222,7 +353,21 @@
     },
     "uploadDate": "2001-11-14",
     "releaseDate": "2001-11-14",
-    "genres": [ "Adventure", "Family", "Fantasy" ]
+    "genres": [ "Adventure", "Family", "Fantasy" ],
+    "actors": [
+      {
+        "name": "Daniel Radcliffe",
+        "biography": "Daniel Radcliffe is an English actor and producer. He is best known for playing Harry Potter in the film series of the same name, based on the novels by J. K. Rowling."
+      },
+      {
+        "name": "Emma Watson",
+        "biography": "Emma Charlotte Duerre Watson is an English actress, model, and activist. She is known for her roles in both blockbusters and independent films, as well as for her activism in promoting education for girls around the world."
+      },
+      {
+        "name": "Rupert Grint",
+        "biography": "Rupert Alexander Lloyd Grint is an English actor. He rose to prominence for his portrayal of Ron Weasley, one of the three main characters in the Harry Potter film series, based on J. K. Rowling's best-selling novels."
+      }
+    ]
   },
   {
     "title": "Harry Potter and the Chamber of Secrets",
@@ -237,7 +382,21 @@
     },
     "uploadDate": "2002-11-14",
     "releaseDate": "2002-11-14",
-    "genres": [ "Adventure", "Family", "Fantasy" ]
+    "genres": [ "Adventure", "Family", "Fantasy" ],
+    "actors": [
+      {
+        "name": "Daniel Radcliffe",
+        "biography": "Daniel Radcliffe is an English actor and producer. He is best known for playing Harry Potter in the film series of the same name, based on the novels by J. K. Rowling."
+      },
+      {
+        "name": "Emma Watson",
+        "biography": "Emma Charlotte Duerre Watson is an English actress, model, and activist. She is known for her roles in both blockbusters and independent films, as well as for her activism in promoting education for girls around the world."
+      },
+      {
+        "name": "Rupert Grint",
+        "biography": "Rupert Alexander Lloyd Grint is an English actor. He rose to prominence for his portrayal of Ron Weasley, one of the three main characters in the Harry Potter film series, based on J. K. Rowling's best-selling novels."
+      }
+    ]
   },
   {
     "title": "Harry Potter and the Prisoner of Azkaban",
@@ -252,7 +411,21 @@
     },
     "uploadDate": "2004-11-14",
     "releaseDate": "2004-11-14",
-    "genres": [ "Adventure", "Family", "Fantasy" ]
+    "genres": [ "Adventure", "Family", "Fantasy" ],
+    "actors": [
+      {
+        "name": "Daniel Radcliffe",
+        "biography": "Daniel Radcliffe is an English actor and producer. He is best known for playing Harry Potter in the film series of the same name, based on the novels by J. K. Rowling."
+      },
+      {
+        "name": "Emma Watson",
+        "biography": "Emma Charlotte Duerre Watson is an English actress, model, and activist. She is known for her roles in both blockbusters and independent films, as well as for her activism in promoting education for girls around the world."
+      },
+      {
+        "name": "Rupert Grint",
+        "biography": "Rupert Alexander Lloyd Grint is an English actor. He rose to prominence for his portrayal of Ron Weasley, one of the three main characters in the Harry Potter film series, based on J. K. Rowling's best-selling novels."
+      }
+    ]
   },
   {
     "title": "Harry Potter and the Goblet of Fire",
@@ -267,7 +440,21 @@
     },
     "uploadDate": "2005-11-14",
     "releaseDate": "2005-11-14",
-    "genres": [ "Adventure", "Family", "Fantasy" ]
+    "genres": [ "Adventure", "Family", "Fantasy" ],
+    "actors": [
+      {
+        "name": "Daniel Radcliffe",
+        "biography": "Daniel Radcliffe is an English actor and producer. He is best known for playing Harry Potter in the film series of the same name, based on the novels by J. K. Rowling."
+      },
+      {
+        "name": "Emma Watson",
+        "biography": "Emma Charlotte Duerre Watson is an English actress, model, and activist. She is known for her roles in both blockbusters and independent films, as well as for her activism in promoting education for girls around the world."
+      },
+      {
+        "name": "Rupert Grint",
+        "biography": "Rupert Alexander Lloyd Grint is an English actor. He rose to prominence for his portrayal of Ron Weasley, one of the three main characters in the Harry Potter film series, based on J. K. Rowling's best-selling novels."
+      }
+    ]
   },
   {
     "title": "Harry Potter and the Order of the Phoenix",
@@ -282,7 +469,21 @@
     },
     "uploadDate": "2007-11-14",
     "releaseDate": "2007-11-14",
-    "genres": [ "Adventure", "Family", "Fantasy" ]
+    "genres": [ "Adventure", "Family", "Fantasy" ],
+    "actors": [
+      {
+        "name": "Daniel Radcliffe",
+        "biography": "Daniel Radcliffe is an English actor and producer. He is best known for playing Harry Potter in the film series of the same name, based on the novels by J. K. Rowling."
+      },
+      {
+        "name": "Emma Watson",
+        "biography": "Emma Charlotte Duerre Watson is an English actress, model, and activist. She is known for her roles in both blockbusters and independent films, as well as for her activism in promoting education for girls around the world."
+      },
+      {
+        "name": "Rupert Grint",
+        "biography": "Rupert Alexander Lloyd Grint is an English actor. He rose to prominence for his portrayal of Ron Weasley, one of the three main characters in the Harry Potter film series, based on J. K. Rowling's best-selling novels."
+      }
+    ]
   },
   {
     "title": "Harry Potter and the Half-Blood Prince",
@@ -297,7 +498,21 @@
     },
     "uploadDate": "2009-11-14",
     "releaseDate": "2009-11-14",
-    "genres": [ "Adventure", "Family", "Fantasy" ]
+    "genres": [ "Adventure", "Family", "Fantasy" ],
+    "actors": [
+      {
+        "name": "Daniel Radcliffe",
+        "biography": "Daniel Radcliffe is an English actor and producer. He is best known for playing Harry Potter in the film series of the same name, based on the novels by J. K. Rowling."
+      },
+      {
+        "name": "Emma Watson",
+        "biography": "Emma Charlotte Duerre Watson is an English actress, model, and activist. She is known for her roles in both blockbusters and independent films, as well as for her activism in promoting education for girls around the world."
+      },
+      {
+        "name": "Rupert Grint",
+        "biography": "Rupert Alexander Lloyd Grint is an English actor. He rose to prominence for his portrayal of Ron Weasley, one of the three main characters in the Harry Potter film series, based on J. K. Rowling's best-selling novels."
+      }
+    ]
   },
   {
     "title": "Harry Potter and the Deathly Hallows – Part 1",
@@ -312,7 +527,21 @@
     },
     "uploadDate": "2010-11-14",
     "releaseDate": "2010-11-14",
-    "genres": [ "Adventure", "Family", "Fantasy" ]
+    "genres": [ "Adventure", "Family", "Fantasy" ],
+    "actors": [
+      {
+        "name": "Daniel Radcliffe",
+        "biography": "Daniel Radcliffe is an English actor and producer. He is best known for playing Harry Potter in the film series of the same name, based on the novels by J. K. Rowling."
+      },
+      {
+        "name": "Emma Watson",
+        "biography": "Emma Charlotte Duerre Watson is an English actress, model, and activist. She is known for her roles in both blockbusters and independent films, as well as for her activism in promoting education for girls around the world."
+      },
+      {
+        "name": "Rupert Grint",
+        "biography": "Rupert Alexander Lloyd Grint is an English actor. He rose to prominence for his portrayal of Ron Weasley, one of the three main characters in the Harry Potter film series, based on J. K. Rowling's best-selling novels."
+      }
+    ]
   },
   {
     "title": "Harry Potter and the Deathly Hallows – Part 2",
@@ -327,6 +556,20 @@
     },
     "uploadDate": "2011-11-14",
     "releaseDate": "2011-11-14",
-    "genres": [ "Adventure", "Family", "Fantasy" ]
+    "genres": [ "Adventure", "Family", "Fantasy" ],
+    "actors": [
+      {
+        "name": "Daniel Radcliffe",
+        "biography": "Daniel Radcliffe is an English actor and producer. He is best known for playing Harry Potter in the film series of the same name, based on the novels by J. K. Rowling."
+      },
+      {
+        "name": "Emma Watson",
+        "biography": "Emma Charlotte Duerre Watson is an English actress, model, and activist. She is known for her roles in both blockbusters and independent films, as well as for her activism in promoting education for girls around the world."
+      },
+      {
+        "name": "Rupert Grint",
+        "biography": "Rupert Alexander Lloyd Grint is an English actor. He rose to prominence for his portrayal of Ron Weasley, one of the three main characters in the Harry Potter film series, based on J. K. Rowling's best-selling novels."
+      }
+    ]
   }
 ]

@@ -26,7 +26,7 @@ namespace Movieasy.Api.Controllers.Actors
             string? searchTerm,
             CancellationToken cancellationToken,
             int pageNumber = 1,
-            int pageSize = 12)
+            int pageSize = 4)
         {
             var query = new GetActorsQuery(searchTerm, pageNumber, pageSize);
 
