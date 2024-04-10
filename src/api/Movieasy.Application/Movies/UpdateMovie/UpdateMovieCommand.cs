@@ -12,5 +12,6 @@ namespace Movieasy.Application.Movies.UpdateMovie
         DateOnly? ReleaseDate,
         double Duration,
         List<Guid> Genres,
+        List<Guid> Actors,
         IFormFile? Photo) : ICommand;
 }

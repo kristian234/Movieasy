@@ -1,5 +1,4 @@
 ﻿using Movieasy.Application.Abstractions.Messaging;
-using Movieasy.Application.Movies.DeleteMovie;
 using Movieasy.Domain.Abstractions;
 using Movieasy.Domain.Genres;
 
@@ -28,8 +27,7 @@ namespace Movieasy.Application.Genres.DeleteGenre
             }
 
             _genreRepository.Remove(genre);
-
-            await _unitOfWork.SaveChangesAsync();
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
 
             return Result.Success();
         }

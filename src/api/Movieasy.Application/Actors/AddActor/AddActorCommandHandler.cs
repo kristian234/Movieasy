@@ -25,7 +25,7 @@ namespace Movieasy.Application.Actors.AddActor
             Actor actor = Actor.Create(actorName, actorBiography);
 
             await _actorRepository.AddAsync(actor);
-            await _unitOfWork.SaveChangesAsync();
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
 
             return actor.Id;
         }

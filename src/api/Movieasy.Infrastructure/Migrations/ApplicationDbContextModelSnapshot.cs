@@ -22,6 +22,25 @@ namespace Movieasy.Infrastructure.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("ActorMovie", b =>
+                {
+                    b.Property<Guid>("ActorsId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("actors_id");
+
+                    b.Property<Guid>("MovieId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("movie_id");
+
+                    b.HasKey("ActorsId", "MovieId")
+                        .HasName("pk_actor_movie");
+
+                    b.HasIndex("MovieId")
+                        .HasDatabaseName("ix_actor_movie_movie_id");
+
+                    b.ToTable("actor_movie", (string)null);
+                });
+
             modelBuilder.Entity("GenreMovie", b =>
                 {
                     b.Property<Guid>("GenresId")
@@ -309,6 +328,23 @@ namespace Movieasy.Infrastructure.Migrations
                         .HasDatabaseName("ix_role_user_users_id");
 
                     b.ToTable("role_user", (string)null);
+                });
+
+            modelBuilder.Entity("ActorMovie", b =>
+                {
+                    b.HasOne("Movieasy.Domain.Actors.Actor", null)
+                        .WithMany()
+                        .HasForeignKey("ActorsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_actor_movie_actors_actors_id");
+
+                    b.HasOne("Movieasy.Domain.Movies.Movie", null)
+                        .WithMany()
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_actor_movie_movies_movie_id");
                 });
 
             modelBuilder.Entity("GenreMovie", b =>

@@ -2,6 +2,7 @@
 using Movieasy.Application.Abstractions.Messaging;
 using Movieasy.Application.Abstractions.Photos;
 using Movieasy.Domain.Abstractions;
+using Movieasy.Domain.Actors;
 using Movieasy.Domain.Genres;
 using Movieasy.Domain.Movies;
 using Movieasy.Domain.Photos;
@@ -16,6 +17,7 @@ namespace Movieasy.Application.Movies.AddMovie
         private readonly IPhotoAccessor _photoAccessor;
         private readonly IPhotoRepository _photoRepository;
         private readonly IGenreRepository _genreRepository;
+        private readonly IActorRepository _actorRepository;
 
         public AddMovieCommandHandler(
             IMovieRepository movieRepository,
@@ -23,7 +25,8 @@ namespace Movieasy.Application.Movies.AddMovie
             IDateTimeProvider dateTimeProvider,
             IPhotoAccessor photoAccessor,
             IPhotoRepository photoRepository,
-            IGenreRepository genreRepository)
+            IGenreRepository genreRepository,
+            IActorRepository actorRepository)
         {
             _movieRepository = movieRepository;
             _unitOfWork = unitOfWork;
@@ -31,6 +34,7 @@ namespace Movieasy.Application.Movies.AddMovie
             _photoAccessor = photoAccessor;
             _photoRepository = photoRepository;
             _genreRepository = genreRepository;
+            _actorRepository = actorRepository;
         }
 
         public async Task<Result<Guid>> Handle(AddMovieCommand request, CancellationToken cancellationToken)
@@ -45,6 +49,12 @@ namespace Movieasy.Application.Movies.AddMovie
             if (genres.Count() != request.Genres.Count)
             {
                 return Result.Failure<Guid>(GenreErrors.NotFound);
+            }
+
+            IEnumerable<Actor> actors = await _actorRepository.GetByIdsAsync(request.Actors);
+            if(actors.Count() != request.Actors.Count)
+            {
+                return Result.Failure<Guid>(ActorErrors.NotFound);
             }
 
             Result<PhotoUploadResult> result = await _photoAccessor.AddPhotoAsync(request.Photo);
@@ -75,6 +85,7 @@ namespace Movieasy.Application.Movies.AddMovie
                 request.ReleaseDate);
 
             movie.SetGenres(genres);
+            movie.SetCast(actors);
 
             await _movieRepository.AddAsync(movie);
             await _unitOfWork.SaveChangesAsync(cancellationToken);

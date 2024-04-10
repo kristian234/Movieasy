@@ -8,5 +8,6 @@
         DateOnly? ReleaseDate,
         double Duration,
         List<Guid> Genres,
+        List<Guid> Actors,
         IFormFile Photo);
 }

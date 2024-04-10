@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Movieasy.Application.Abstractions.Messaging;
+using Movieasy.Domain.Actors;
 
 namespace Movieasy.Application.Movies.AddMovie
 {
@@ -11,5 +12,6 @@ namespace Movieasy.Application.Movies.AddMovie
         DateOnly? ReleaseDate,
         double Duration,
         List<Guid> Genres,
+        List<Guid> Actors,
         IFormFile Photo) : ICommand<Guid>;
 }

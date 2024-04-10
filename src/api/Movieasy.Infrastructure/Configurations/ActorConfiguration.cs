@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Movieasy.Domain.Actors;
+using Movieasy.Domain.Movies;
 
 namespace Movieasy.Infrastructure.Configurations
 {
@@ -20,6 +21,9 @@ namespace Movieasy.Infrastructure.Configurations
 
             builder.HasIndex(actor => actor.Name)
                 .IsUnique();
+
+            builder.HasMany<Movie>()
+                .WithMany(x => x.Actors);
         }
     }
 }

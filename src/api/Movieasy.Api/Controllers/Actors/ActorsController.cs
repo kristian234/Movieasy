@@ -2,7 +2,10 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Movieasy.Application.Actors.AddActor;
+using Movieasy.Application.Actors.DeleteActor;
+using Movieasy.Application.Actors.UpdateActor;
 using Movieasy.Domain.Abstractions;
+using System.Security.Cryptography;
 
 namespace Movieasy.Api.Controllers.Actors
 {
@@ -34,6 +37,43 @@ namespace Movieasy.Api.Controllers.Actors
             }
 
             return Ok();
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateActor(
+            UpdateActorRequest request,
+            CancellationToken cancellationToken)
+        {
+            var command = new UpdateActorCommand(
+                request.ActorId,
+                request.Name,
+                request.Biography);
+
+            Result result = await _sender.Send(command, cancellationToken);
+
+            if(result.IsFailure)
+            {
+                return BadRequest(result.Error);
+            }
+
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteActor(
+            Guid id,
+            CancellationToken cancellationToken)
+        {
+            var command = new DeleteActorCommand(id);
+
+            Result result = await _sender.Send(command, cancellationToken);
+
+            if(result.IsFailure)
+            {
+                return BadRequest(result.Error);
+            }
+
+            return NoContent();
         }
     }
 }

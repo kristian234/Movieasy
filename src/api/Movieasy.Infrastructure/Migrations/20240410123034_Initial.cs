@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Movieasy.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Initooeo : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -130,6 +130,30 @@ namespace Movieasy.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "actor_movie",
+                columns: table => new
+                {
+                    actors_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    movie_id = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_actor_movie", x => new { x.actors_id, x.movie_id });
+                    table.ForeignKey(
+                        name: "fk_actor_movie_actors_actors_id",
+                        column: x => x.actors_id,
+                        principalTable: "actors",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_actor_movie_movies_movie_id",
+                        column: x => x.movie_id,
+                        principalTable: "movies",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "genre_movie",
                 columns: table => new
                 {
@@ -189,6 +213,11 @@ namespace Movieasy.Infrastructure.Migrations
                     { 1, "Registered" },
                     { 2, "Admin" }
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "ix_actor_movie_movie_id",
+                table: "actor_movie",
+                column: "movie_id");
 
             migrationBuilder.CreateIndex(
                 name: "ix_actors_name",
@@ -251,7 +280,7 @@ namespace Movieasy.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "actors");
+                name: "actor_movie");
 
             migrationBuilder.DropTable(
                 name: "genre_movie");
@@ -261,6 +290,9 @@ namespace Movieasy.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "role_user");
+
+            migrationBuilder.DropTable(
+                name: "actors");
 
             migrationBuilder.DropTable(
                 name: "genres");

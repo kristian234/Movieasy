@@ -32,22 +32,32 @@ const responsive = {
 
 export default function MovieCarousel({ movies, text }: Props) {
     const [data, setData] = useState<PagedResult<Movie>>();
+    const [loading, setLoading] = useState<boolean>(true); 
+
     useEffect(() => {
-        movies().then(data => {
-            setData(data);
-        })
+        movies()
+            .then(data => {
+                setData(data);
+                setLoading(false);
+            })
+            .catch(error => {
+                console.error("Error loading movies:", error);
+                setLoading(false); 
+            });
     }, [movies])
 
-    // const urlm = "https://cdn.pixabay.com/photo/2023/11/09/19/36/zoo-8378189_1280.jpg";
+    if (loading) {
+        return <LoadingComponent />; 
+    }
 
-    if (!data?.items) return <LoadingComponent></LoadingComponent>
+    if (!data?.items) {
+        return null;
+    }
 
     return (
         <div>
             <div className="p-2 w-[90%] ssm:w-[70%] mx-auto">
-
                 <h1 className="font-bold text-secondary ml-3">{text}:</h1>
-
                 <div className="items-center justify-center">
                     <Carousel
                         responsive={responsive}
@@ -74,17 +84,16 @@ export default function MovieCarousel({ movies, text }: Props) {
                         showDots={false}
                         sliderClass=""
                         swipeable>
-                        {data?.items?.map((movie, index) => (
-                            <div className=''>
+                        {data.items.map((movie, index) => (
+                            <div key={index}>
                                 <MovieCard
                                     isCarousel={true}
-                                    movie={movie}
-                                    key={index} />
+                                    movie={movie} />
                             </div>
                         ))}
                     </Carousel>
                 </div>
             </div>
-        </div >
-    )
+        </div>
+    );
 }

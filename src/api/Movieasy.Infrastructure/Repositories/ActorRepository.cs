@@ -1,4 +1,6 @@
-﻿using Movieasy.Domain.Actors;
+﻿using Microsoft.EntityFrameworkCore;
+using Movieasy.Domain.Actors;
+using Movieasy.Domain.Genres;
 
 namespace Movieasy.Infrastructure.Repositories
 {
@@ -7,6 +9,14 @@ namespace Movieasy.Infrastructure.Repositories
         public ActorRepository(ApplicationDbContext context) : base(context)
         {
         }
+
+        public async Task<IEnumerable<Actor>> GetByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken = default)
+        {
+            return await DbContext.Actors
+                .Where(actor => ids.Contains(actor.Id))
+                .ToListAsync();
+        }
+
 
         public void Remove(Actor actor)
         {

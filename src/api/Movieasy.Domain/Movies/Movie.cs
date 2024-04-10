@@ -1,4 +1,5 @@
 ﻿using Movieasy.Domain.Abstractions;
+using Movieasy.Domain.Actors;
 using Movieasy.Domain.Genres;
 using Movieasy.Domain.Movies.Events;
 using Movieasy.Domain.Photos;
@@ -50,7 +51,8 @@ namespace Movieasy.Domain.Movies
         public Duration Duration { get; private set; }
         public DateTime UploadDate { get; internal set; }
 
-        // TO DO: Remember to add the cast
+        public List<Actor> _actors = new List<Actor>();
+        public IReadOnlyCollection<Actor> Actors => _actors.AsReadOnly();
 
         public static Movie Create(
             Title title,
@@ -104,6 +106,13 @@ namespace Movieasy.Domain.Movies
         public Result SetGenres(IEnumerable<Genre> genres)
         {
             _genres = genres.ToList();
+
+            return Result.Success();
+        }
+
+        public Result SetCast(IEnumerable<Actor> actors)
+        {
+            _actors = actors.ToList();
 
             return Result.Success();
         }
