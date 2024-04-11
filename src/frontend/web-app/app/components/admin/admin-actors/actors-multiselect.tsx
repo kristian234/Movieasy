@@ -1,10 +1,7 @@
 import { Actor } from "@/types";
 import { useEffect, useState } from "react";
-import qs from 'query-string'
 import { getData } from "@/app/actions/actor-actions";
 import { toast } from "react-toastify";
-import { MultiSelect } from "react-multi-select-component";
-import { Option } from 'react-multi-select-component';
 import { IoSendSharp } from "react-icons/io5";
 
 interface Props {

@@ -13,7 +13,7 @@ import { getGenres } from "@/app/actions/genre-actions";
 import { toast } from "react-toastify";
 import * as yup from 'yup';
 import { yupResolver } from "@hookform/resolvers/yup";
-import ActorMultiSelect from "../../actors/actors-multiselect";
+import ActorMultiSelect from "../admin-actors/actors-multiselect";
 
 const MovieRating = {
     G: 1,

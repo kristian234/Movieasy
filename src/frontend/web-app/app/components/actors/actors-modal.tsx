@@ -1,18 +1,5 @@
 import { Button } from 'flowbite-react';
-import React, { useState } from 'react';
 import Modal from 'react-modal';
-
-interface ModalProps {
-    isOpen: boolean;
-    onClose: () => void;
-    title?: string;
-    content: React.ReactNode;
-    actionButtonLabel?: string;
-    onActionButtonClick?: () => void;
-    cancelButtonLabel?: string;
-    onCancelButtonClick?: () => void;
-    loading?: boolean;
-}
 
 const customStyles = {
     overlay: {
@@ -30,18 +17,15 @@ const customStyles = {
     },
 };
 
+interface ModalProps {
+    isOpen: boolean;
+    onClose: () => void;
+    title?: string;
+    cancelButtonLabel?: string;
+    onCancelButtonClick?: () => void;
+}
 
-const CustomModal: React.FC<ModalProps> = ({
-    isOpen,
-    onClose,
-    title,
-    content,
-    actionButtonLabel = 'Confirm',
-    onActionButtonClick,
-    cancelButtonLabel = 'Cancel',
-    onCancelButtonClick,
-    loading = false
-}) => {
+export default function ActorsModal({isOpen, onClose, title, cancelButtonLabel, onCancelButtonClick} : ModalProps) {
     return (
         <Modal
             isOpen={isOpen}
@@ -53,29 +37,16 @@ const CustomModal: React.FC<ModalProps> = ({
                 <div className="modal-header mb-2">
                     {title && <h1 className='text-2xl text-secondary font-semibold'>{title}</h1>}
                 </div>
-                <div className="modal-body mb-4">
-                    {content && <p className="text-lg text-third">{content}</p>}
-                </div>
+               
+
                 <div className="modal-footer flex justify-end flex-row space-x-7">
                     {onCancelButtonClick && (
                         <button className="modal-cancel btn btn-secondary mr-2 bg-secondary text-primary font-semibold px-4 py-2 rounded-lg hover:bg-third focus:outline-none" onClick={onCancelButtonClick}>
                             {cancelButtonLabel}
                         </button>
                     )}
-                    {onActionButtonClick && (
-                        <Button
-                            color='failure'
-                            isProcessing={loading}
-                            className="modal-action"
-                            onClick={() => onActionButtonClick()}
-                        >
-                            {actionButtonLabel}
-                        </Button>
-                    )}
                 </div>
             </div>
         </Modal>
-    );
-};
-
-export default CustomModal;
+    )
+}

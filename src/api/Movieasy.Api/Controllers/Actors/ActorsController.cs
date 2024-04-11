@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Movieasy.Application.Actors.AddActor;
 using Movieasy.Application.Actors.DeleteActor;
 using Movieasy.Application.Actors.GetActor;
+using Movieasy.Application.Actors.GetActorById;
 using Movieasy.Application.Actors.UpdateActor;
 using Movieasy.Application.Movies.GetMovie;
 using Movieasy.Domain.Abstractions;
@@ -21,6 +22,18 @@ namespace Movieasy.Api.Controllers.Actors
             _sender = sender;
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetActor(
+            Guid id,
+            CancellationToken cancellationToken)
+        {
+            var query = new GetActorByIdQuery(id);
+
+            Result<ActorResponse> result = await _sender.Send(query, cancellationToken);
+
+            return result.IsSuccess ? Ok(result.Value) : NotFound();
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetActors(
             string? searchTerm,
@@ -30,7 +43,7 @@ namespace Movieasy.Api.Controllers.Actors
         {
             var query = new GetActorsQuery(searchTerm, pageNumber, pageSize);
 
-            Result<PagedList<PagedActorResponse>> result= await _sender.Send(query, cancellationToken);
+            Result<PagedList<PagedActorResponse>> result = await _sender.Send(query, cancellationToken);
 
             return Ok(result.Value);
         }
@@ -66,7 +79,7 @@ namespace Movieasy.Api.Controllers.Actors
 
             Result result = await _sender.Send(command, cancellationToken);
 
-            if(result.IsFailure)
+            if (result.IsFailure)
             {
                 return BadRequest(result.Error);
             }
@@ -83,7 +96,7 @@ namespace Movieasy.Api.Controllers.Actors
 
             Result result = await _sender.Send(command, cancellationToken);
 
-            if(result.IsFailure)
+            if (result.IsFailure)
             {
                 return BadRequest(result.Error);
             }

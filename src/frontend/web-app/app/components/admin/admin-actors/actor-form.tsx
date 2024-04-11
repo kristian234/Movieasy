@@ -21,7 +21,7 @@ const validationSchema = yup.object().shape({
     biography: yup.string().max(1000, "Max 1000 characters"),
 });
 
-export default function MovieForm({ title, actor }: Props) {
+export default function ActorForm({ title, actor }: Props) {
     const { control, register, handleSubmit, setFocus, reset, getValues, setValue,
         formState: { isSubmitting, isValid, isDirty, errors } } = useForm({
             mode: 'onTouched',
@@ -31,6 +31,14 @@ export default function MovieForm({ title, actor }: Props) {
     const router = useRouter();
 
     useEffect(() => {
+        if (actor) {
+            const { name, biography } = actor;
+            reset({
+                name,
+                biography
+            });
+        }
+
         setFocus('name')
     }, [setFocus, reset])
 
@@ -42,7 +50,8 @@ export default function MovieForm({ title, actor }: Props) {
                 res = await createActor(data);
             } else if (actor) {
                 // Edit an actor
-                data = { ...data, genreId: actor.id };
+                console.log("hey hey ");
+                data = { ...data, actorId: actor.id };
 
                 res = await updateActor(data);
             }

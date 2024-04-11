@@ -14,6 +14,8 @@ export default function GenreListing() {
     const setGenres = useGenresStore(state => state.setGenres);
     const [showConfirmation, setShowConfirmation] = useState(false);
     const delGenre = useGenresStore(state => state.deleteGenre);
+    const [selectedGenreId, setSelectedGenreId] = useState<string | null>(null);
+
     const router = useRouter();
 
     const [isDeleting, setIsDeleting] = useState(false);
@@ -69,23 +71,28 @@ export default function GenreListing() {
                                 <li key={genre.id} className={`flex justify-between items-center p-4 bg-opacity-55 bg-third rounded-lg shadow-md ${index !== 0 ? 'mt-4' : ''}`}>
                                     <span className="text-lg font-semibold text-primary">{genre.name}</span>
                                     <div className="flex space-x-2">
-                                        <button onClick={() => router.push(`/admin/genres/edit/${genre.id}`)} className="bg-secondary hover:bg-third text-primary px-2 py-1 rounded-md">Edit</button>
-                                        <button onClick={() => setShowConfirmation(true)} className="bg-danger hover:bg-superdanger text-primary px-2 py-1 rounded-md">Delete</button>
-                                        <CustomModal
-                                            isOpen={showConfirmation}
-                                            onClose={() => setShowConfirmation(false)}
-                                            title="Confirm Deletion"
-                                            content="Are you sure you want to delete this movie?"
-                                            actionButtonLabel="Delete"
-                                            onActionButtonClick={() => removeGenre(genre.id)} // Pass the genre id to removeGenre
-                                            cancelButtonLabel="Cancel"
-                                            onCancelButtonClick={() => setShowConfirmation(false)}
-                                            loading={isDeleting}
-                                        />
+                                        <button onClick={() => { router.push(`/admin/genres/edit/${genre.id}`); router.refresh() }} className="bg-secondary hover:bg-third text-primary px-2 py-1 rounded-md">Edit</button>
+                                        <button onClick={() => { setSelectedGenreId(genre.id); setShowConfirmation(true) }} className="bg-danger hover:bg-superdanger text-primary px-2 py-1 rounded-md">Delete</button>
                                     </div>
                                 </li>
                             ))}
+                            <CustomModal
+                                isOpen={showConfirmation}
+                                onClose={() => setShowConfirmation(false)}
+                                title="Confirm Deletion"
+                                content="Are you sure you want to delete this movie?"
+                                actionButtonLabel="Delete"
+                                onActionButtonClick={() => {
+                                    if (selectedGenreId) {
+                                        removeGenre(selectedGenreId);
+                                    }
+                                }}
+                                cancelButtonLabel="Cancel"
+                                onCancelButtonClick={() => setShowConfirmation(false)}
+                                loading={isDeleting}
+                            />
                         </ul>
+
                     )}
                 </div>
             </div>
