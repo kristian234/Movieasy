@@ -1,5 +1,6 @@
 import { getCurrentUser } from "@/app/actions/auth-actions";
 import { getDetailedData } from "@/app/actions/movie-actions"
+import ShowActorsButton from "@/app/components/actors/show-actors-button";
 import DeleteButton from "@/app/components/admin/admin-movies/delete-button";
 import Duration from "@/app/components/movies/movieDetails/duration";
 import Genres from "@/app/components/movies/movieDetails/genres";
@@ -59,6 +60,8 @@ export default async function DetailsPage({ params }: { params: { id: string } }
               <Duration duration={movie.duration} />
             </div>
           </div>
+
+          <ShowActorsButton movieId={movie.id} />
 
           <div className="space-y-3 mt-6">
             <p className="text-gray-600 font-semibold">{movie.description}</p>

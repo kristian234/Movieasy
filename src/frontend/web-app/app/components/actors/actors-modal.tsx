@@ -1,5 +1,18 @@
-import { Button } from 'flowbite-react';
+'use client'
+
+import { getMovieActors } from '@/app/actions/movie-actions';
+import { Actor } from '@/types';
+import { useEffect, useState } from 'react';
 import Modal from 'react-modal';
+import { toast } from 'react-toastify';
+import {
+    Accordion,
+    AccordionItem,
+    AccordionItemHeading,
+    AccordionItemButton,
+    AccordionItemPanel,
+} from 'react-accessible-accordion';
+//import 'react-accessible-accordion/dist/fancy-example.css';
 
 const customStyles = {
     overlay: {
@@ -12,7 +25,8 @@ const customStyles = {
         border: 'none', // no border
         borderRadius: '0.5rem', // rounded corners
         boxShadow: '0 0 20px rgba(0, 0, 0, 0.2)', // cooler shadow effect
-        maxWidth: '500px', // maximum width of the modal
+        maxWidth: '800px', // maximum width of the modal (adjusted width)
+        width: '90%', // set the width to 90% of the viewport
         margin: 'auto', // center the modal horizontally
     },
 };
@@ -23,9 +37,37 @@ interface ModalProps {
     title?: string;
     cancelButtonLabel?: string;
     onCancelButtonClick?: () => void;
+    movieId: string
 }
 
-export default function ActorsModal({isOpen, onClose, title, cancelButtonLabel, onCancelButtonClick} : ModalProps) {
+export default function ActorsModal({ isOpen, onClose, title, cancelButtonLabel, onCancelButtonClick, movieId }: ModalProps) {
+    const [actors, setActors] = useState<Actor[]>([]);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
+
+    useEffect(() => {
+        if (isOpen) {
+            fetchActors();
+        }
+    }, [isOpen])
+
+    const fetchActors = async () => {
+        try {
+            setIsLoading(true);
+            const res = await getMovieActors(movieId);
+
+            if ((res as any).error) {
+                toast.error((res as any).error.message);
+                setIsLoading(false);
+                return;
+            }
+
+            setActors(res);
+            setIsLoading(false);
+        } catch (error) {
+            throw error; // TO DO: might be worth looking into this
+        }
+    };
+
     return (
         <Modal
             isOpen={isOpen}
@@ -33,15 +75,35 @@ export default function ActorsModal({isOpen, onClose, title, cancelButtonLabel, 
             className="modal-wrapper"
             style={customStyles}
         >
-            <div className="modal-content bg-header rounded-lg shadow-3xl p-6">
+            <div className="modal-content bg-header rounded-lg shadow-3xl p-6 w-full">
                 <div className="modal-header mb-2">
-                    {title && <h1 className='text-2xl text-secondary font-semibold'>{title}</h1>}
+                    {title && <h1 className='text-3xl text-secondary font-semibold'>{title}</h1>}
                 </div>
-               
+                <hr className='mb-3'></hr>
+                <div className="modal-body overflow-y-auto max-h-80">
+                    {isLoading ? (
+                        <p>Loading...</p>
+                    ) : (
+                        <Accordion allowZeroExpanded={true} className="accordion">
+                            {actors.map((actor) => (
+                                <AccordionItem key={actor.id} className='mb-3'>
+                                    <AccordionItemHeading className='text-secondary border-b border-'>
+                                        <AccordionItemButton className="text-xl font-bold">
+                                            {actor.name}
+                                        </AccordionItemButton>
+                                    </AccordionItemHeading>
+                                    <AccordionItemPanel className="bg-third rounded-lg bg-opacity-5 p-4">
+                                        <p className="text-sm text-third font-semibold">{actor.biography}</p>
+                                    </AccordionItemPanel>
+                                </AccordionItem>
+                            ))}
+                        </Accordion>
+                    )}
+                </div>
 
-                <div className="modal-footer flex justify-end flex-row space-x-7">
+                <div className="modal-footer flex justify-center flex-row space-x-7 mt-3">
                     {onCancelButtonClick && (
-                        <button className="modal-cancel btn btn-secondary mr-2 bg-secondary text-primary font-semibold px-4 py-2 rounded-lg hover:bg-third focus:outline-none" onClick={onCancelButtonClick}>
+                        <button className="modal-cancel flex w-[50%] justify-center items-center btn btn-secondary mr-2 bg-secondary text-primary font-semibold px-4 py-1 rounded-lg hover:bg-third focus:outline-none" onClick={onCancelButtonClick}>
                             {cancelButtonLabel}
                         </button>
                     )}

@@ -1,6 +1,6 @@
 'use server'
 
-import { Movie, PagedResult } from "@/types";
+import { Actor, Movie, PagedResult } from "@/types";
 import { fetchWrapper } from "@/lib/fetchWrapper";
 
 export async function getData(query: string): Promise<PagedResult<Movie>> {
@@ -29,4 +29,8 @@ export async function updateMovie(data: FormData){
 
 export async function deleteMovie(movieId: string){
     return await fetchWrapper.del(`/api/Movies/${movieId}`)
+}
+
+export async function getMovieActors(movieId: string) : Promise<Actor[]>{
+    return await fetchWrapper.get(`/api/movies/${movieId}/actors`);
 }

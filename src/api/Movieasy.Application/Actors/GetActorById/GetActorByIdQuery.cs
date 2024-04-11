@@ -2,6 +2,6 @@
 
 namespace Movieasy.Application.Actors.GetActorById
 {
-    public record GetActorByIdQuery(
+    public sealed record GetActorByIdQuery(
         Guid ActorId) : IQuery<ActorResponse>;
 }

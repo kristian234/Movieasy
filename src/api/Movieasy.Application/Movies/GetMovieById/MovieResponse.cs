@@ -15,6 +15,5 @@ namespace Movieasy.Application.Movies.GetMovieById
         public string ImageUrl { get; init; } = string.Empty;
         public string TrailerUrl { get; init; } = string.Empty;
         public IEnumerable<GenreResponse> Genres { get; init; } = new List<GenreResponse>();
-        public IEnumerable<ActorResponse> Actors { get; init; } = new List<ActorResponse>();
     }
 }

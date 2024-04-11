@@ -1,9 +1,11 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Movieasy.Application.Actors.GetActorById;
 using Movieasy.Application.Movies.AddMovie;
 using Movieasy.Application.Movies.DeleteMovie;
 using Movieasy.Application.Movies.GetMovie;
+using Movieasy.Application.Movies.GetMovieActorsQuery;
 using Movieasy.Application.Movies.GetMovieById;
 using Movieasy.Application.Movies.UpdateMovie;
 using Movieasy.Domain.Abstractions;
@@ -37,6 +39,18 @@ namespace Movieasy.Api.Controllers.Movies
             Result<PagedList<MovieResponse>> result = await _sender.Send(query, cancellationToken);
 
             return Ok(result.Value);
+        }
+
+        [HttpGet("{id}/actors")]
+        public async Task<IActionResult> GetMovieActors(
+          Guid id,
+          CancellationToken cancellationToken) // movieId
+        {
+            var query = new GetMovieActorsQuery(id);
+
+            Result<IEnumerable<ActorResponse>> result = await _sender.Send(query, cancellationToken);
+
+            return result.IsSuccess ? Ok(result.Value) : NotFound();
         }
 
         [HttpGet("{id}")]
