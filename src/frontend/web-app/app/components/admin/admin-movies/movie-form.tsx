@@ -5,7 +5,7 @@ import { Button, CustomFlowbiteTheme, Dropdown, FileInput, TextInput } from "flo
 import CustomInput from "../../shared/custom-input";
 import { Fragment, useEffect, useState } from "react";
 import DateInput from "../../shared/date-input";
-import { createMovie, updateMovie } from "@/app/actions/movie-actions";
+import { createMovie, getMovieActors, updateMovie } from "@/app/actions/movie-actions";
 import { Actor, Movie } from "@/types";
 import { MultiSelect } from "react-multi-select-component";
 import { useGenresStore } from "@/hooks/useGenresStore";
@@ -14,6 +14,7 @@ import { toast } from "react-toastify";
 import * as yup from 'yup';
 import { yupResolver } from "@hookform/resolvers/yup";
 import ActorMultiSelect from "../admin-actors/actors-multiselect";
+import { getData } from "@/app/actions/actor-actions";
 
 const MovieRating = {
     G: 1,
@@ -50,6 +51,7 @@ export default function MovieForm({ title, movie }: Props) {
     const genres = useGenresStore(state => state.genres)
     const setGenres = useGenresStore(state => state.setGenres)
 
+    const [initialActors, setInitialActors] = useState<Actor[]>();
     const [selectedActors, setSelectedActors] = useState<Actor[]>([]);
     const [selectedGenres, setSelectedGenres] = useState([])
 
@@ -61,6 +63,19 @@ export default function MovieForm({ title, movie }: Props) {
 
             const selectedGenres = movie.genres.map(genre => ({ value: genre.id, label: genre.name }));
             setSelectedGenres(selectedGenres as any);
+
+            getMovieActors(movie.id)
+            .then(res => {
+                if((res as any).error){
+                    toast.error((res as any).error.message)
+                    return;
+                }
+
+                setInitialActors(res);
+            })
+            .catch(err => {
+                toast.error(err.message);
+            });
 
             reset({
                 title, description, releaseDate, trailerUrl,
@@ -78,7 +93,7 @@ export default function MovieForm({ title, movie }: Props) {
         });
 
         setFocus('title')
-    }, [setFocus, reset, setGenres, setSelectedGenres])
+    }, [setFocus, reset, setGenres, setSelectedGenres, setInitialActors])
 
     const options = genres.map(genre => ({ label: genre.name, value: genre.id }))
 
@@ -118,6 +133,16 @@ export default function MovieForm({ title, movie }: Props) {
             formData.append('releaseDate', formattedReleaseDate);
         }
 
+        if (selectedActors.length === 0) {
+            toast.error('A movie must always have at least one actor.');
+            return; 
+        }
+    
+        if (selectedGenres.length === 0) {
+            toast.error('A movie must always have at least one category.');
+            return; 
+        }
+
         let res;
         if (movie) {
             formData.append('MovieId', movie.id);
@@ -136,6 +161,7 @@ export default function MovieForm({ title, movie }: Props) {
 
         if (res.error) {
             // Error occurred
+            console.log(res.error);
             toast.error(res.error.message);
         }
     }
@@ -187,7 +213,7 @@ export default function MovieForm({ title, movie }: Props) {
                             labelledBy="Select Genres"
                         />
 
-                        <ActorMultiSelect baselineActors={movie?.actors} onSelect={handleSelectActors} />
+                        <ActorMultiSelect baselineActors={initialActors} onSelect={handleSelectActors} />
 
                         <Button isProcessing={isSubmitting} disabled={!isValid}
                             type="submit" theme={customTheme} color="primary">

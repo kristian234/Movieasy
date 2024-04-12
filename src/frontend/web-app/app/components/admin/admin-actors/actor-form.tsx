@@ -62,7 +62,7 @@ export default function ActorForm({ title, actor }: Props) {
             }
 
             if (!(res as any).error) {
-                router.back();
+                toast.success("Successfully added actor")
             }
         } catch (error: any) {
             toast.error("Unexpected error");

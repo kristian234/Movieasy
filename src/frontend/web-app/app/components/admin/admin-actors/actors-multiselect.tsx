@@ -11,7 +11,7 @@ interface Props {
 
 export default function ActorMultiSelect({ baselineActors, onSelect }: Props) {
     const [actors, setActors] = useState<Actor[]>([]);
-    const [selectedActors, setSelectedActors] = useState<Actor[]>(baselineActors || []); 
+    const [selectedActors, setSelectedActors] = useState<Actor[]>([]); 
     const [searchTerm, setSearchTerm] = useState<string>("");
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [page, setPage] = useState<number>(1);
@@ -20,6 +20,12 @@ export default function ActorMultiSelect({ baselineActors, onSelect }: Props) {
     useEffect(() => {
         fetchData();
     }, [page, searchTerm]);
+
+    useEffect(() => {
+        if (baselineActors) {
+            setSelectedActors(baselineActors);
+        }
+    }, [baselineActors]);
 
     const fetchData = async () => {
         setIsLoading(true);
@@ -30,12 +36,10 @@ export default function ActorMultiSelect({ baselineActors, onSelect }: Props) {
                 toast.error((res as any).error.message);
                 return;
             }
-            console.log(res);
             const newActors = res.items.filter((actor) => !actors.some((existingActor) => existingActor.id === actor.id));
             
             if (page === 1) {
                 setActors([...newActors]);
-                console.log(newActors)
             } else {
                 setActors((prevActors) => [...prevActors, ...newActors]);
             }
