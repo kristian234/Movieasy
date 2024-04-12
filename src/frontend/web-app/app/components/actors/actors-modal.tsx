@@ -12,6 +12,7 @@ import {
     AccordionItemButton,
     AccordionItemPanel,
 } from 'react-accessible-accordion';
+import { Spinner } from 'flowbite-react';
 //import 'react-accessible-accordion/dist/fancy-example.css';
 
 const customStyles = {
@@ -76,34 +77,44 @@ export default function ActorsModal({ isOpen, onClose, title, cancelButtonLabel,
             style={customStyles}
         >
             <div className="modal-content bg-header rounded-lg shadow-3xl p-6 w-full">
-                <div className="modal-header mb-2">
-                    {title && <h1 className='text-3xl text-secondary font-semibold'>{title}</h1>}
+                <div className="modal-header border-b-2 mb-6">
+                    {title && <h1 className='text-4xl text-secondary text-center font-semibold'>{title}</h1>}
                 </div>
-                <hr className='mb-3'></hr>
-                <div className="modal-body overflow-y-auto max-h-80">
-                    {isLoading ? (
-                        <p>Loading...</p>
-                    ) : (
+                {isLoading ? (
+                    <div className='flex justify-center items-center'>
+                        <Spinner />
+                    </div>
+                ) : (
+                    <div className="modal-body overflow-y-auto max-h-80">
                         <Accordion allowZeroExpanded={true} className="accordion">
                             {actors.map((actor) => (
                                 <AccordionItem key={actor.id} className='mb-3'>
-                                    <AccordionItemHeading className='text-secondary border-b border-'>
+                                    <AccordionItemHeading className='text-secondary border-b'>
                                         <AccordionItemButton className="text-xl font-bold">
                                             {actor.name}
                                         </AccordionItemButton>
                                     </AccordionItemHeading>
                                     <AccordionItemPanel className="bg-third rounded-lg bg-opacity-5 p-4">
-                                        <p className="text-sm text-third font-semibold">{actor.biography}</p>
+                                        <p className="text-1sm text-third font-semibold">{actor.biography}</p>
                                     </AccordionItemPanel>
                                 </AccordionItem>
                             ))}
                         </Accordion>
-                    )}
-                </div>
+                    </div>
+                )}
 
                 <div className="modal-footer flex justify-center flex-row space-x-7 mt-3">
                     {onCancelButtonClick && (
-                        <button className="modal-cancel flex w-[50%] justify-center items-center btn btn-secondary mr-2 bg-secondary text-primary font-semibold px-4 py-1 rounded-lg hover:bg-third focus:outline-none" onClick={onCancelButtonClick}>
+                        <button className="
+                                modal-cancel
+                                flex w-[50%]
+                                justify-center
+                                items-center
+                                btn btn-secondary mr-2
+                                bg-secondary text-primary font-semibold 
+                                px-4 py-1 rounded-lg
+                                hover:bg-third
+                                focus:outline-none" onClick={onCancelButtonClick}>
                             {cancelButtonLabel}
                         </button>
                     )}

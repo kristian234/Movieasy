@@ -52,7 +52,7 @@ export default async function DetailsPage({ params }: { params: { id: string } }
         <div className="ml-2 relative flex flex-col justify-between ">
           <h2 className="text-3xl font-bold text-third">{movie.title}</h2>
           <div className="mt-3 mb-4">
-            <Genres genres={movie.genres.map(genre => genre.name)} />
+            <Genres genres={movie.genres} />
 
             <div className="mt-3 flex justify-start md:justify-between">
               <Rating rating={movie.rating} />
@@ -61,10 +61,13 @@ export default async function DetailsPage({ params }: { params: { id: string } }
             </div>
           </div>
 
-          <ShowActorsButton movieId={movie.id} />
 
           <div className="space-y-3 mt-6">
             <p className="text-gray-600 font-semibold">{movie.description}</p>
+          </div>
+
+          <div className="mt-3">
+            <ShowActorsButton movieId={movie.id} />
           </div>
 
           <div className="mt-auto">

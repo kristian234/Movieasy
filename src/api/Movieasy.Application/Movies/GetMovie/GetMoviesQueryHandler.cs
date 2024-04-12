@@ -21,15 +21,17 @@ namespace Movieasy.Application.Movies.GetMovie
         {
             IQueryable<Movie> moviesQuery = _context.Movies
                 .Include(m => m.Photo)
-                .Include(m => m.Genres);
+                .Include(m => m.Genres)
+                .Include(m => m.Actors);
 
             // TO DO: In case at any time in the future there is a lot of entries in the database, 
             // this right here isn't really optimised for that, adding some form of an Index will be necessary.
             if (!string.IsNullOrWhiteSpace(request.SearchTerm))
             {
                 moviesQuery = moviesQuery.Where(m =>
-                    ((string)m.Title).Contains(request.SearchTerm) ||
-                    m.Genres.Any(g => ((string)g.Name).Contains(request.SearchTerm)));
+                    EF.Functions.ILike((string)m.Title, $"%{request.SearchTerm}%") ||
+                    m.Genres.Any(g => EF.Functions.ILike((string)g.Name, $"%{request.SearchTerm}%")) ||
+                    m.Actors.Any(a => EF.Functions.ILike((string)a.Name, $"%{request.SearchTerm}%")));
             }
 
             Expression<Func<Movie, object>> keySelector = GetSortProperty(request);
@@ -77,7 +79,7 @@ namespace Movieasy.Application.Movies.GetMovie
                 "upload" => movie => movie.UploadDate,
                 "release" => movie => movie.ReleaseDate ?? DateOnly.MinValue,
                 _ => movie => movie.Id
-            } ;
+            };
         }
     }
 }
