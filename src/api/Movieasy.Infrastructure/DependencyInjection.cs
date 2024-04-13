@@ -27,6 +27,8 @@ using Movieasy.Domain.Genres;
 using Movieasy.Application.Abstractions.SignalR;
 using Movieasy.Infrastructure.SignalR;
 using Movieasy.Domain.Actors;
+using Movieasy.Application.Abstractions.Caching;
+using Movieasy.Infrastructure.Caching;
 
 namespace Movieasy.Infrastructure
 {
@@ -47,6 +49,8 @@ namespace Movieasy.Infrastructure
             AddAuthorization(services);
 
             AddSignalR(services);
+
+            AddCaching(services, configuration);
 
             return services;
         }
@@ -147,6 +151,16 @@ namespace Movieasy.Infrastructure
             services.AddSignalR();
 
             services.AddSingleton<INotificationService, NotificationService>();
+        }
+
+        private static void AddCaching(IServiceCollection services, IConfiguration configuration)
+        {
+            var connectionString = configuration.GetConnectionString("Cache") ?? 
+                                   throw new ArgumentNullException(nameof(configuration));
+
+            services.AddStackExchangeRedisCache(options => options.Configuration = connectionString);
+
+            services.AddSingleton<ICacheService, CacheService>();
         }
     }
 }

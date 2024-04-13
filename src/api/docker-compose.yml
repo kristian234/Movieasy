@@ -40,6 +40,13 @@ services:
     - 18080:8080
     depends_on:
     - postgres
+
+  movieasy-redis:
+    image: redis:latest
+    container_name: Movieasy.Redis
+    restart: always
+    ports:
+    - '6379:6379'
   
   # next-app:
   #   image: ${DOCKER_REGISTRY-}next-app
