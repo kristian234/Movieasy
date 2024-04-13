@@ -48,6 +48,8 @@ namespace Movieasy.Application.Reviews.GetReviewSummary
                 return Result.Failure<ReviewSummaryResponse>(ReviewErrors.NotFound);
             }
 
+            await _cacheService.SetAsync(cacheKey, reviewSummary);
+
             return reviewSummary;
         }
     }
