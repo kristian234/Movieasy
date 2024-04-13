@@ -45,7 +45,9 @@ The backend of Movieasy adheres to the principles and practices of **clean archi
 - MediatR
 - FluentValidation
 - xUnit
-- Redis (soon, in the next 2-3 days)
+- Redis (for caching)
+- Yup 
+- React Hook Form 
 
 ### Movieasy as is, is dependent on the following services:
 - [Cloudinary](https://cloudinary.com/)
