@@ -4,6 +4,7 @@ using Movieasy.Application.Abstractions.Clock;
 using Movieasy.Application.Abstractions.Photos;
 using Movieasy.Application.Movies.AddMovie;
 using Movieasy.Domain.Abstractions;
+using Movieasy.Domain.Actors;
 using Movieasy.Domain.Genres;
 using Movieasy.Domain.Movies;
 using Movieasy.Domain.Photos;
@@ -24,6 +25,7 @@ namespace Movieasy.Application.UnitTests.Movies
         private readonly IPhotoAccessor _photoAccessorMock;
         private readonly IPhotoRepository _photoRepositoryMock;
         private readonly IGenreRepository _genreRepositoryMock;
+        private readonly IActorRepository _actorRepository;
 
 
         public AddMovieTests()
@@ -34,6 +36,7 @@ namespace Movieasy.Application.UnitTests.Movies
             _photoAccessorMock = Substitute.For<IPhotoAccessor>();
             _photoRepositoryMock = Substitute.For<IPhotoRepository>();
             _genreRepositoryMock = Substitute.For<IGenreRepository>();
+            _actorRepository = Substitute.For<IActorRepository>();
 
             _dateTimeProviderMock = Substitute.For<IDateTimeProvider>();
             _dateTimeProviderMock.UtcNow.Returns(UtcNow);
@@ -46,6 +49,7 @@ namespace Movieasy.Application.UnitTests.Movies
                 MovieData.ReleaseDate,
                 MovieData.Duration,
                 MovieData.GenreIds,
+                MovieData.ActorIds,
                 _formFileMock);
 
             _handler = new AddMovieCommandHandler(
@@ -54,7 +58,8 @@ namespace Movieasy.Application.UnitTests.Movies
                 _dateTimeProviderMock,
                 _photoAccessorMock,
                 _photoRepositoryMock,
-                _genreRepositoryMock);
+                _genreRepositoryMock,
+                _actorRepository);
         }
 
         [Fact]
@@ -80,10 +85,15 @@ namespace Movieasy.Application.UnitTests.Movies
                 .GetByIdsAsync(Command.Genres, Arg.Any<CancellationToken>())
                 .Returns(MovieData.Genres);
 
+            _actorRepository
+                .GetByIdsAsync(Command.Actors, Arg.Any<CancellationToken>())
+                .Returns(MovieData.Actors);
 
             _photoAccessorMock
                 .AddPhotoAsync(Command.Photo)
                 .Returns(Result.Failure<PhotoUploadResult>(PhotoErrors.UploadingImageFailed));
+
+            
 
             // Act
             var result = await _handler.Handle(Command, default);
