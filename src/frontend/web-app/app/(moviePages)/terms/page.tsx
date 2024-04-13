@@ -15,7 +15,7 @@ export default function TermsOfServicePage() {
                 <p className='text-third font-semibold'>Movieasy uses cookies to enhance the user experience. By accessing Movieasy, you agree to our use of cookies in accordance with EU cookie law requirements.</p>
             </div>
 
-            <div className="text-lg mb-8">
+            <div className="text-lg mb-8">q
                 <h2 className="text-2xl text-secondary font-bold mb-4">Movie Information</h2>
                 <p className='text-third font-semibold'>Movieasy provides movie information such as covers, titles, descriptions, and trailers for informational and critical purposes only. The movie information displayed on Movieasy is sourced from publicly available APIs and databases. Movieasy does not claim ownership of any movie information displayed on the website, and it is provided solely for the purpose of enhancing the user experience and enabling movie criticism. The use of movie information on Movieasy is compliant with applicable copyright laws.</p>
             </div>
