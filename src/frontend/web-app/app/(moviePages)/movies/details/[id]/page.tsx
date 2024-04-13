@@ -76,7 +76,7 @@ export default async function DetailsPage({ params }: { params: { id: string } }
         </div>
       </div>
 
-      <ShowReviewsButton movieId={movie.id} />
+      <ShowReviewsButton movieId={movie.id} isAdmin={isAdmin}/>
     </div>
   )
 }

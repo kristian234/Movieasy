@@ -77,7 +77,13 @@ export default function ReviewForm({ movieId, userId }: Props) {
             }
     
             if ((res as any).error) {
-                toast.error((res as any).error);
+                console.log((res as any))
+                if((res as any).error.status === 400){
+                    toast.error("Your review has been deleted by an administrator, please reload");
+                    return;
+                }
+
+                toast.error((res as any).error.message);
                 return;
             }
     

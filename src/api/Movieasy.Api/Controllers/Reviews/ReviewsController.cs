@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Movieasy.Application.Movies.GetMovie;
 using Movieasy.Application.Reviews.AddReview;
+using Movieasy.Application.Reviews.DeleteReview;
 using Movieasy.Application.Reviews.GetReview;
 using Movieasy.Application.Reviews.GetReviewById;
 using Movieasy.Application.Reviews.GetReviewSummary;
@@ -123,6 +124,7 @@ namespace Movieasy.Api.Controllers.Reviews
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = Roles.Admin)]
         public async Task<IActionResult> DeleteReview(
             Guid id,
             CancellationToken cancellationToken)

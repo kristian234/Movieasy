@@ -87,14 +87,26 @@ export default function ReviewListing({ movieId, isAdmin = false }: Props) {
         const reviews = await getReviews(url);
         const overallReviewData = await getDetailedReviewData(movieId);
 
-        if ((reviews as any).error || (overallReviewData as any).error) {
+        if ((reviews as any).error || (overallReviewData as any).error && (overallReviewData as any).error.status !== 404) {
             setIsLoading(false);
             return;
         }
 
-        setDetailedReviewData(overallReviewData);
+        if((overallReviewData as any).error && (overallReviewData as any).error.status === 404){
+            setDetailedReviewData(null);
+        }else{
+            setDetailedReviewData(overallReviewData);
+        }
+
         setData(reviews);
         setIsLoading(false);
+    };
+
+    const handleDeleteReview = (reviewId: string) => {
+        setData((prevData: PagedResult<Review> | undefined) => ({
+            ...prevData!,
+            items: ((prevData && prevData.items) as Review[] ?? []).filter(review => review.id !== reviewId)
+        }));
     };
 
     return (
@@ -122,7 +134,7 @@ export default function ReviewListing({ movieId, isAdmin = false }: Props) {
                         <div className="w-6xl flex flex-col space-y-4">
                             {data?.items?.map((review, index) => (
                                 <Fragment>
-                                    <ReviewCard review={review} key={index} />
+                                    <ReviewCard review={review} key={index} isAdmin={isAdmin} onDelete={handleDeleteReview} />
                                 </Fragment>
                             ))}
                         </div>

@@ -23,7 +23,7 @@ function ShowReviewsButton({ movieId, isAdmin = false}: Props) {
                 </button>
             )}
 
-            {showReviews && <ReviewListing movieId={movieId} />}
+            {showReviews && <ReviewListing movieId={movieId} isAdmin={isAdmin} />}
         </div>
     );
 }
