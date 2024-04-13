@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Movieasy.Application.Abstractions.Caching;
 using Movieasy.Application.Abstractions.Data;
 using Movieasy.Application.Abstractions.Messaging;
 using Movieasy.Domain.Abstractions;
@@ -10,14 +11,27 @@ namespace Movieasy.Application.Reviews.GetReviewSummary
         : IQueryHandler<GetReviewSummaryQuery, ReviewSummaryResponse>
     {
         private readonly IApplicationDbContext _context;
+        private readonly ICacheService _cacheService;
 
-        public GetReviewSummaryQueryHandler(IApplicationDbContext context)
+        public GetReviewSummaryQueryHandler(
+            IApplicationDbContext context,
+            ICacheService cacheService)
         {
             _context = context;
+            _cacheService = cacheService;
         }
 
         public async Task<Result<ReviewSummaryResponse>> Handle(GetReviewSummaryQuery request, CancellationToken cancellationToken)
         {
+            var cacheKey = $"reviews:summary-{request.MovieId}";
+
+            var cachedSummary = await _cacheService.GetAsync<ReviewSummaryResponse>(cacheKey);
+
+            if (cachedSummary is not null)
+            {
+                return cachedSummary;
+            }
+
             ReviewSummaryResponse? reviewSummary = await _context.Reviews
                 .Where(r => r.MovieId == request.MovieId)
                 .GroupBy(r => r.MovieId)
