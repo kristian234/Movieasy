@@ -15,7 +15,7 @@ export default async function HomePage() {
             <WelcomeGreeting user={user} />
 
             <MovieCarousel movies={getRecentlyUploaded} text="Recently Added"></MovieCarousel>
-            <MovieCarousel movies={getTrending} text="Trending"></MovieCarousel>
+            <MovieCarousel movies={getTrending} text="You may have already watched"></MovieCarousel>
         </div>
     )
 }

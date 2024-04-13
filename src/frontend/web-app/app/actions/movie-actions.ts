@@ -16,7 +16,7 @@ export async function getRecentlyUploaded(): Promise<PagedResult<Movie>> {
 }
 
 export async function getTrending(): Promise<PagedResult<Movie>> {
-    return await fetchWrapper.get(`/api/Movies?pageNumber=1&pageSize=12`)
+    return await fetchWrapper.get(`/api/Movies?pageNumber=1&pageSize=12&sortColumn=random`)
 }
 
 export async function createMovie(data: FormData){

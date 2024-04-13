@@ -3,6 +3,8 @@ import { TiSortAlphabetically } from "react-icons/ti";
 import { BsFillStopCircleFill, BsGraphUp } from "react-icons/bs";
 import { PiSortAscending } from "react-icons/pi";
 import { PiSortDescending } from "react-icons/pi";
+import { RiParentLine } from "react-icons/ri";
+
 const pageSizeButtons = [12, 24, 48];
 
 const sortButtons = [
@@ -13,7 +15,7 @@ const sortButtons = [
     },
     {
         label: 'Rating',
-        icon: BsGraphUp,
+        icon: RiParentLine ,
         value: 'rating'
     },
     {

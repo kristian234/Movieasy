@@ -4,7 +4,6 @@ import Provider from "../Providers/Provider";
 import RefreshClientComponent from "../components/shared/refresh-component";
 import Header from "../layout/header";
 import 'react-multi-carousel/lib/styles.css';
-import { ToastContainer } from "react-toastify";
 import ToasterProvider from "../Providers/ToasterProvider";
 import ModalWrapper from "../Providers/ModalProvider";
 

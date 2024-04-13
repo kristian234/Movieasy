@@ -78,6 +78,7 @@ namespace Movieasy.Application.Movies.GetMovie
                 "rating" => movie => movie.Rating,
                 "upload" => movie => movie.UploadDate,
                 "release" => movie => movie.ReleaseDate ?? DateOnly.MinValue,
+                "random" => movie => Guid.NewGuid(),
                 _ => movie => movie.Id
             };
         }

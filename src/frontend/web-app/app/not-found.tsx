@@ -1,9 +1,11 @@
 import Link from 'next/link'
+import "./globals.css";
+import 'tailwindcss/tailwind.css'; // Directly import Tailwind CSS
 
 export default function NotFound() {
   return (
-    <main className="flex h-full flex-col items-center justify-center">
-      <div className="flex justify-center mt-8 bg-black bg-opacity-15 shadow-3xl max-w-4xl p-8 rounded-lg">
+    <main className="flex h-screen items-center justify-center bg-body">
+      <div className="flex justify-center mt-8 bg-secondary bg-opacity-15 shadow-3xl max-w-4xl p-8 rounded-lg">
         <div className="flex flex-col items-center justify-center h-full">
           <h1 className="text-4xl font-bold text-primary">Not Found</h1>
           <p className="text-lg text-gray-600 mt-4">Could not find the requested resource.</p>
