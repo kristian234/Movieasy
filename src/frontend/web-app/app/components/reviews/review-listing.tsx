@@ -14,9 +14,10 @@ import ReviewSummary from "./review-summary";
 import { IoRefresh } from "react-icons/io5";
 interface Props {
     movieId: string
+    isAdmin?: boolean | null
 }
 
-export default function ReviewListing({ movieId }: Props) {
+export default function ReviewListing({ movieId, isAdmin = false }: Props) {
     const [data, setData] = useState<PagedResult<Review>>();
     const [detailedReviewData, setDetailedReviewData] = useState<DetailedReviewData | null>(null); // State for review summary data
 

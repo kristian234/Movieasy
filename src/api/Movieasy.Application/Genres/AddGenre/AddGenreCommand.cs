@@ -2,6 +2,6 @@
 
 namespace Movieasy.Application.Genres.AddGenre
 {
-    public record AddGenreCommand(
+    public sealed record AddGenreCommand(
         string Name) : ICommand<Guid>;
 }

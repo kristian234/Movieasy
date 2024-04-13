@@ -121,5 +121,22 @@ namespace Movieasy.Api.Controllers.Reviews
 
             return Ok();
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteReview(
+            Guid id,
+            CancellationToken cancellationToken)
+        {
+            var command = new DeleteReviewCommand(id);
+
+            Result result = await _sender.Send(command, cancellationToken);
+
+            if (result.IsFailure) 
+            {
+                return BadRequest(result.Error);
+            }
+
+            return Ok();
+        }
     }
 }

@@ -14,5 +14,10 @@ namespace Movieasy.Infrastructure.Repositories
             return await DbContext.Reviews
                 .FirstOrDefaultAsync(r => r.UserId == userId && r.MovieId == movieId);
         }
+
+        public void Remove(Review genre)
+        {
+            DbContext.Reviews.Remove(genre);
+        }
     }
 }

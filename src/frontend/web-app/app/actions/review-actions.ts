@@ -24,3 +24,7 @@ export async function updateReview(data: FieldValues) {
 export async function getUserReviewForMovie(movieId: string) {
     return await fetchWrapper.get(`/api/Reviews/user-review/${movieId}`)
 }
+
+export async function deleteReview(movieId: string) {
+    return await fetchWrapper.del(`/api/reviews/${movieId}`);
+}

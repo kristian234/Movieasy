@@ -2,7 +2,7 @@
 
 namespace Movieasy.Application.Genres.UpdateGenre
 {
-    public record UpdateGenreCommand(
+    public sealed record UpdateGenreCommand(
         Guid GenreId,
         string Name) : ICommand;
 }

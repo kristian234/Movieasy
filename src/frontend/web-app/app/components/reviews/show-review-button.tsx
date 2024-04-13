@@ -5,9 +5,10 @@ import ReviewListing from './review-listing';
 
 interface Props {
     movieId: string
+    isAdmin?: boolean | null
 }
 
-function ShowReviewsButton({ movieId }: Props) {
+function ShowReviewsButton({ movieId, isAdmin = false}: Props) {
     const [showReviews, setShowReviews] = useState(false);
 
     const handleClick = () => {

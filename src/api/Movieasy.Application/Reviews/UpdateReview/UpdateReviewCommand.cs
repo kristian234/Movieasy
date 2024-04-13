@@ -2,7 +2,7 @@
 
 namespace Movieasy.Application.Reviews.UpdateReview
 {
-    public record UpdateReviewCommand(
+    public sealed record UpdateReviewCommand(
         Guid ReviewId,
         string Comment,
         int Rating) : ICommand;
