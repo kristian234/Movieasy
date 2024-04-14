@@ -1,5 +1,4 @@
 ﻿using FluentAssertions;
-using Movieasy.Application.Genres.AddGenre;
 using Movieasy.Application.Genres.UpdateGenre;
 using Movieasy.Domain.Abstractions;
 using Movieasy.Domain.Genres;
@@ -7,7 +6,7 @@ using NSubstitute;
 
 namespace Movieasy.Application.UnitTests.Genres
 {
-    public class EditGenreTests
+    public class UpdateGenreTests
     {
         private readonly UpdateGenreCommand Command;
         private readonly UpdateGenreCommandHandler _handler;
@@ -15,7 +14,7 @@ namespace Movieasy.Application.UnitTests.Genres
         private readonly IGenreRepository _genreRepositoryMock;
         private readonly IUnitOfWork _unitOfWorkMock;
 
-        public EditGenreTests()
+        public UpdateGenreTests()
         {
             _genreRepositoryMock = Substitute.For<IGenreRepository>();
             _unitOfWorkMock = Substitute.For<IUnitOfWork>();

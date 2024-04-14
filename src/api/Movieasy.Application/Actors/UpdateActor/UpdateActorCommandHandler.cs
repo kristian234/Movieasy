@@ -26,7 +26,7 @@ namespace Movieasy.Application.Actors.UpdateActor
             }
 
             Result updateResult = actor.Update(
-                request.Name,
+                request.Name, 
                 request.Biography);
 
             if (updateResult.IsFailure)
