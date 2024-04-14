@@ -11,21 +11,11 @@ interface Props {
 
 export default function ActorMultiSelect({ baselineActors, onSelect }: Props) {
     const [actors, setActors] = useState<Actor[]>([]);
-    const [selectedActors, setSelectedActors] = useState<Actor[]>([]); 
+    const [selectedActors, setSelectedActors] = useState<Actor[]>([]);
     const [searchTerm, setSearchTerm] = useState<string>("");
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [page, setPage] = useState<number>(1);
     const [hasMore, setHasMore] = useState<boolean>(true);
-
-    useEffect(() => {
-        fetchData();
-    }, [page, searchTerm]);
-
-    useEffect(() => {
-        if (baselineActors) {
-            setSelectedActors(baselineActors);
-        }
-    }, [baselineActors]);
 
     const fetchData = async () => {
         setIsLoading(true);
@@ -37,7 +27,7 @@ export default function ActorMultiSelect({ baselineActors, onSelect }: Props) {
                 return;
             }
             const newActors = res.items.filter((actor) => !actors.some((existingActor) => existingActor.id === actor.id));
-            
+
             if (page === 1) {
                 setActors([...newActors]);
             } else {
@@ -51,9 +41,23 @@ export default function ActorMultiSelect({ baselineActors, onSelect }: Props) {
         }
     };
 
+    useEffect(() => {
+        fetchData(); // Load data initially
+    }, []);
+
+    useEffect(() => {
+        if (baselineActors) {
+            setSelectedActors(baselineActors);
+        }
+    }, [baselineActors]);
+
+    useEffect(() => {
+        fetchData(); // Load data when page changes
+    }, [page]);
+
     const handleSearch = () => {
         setPage(1);
-        setActors([]);
+        fetchData();
     };
 
     const handleSelectActor = (actor: Actor) => {
@@ -69,6 +73,7 @@ export default function ActorMultiSelect({ baselineActors, onSelect }: Props) {
         setSelectedActors(updatedActors);
         onSelect(updatedActors);
     };
+
     const handleLoadMore = () => {
         setPage((prevPage) => prevPage + 1);
     };
@@ -93,7 +98,7 @@ export default function ActorMultiSelect({ baselineActors, onSelect }: Props) {
                     </div>
                 ))}
                 {!isLoading && hasMore && (
-                    <button type="button" onClick={() => handleLoadMore()} className="block w-full px-4 py-2 bg-blue-500 text-white rounded-md">Load More</button>
+                    <button type="button" onClick={handleLoadMore} className="block w-full px-4 py-2 bg-blue-500 text-white rounded-md">Load More</button>
                 )}
             </div>
             <div>

@@ -72,6 +72,7 @@ export default function MovieForm({ title, movie }: Props) {
                 }
 
                 setInitialActors(res);
+                setSelectedActors(res);
             })
             .catch(err => {
                 toast.error(err.message);

@@ -23,12 +23,12 @@ export default function ReviewListing({ movieId, isAdmin = false }: Props) {
 
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [params, setParams] = useState<{
-        page: number,
+        pageNumber: number,
         pageSize: number,
         rating: number | null
         sortTerm: 'newest' | 'oldest' | null
     }>({
-        page: 1,
+        pageNumber: 1,
         pageSize: 12,
         rating: null,
         sortTerm: null
@@ -40,11 +40,11 @@ export default function ReviewListing({ movieId, isAdmin = false }: Props) {
             rating = null;
         }
 
-        setParams(prevParams => ({ ...prevParams, rating }));
+        setParams(prevParams => ({ ...prevParams, pageNumber: 1, rating }));
     };
 
     function setPageNumber(pageNumber: number) {
-        setParams(prevParams => ({ ...prevParams, page: pageNumber }));
+        setParams(prevParams => ({ ...prevParams, pageNumber: pageNumber }));
     }
 
     useEffect(() => {
@@ -69,7 +69,7 @@ export default function ReviewListing({ movieId, isAdmin = false }: Props) {
 
     const resetFilters = () => {
         setParams({
-            page: 1,
+            pageNumber: 1,
             pageSize: 12,
             rating: null,
             sortTerm: null
@@ -78,7 +78,8 @@ export default function ReviewListing({ movieId, isAdmin = false }: Props) {
 
     const handleSortChange = (orderBy: 'newest' | 'oldest' | 'none') => {
         const sortTerm: 'newest' | 'oldest' | null = orderBy === 'none' ? null : orderBy;
-        setParams(prevParams => ({ ...prevParams, sortTerm }));
+        
+        setParams(prevParams => ({ ...prevParams, pageNumber: 1, sortTerm }));
     };
 
     const handleRefresh = async () => {
@@ -143,7 +144,7 @@ export default function ReviewListing({ movieId, isAdmin = false }: Props) {
             )}
 
             <div className="flex justify-center p-3">
-                <AppPagination currentPage={params.page} pageCount={data?.totalPages || 0} pageChanged={setPageNumber} />
+                <AppPagination currentPage={params.pageNumber} pageCount={data?.totalPages || 0} pageChanged={setPageNumber} />
             </div>
         </div>
     )

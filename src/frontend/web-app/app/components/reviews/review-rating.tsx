@@ -29,6 +29,6 @@ interface Props {
 
 export default function ReviewRating({ value, onChange, readonly = false }: Props) {
     return (
-        <Rating itemStyles={customStyles} spaceBetween='small' value={value} readOnly={readonly} style={{ maxWidth: 160 }} onChange={onChange} />
+        <Rating itemStyles={customStyles} spaceBetween='small'  value={value} readOnly={readonly} style={{ maxWidth: 160 }} onChange={onChange} />
     )
 }
