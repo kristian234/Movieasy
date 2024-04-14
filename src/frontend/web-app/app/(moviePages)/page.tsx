@@ -15,7 +15,7 @@ export default async function Home() {
   return (
     <Fragment>
       <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-header via-darkHeader to-header overflow-hidden">
-        <div className="relative flex flex-col items-center space-y-4" style={{ top: "-80px" }}>
+        <div className="z-10 relative flex flex-col items-center space-y-4" style={{ top: "-80px" }}>
 
           <div className="flex items-center text-secondary">
             <RiMovieLine className="text-3xl ml-2" />
@@ -38,9 +38,9 @@ export default async function Home() {
               </h2>
             </Link>
           </div>
-
         </div>
-        <div className="absolute bottom-0 right-0 mb-8 mr-32">
+
+        <div className="absolute bottom-0 right-0 z-0 mb-8 mr-32">
           <div className="w-64 h-64 bg-secondary rounded-full opacity-10"></div>
           <div className="w-48 h-48 bg-secondary rounded-full opacity-20 mt-10 ml-10"></div>
           <div className="w-32 h-32 bg-third rounded-full opacity-30 mt-10 ml-20"></div>
@@ -49,7 +49,7 @@ export default async function Home() {
         </div>
       </div>
 
-      <footer className="bg-transparent text-secondary py-8">
+      <footer className="bg-transparent text-secondary z-10 py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center">
             <div className="flex items-center">

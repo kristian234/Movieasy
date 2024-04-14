@@ -24,7 +24,7 @@ export default function VideoPlayer({ imageUrl, videoUrl }: Props) {
     return (
         <div className={`${showModal ? "" : "ssm:w-full max-w-2xl relative group transition-transform duration-100 hover:scale-95"}`}>
 
-            <div className="h-0 pb-[125%] relative ">
+            <div className="h-0 pb-[140%] relative ">
                 {showModal ? (
                     <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50 bg-black bg-opacity-75" onClick={closeModal}>
                         <div className="shadow-3xl bg-black bg-opacity-20 p-4 rounded-lg z-50 w-full max-w-3xl">
