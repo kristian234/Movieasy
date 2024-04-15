@@ -34,7 +34,7 @@ export default function RegisterForm() {
     const onSubmit = async (data: IFormInput) => {
         registerUser(data.firstName, data.lastName, data.email, data.password).then(res => {
             if (res.error) {
-                toast.error(res.error.message);
+                toast.error("Error encountered while registering. Email may be taken");
                 return;
             }
 

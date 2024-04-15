@@ -57,6 +57,10 @@ export default function ActorForm({ title, actor }: Props) {
             }
 
             if ((res as any).error) {
+                if((res as any).error.status === 500){
+                    toast.error("Unexpected error occurred. Actor with this name may already exist.")
+                    return;
+                }
                 toast.error(res.error.message);
                 return;
             }

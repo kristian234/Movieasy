@@ -66,6 +66,10 @@ export default function GenreForm({ title, genre }: Props) {
             res = await updateGenre(data);
 
             if ((res as any).error) {
+                if((res as any).error.status === 500){
+                    toast.error("Unexpected error occurred. Genre with this name may already exist.")
+                    return;
+                }
                 toast.error(res.error.message);
                 return;
             }
