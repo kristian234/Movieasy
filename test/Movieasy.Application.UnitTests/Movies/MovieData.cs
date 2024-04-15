@@ -1,5 +1,6 @@
 ﻿using Movieasy.Domain.Actors;
 using Movieasy.Domain.Genres;
+using Movieasy.Domain.Movies;
 using Movieasy.Domain.Photos;
 
 internal static class MovieData
@@ -12,6 +13,16 @@ internal static class MovieData
     public static readonly double Duration = 44;
 
     public static readonly Photo Photo = Photo.Create(new PublicId("testPublicId"), new Url("testUrl"));
+
+    public static readonly Movie Movie = Movie.Create(
+           new Title("Test movie"),
+           new Description("Test description"),
+           Movieasy.Domain.Movies.Rating.G,
+           new Trailer("Test trailer"),
+           Movieasy.Domain.Movies.Duration.Create(42).Value,
+           DateTime.UtcNow,
+           Photo,
+           ReleaseDate);
 
     public static readonly List<Genre> Genres = new List<Genre>()
     {

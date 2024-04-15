@@ -25,7 +25,7 @@ namespace Movieasy.Application.UnitTests.Movies
         private readonly IPhotoAccessor _photoAccessorMock;
         private readonly IPhotoRepository _photoRepositoryMock;
         private readonly IGenreRepository _genreRepositoryMock;
-        private readonly IActorRepository _actorRepository;
+        private readonly IActorRepository _actorRepositoryMock;
 
 
         public AddMovieTests()
@@ -36,7 +36,7 @@ namespace Movieasy.Application.UnitTests.Movies
             _photoAccessorMock = Substitute.For<IPhotoAccessor>();
             _photoRepositoryMock = Substitute.For<IPhotoRepository>();
             _genreRepositoryMock = Substitute.For<IGenreRepository>();
-            _actorRepository = Substitute.For<IActorRepository>();
+            _actorRepositoryMock = Substitute.For<IActorRepository>();
 
             _dateTimeProviderMock = Substitute.For<IDateTimeProvider>();
             _dateTimeProviderMock.UtcNow.Returns(UtcNow);
@@ -59,7 +59,7 @@ namespace Movieasy.Application.UnitTests.Movies
                 _photoAccessorMock,
                 _photoRepositoryMock,
                 _genreRepositoryMock,
-                _actorRepository);
+                _actorRepositoryMock);
         }
 
         [Fact]
@@ -85,15 +85,13 @@ namespace Movieasy.Application.UnitTests.Movies
                 .GetByIdsAsync(Command.Genres, Arg.Any<CancellationToken>())
                 .Returns(MovieData.Genres);
 
-            _actorRepository
+            _actorRepositoryMock
                 .GetByIdsAsync(Command.Actors, Arg.Any<CancellationToken>())
                 .Returns(MovieData.Actors);
 
             _photoAccessorMock
                 .AddPhotoAsync(Command.Photo)
                 .Returns(Result.Failure<PhotoUploadResult>(PhotoErrors.UploadingImageFailed));
-
-            
 
             // Act
             var result = await _handler.Handle(Command, default);

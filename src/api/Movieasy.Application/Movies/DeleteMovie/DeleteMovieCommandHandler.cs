@@ -1,6 +1,5 @@
 ﻿using Movieasy.Application.Abstractions.Messaging;
 using Movieasy.Application.Abstractions.Photos;
-using Movieasy.Application.Movies.DeleteMovie;
 using Movieasy.Domain.Abstractions;
 using Movieasy.Domain.Movies;
 using Movieasy.Domain.Photos;

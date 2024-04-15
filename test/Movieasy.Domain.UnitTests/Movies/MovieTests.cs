@@ -54,7 +54,7 @@ namespace Movieasy.Domain.UnitTests.Movies
         }
 
         [Fact]
-        public void Update_ShouldSetValues()
+        public void Update_Should_SetValues()
         {
             // Act
             Movie movie = Movie.Create(

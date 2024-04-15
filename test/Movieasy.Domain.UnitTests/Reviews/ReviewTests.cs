@@ -38,6 +38,62 @@ namespace Movieasy.Domain.UnitTests.Reviews
         }
 
         [Fact]
+        public void Update_ShouldSetValues()
+        {
+            // Act
+            Movie movie = Movie.Create(
+                         MovieData.Title,
+                         MovieData.Description,
+                         MovieData.Rating,
+                         MovieData.Trailer,
+                         MovieData.Duration,
+                         MovieData.UploadDate,
+                         MovieData.Photo,
+                         MovieData.ReleaseDate);
+
+            User user = User.Create(UserData.FirstName, UserData.LastName, UserData.Email);
+
+            Result<Review> reviewResult = Review.Create(movie, user, ReviewData.Rating, ReviewData.Comment, ReviewData.CreatedOnDate);
+
+            const string updateComment = "updated comment";
+            const int updateRating = 4;
+
+            reviewResult.Value.Update(updateComment, updateRating);
+            
+            // Assert
+            reviewResult.Value.Comment.Value.Should().Be(updateComment);
+            reviewResult.Value.Rating.Value.Should().Be(updateRating);
+        }
+
+        [Fact]
+        public void Update_Should_Fail_If_RatingIsInvalid()
+        {
+            // Act
+            Movie movie = Movie.Create(
+                         MovieData.Title,
+                         MovieData.Description,
+                         MovieData.Rating,
+                         MovieData.Trailer,
+                         MovieData.Duration,
+                         MovieData.UploadDate,
+                         MovieData.Photo,
+                         MovieData.ReleaseDate);
+
+            User user = User.Create(UserData.FirstName, UserData.LastName, UserData.Email);
+
+            Result<Review> reviewResult = Review.Create(movie, user, ReviewData.Rating, ReviewData.Comment, ReviewData.CreatedOnDate);
+
+            const string updateComment = "updated comment";
+            const int updateInvalidRating = -1;
+
+            Result result = reviewResult.Value.Update(updateComment, updateInvalidRating);
+
+            // Assert
+            result.IsSuccess.Should().BeFalse();
+            result.Error.Should().Be(Domain.Reviews.Rating.Invalid);
+        }
+
+        [Fact]
         public void Create_Should_Fail_If_MovieHasNoReleaseDate()
         {
             // Act
@@ -57,6 +113,7 @@ namespace Movieasy.Domain.UnitTests.Reviews
 
             // Assert
             reviewResult.IsSuccess.Should().BeFalse();
+            reviewResult.Error.Should().Be(ReviewErrors.NotEligible);
         }
 
         [Fact]
