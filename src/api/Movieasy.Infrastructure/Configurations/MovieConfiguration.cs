@@ -24,7 +24,7 @@ namespace Movieasy.Infrastructure.Configurations
                 .HasConversion(duration => duration.Value, value => Duration.Create(value).Value);
 
             builder.Property(movie => movie.Trailer)
-                .HasMaxLength(MovieConstants.TitleMaxLength)
+                .HasMaxLength(MovieConstants.TrailerMaxLength)
                 .HasConversion(trailer => trailer.Value, value => new Trailer(value));
 
             builder.HasOne(movie => movie.Photo)

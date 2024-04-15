@@ -1,13 +1,11 @@
 ﻿using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Movieasy.Application.Abstractions.Photos;
-using Movieasy.Application.Movies.DeleteMovie;
 using Movieasy.Application.Movies.UpdateMovie;
 using Movieasy.Domain.Abstractions;
 using Movieasy.Domain.Actors;
 using Movieasy.Domain.Genres;
 using Movieasy.Domain.Movies;
-using Movieasy.Domain.Photos;
 using NSubstitute;
 
 namespace Movieasy.Application.UnitTests.Movies

@@ -26,6 +26,10 @@ export interface Review{
   createdOnDate: Date
 }
 
+export interface Statistic{
+  total: number
+}
+
 export interface DetailedReviewData{
   averageRating: number,
   totalRatings: number

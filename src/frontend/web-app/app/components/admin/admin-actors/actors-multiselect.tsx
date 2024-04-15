@@ -26,12 +26,13 @@ export default function ActorMultiSelect({ baselineActors, onSelect }: Props) {
                 toast.error((res as any).error.message);
                 return;
             }
-            const newActors = res.items.filter((actor) => !actors.some((existingActor) => existingActor.id === actor.id));
+            //const filteredActors = res.items.filter((actor) => !actors.find((existingActor) => existingActor.id === actor.id));
 
             if (page === 1) {
-                setActors([...newActors]);
+                setActors(res.items); // reset the actors state for page 1
             } else {
-                setActors((prevActors) => [...prevActors, ...newActors]);
+                // append new items to the existing actors state
+                setActors(prevActors => [...prevActors, ...res.items]);
             }
             setHasMore(res.totalPages > page);
         } catch (error) {
@@ -42,17 +43,13 @@ export default function ActorMultiSelect({ baselineActors, onSelect }: Props) {
     };
 
     useEffect(() => {
-        fetchData(); // Load data initially
-    }, []);
-
-    useEffect(() => {
         if (baselineActors) {
             setSelectedActors(baselineActors);
         }
     }, [baselineActors]);
 
     useEffect(() => {
-        fetchData(); // Load data when page changes
+        fetchData(); // load data when page changes
     }, [page]);
 
     const handleSearch = () => {

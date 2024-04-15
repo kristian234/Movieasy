@@ -11,6 +11,8 @@ namespace Movieasy.Application.Movies.AddMovie
 
             RuleFor(x => x.Description).NotEmpty().MaximumLength(MovieConstants.DescriptionMaxLength);
 
+            RuleFor(x => x.TrailerUrl).NotEmpty().MaximumLength(MovieConstants.TrailerMaxLength);
+
             RuleFor(x => x.Duration).NotEmpty();
 
             RuleFor(x => x.Rating).NotEmpty()

@@ -1,5 +1,4 @@
-﻿using Movieasy.Application.Actors.GetActorById;
-using Movieasy.Application.Genres.GetGenre;
+﻿using Movieasy.Application.Genres.GetGenre;
 
 namespace Movieasy.Application.Movies.GetMovieById
 {
