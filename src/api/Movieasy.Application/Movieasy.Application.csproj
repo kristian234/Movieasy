@@ -25,4 +25,8 @@
 		<InternalsVisibleTo Include="Movieasy.Application.UnitTests" />
 	</ItemGroup>
 
+	<ItemGroup>
+		<InternalsVisibleTo Include="Movieasy.Application.IntegrationTests"/>
+	</ItemGroup>
+
 </Project>

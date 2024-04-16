@@ -2,16 +2,16 @@
 using Movieasy.Application.Movies.GetMovieById;
 using NSubstitute;
 
-namespace Movieasy.Application.UnitTests.Actors
+namespace Movieasy.Application.UnitTests.Movies
 {
-    public class GetActorByIdTests
+    public class GetMovieByIdTests
     {
         private readonly GetMovieByIdQuery Query;
         private readonly GetMovieByIdQueryHandler _handler;
 
         private readonly IApplicationDbContext _applicationDbContextMock;
 
-        public GetActorByIdTests()
+        public GetMovieByIdTests()
         {
             _applicationDbContextMock = Substitute.For<IApplicationDbContext>();
 
