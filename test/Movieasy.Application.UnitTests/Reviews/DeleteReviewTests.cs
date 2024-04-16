@@ -1,8 +1,6 @@
 ﻿using FluentAssertions;
 using Movieasy.Application.Reviews.DeleteReview;
-using Movieasy.Application.Reviews.UpdateReview;
 using Movieasy.Domain.Abstractions;
-using Movieasy.Domain.Genres;
 using Movieasy.Domain.Reviews;
 using NSubstitute;
 
