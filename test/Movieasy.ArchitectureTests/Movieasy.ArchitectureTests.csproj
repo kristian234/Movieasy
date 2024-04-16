@@ -25,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\api\Movieasy.Api\Movieasy.Api.csproj" />
+    <ProjectReference Include="..\..\src\api\Movieasy.Api\Movieasy.Api.csproj" />
   </ItemGroup>
 
 </Project>
