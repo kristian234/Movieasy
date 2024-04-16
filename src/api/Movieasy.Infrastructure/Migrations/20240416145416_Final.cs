@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Movieasy.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class Final : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -90,7 +90,7 @@ namespace Movieasy.Infrastructure.Migrations
                     photo_id = table.Column<Guid>(type: "uuid", nullable: false),
                     release_date = table.Column<DateOnly>(type: "date", nullable: true),
                     rating = table.Column<int>(type: "integer", nullable: false),
-                    trailer = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
+                    trailer = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
                     duration = table.Column<double>(type: "double precision", nullable: false),
                     upload_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },

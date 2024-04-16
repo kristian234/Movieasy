@@ -25,7 +25,9 @@ interface Props {
 
 
 export default function ReviewRating({ value, onChange, readonly = false }: Props) {
+    const roundedValue = Math.round(value); // round to the nearest integer
+
     return (
-        <Rating itemStyles={customStyles} spaceBetween='small'  value={value} readOnly={readonly} style={{ maxWidth: 160 }} onChange={onChange} />
+        <Rating itemStyles={customStyles} spaceBetween='small' value={roundedValue} readOnly={readonly} style={{ maxWidth: 160 }} onChange={onChange} />
     )
 }

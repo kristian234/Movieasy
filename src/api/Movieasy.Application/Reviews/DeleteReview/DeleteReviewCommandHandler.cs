@@ -20,11 +20,11 @@ namespace Movieasy.Application.Reviews.DeleteReview
 
         public async Task<Result> Handle(DeleteReviewCommand request, CancellationToken cancellationToken)
         {
-            Review? review = await _reviewRepository.GetByIdAsync(request.reviewId, cancellationToken);
+            Review? review = await _reviewRepository.GetByIdAsync(request.ReviewId, cancellationToken);
 
             if (review == null)
             {
-                return Result.Failure(ActorErrors.NotFound);
+                return Result.Failure(ReviewErrors.NotFound);
             }
 
             _reviewRepository.Remove(review);

@@ -8,7 +8,6 @@ using Movieasy.Domain.Movies;
 using Movieasy.Domain.Reviews;
 using Movieasy.Domain.Users;
 using NSubstitute;
-using System.Runtime.CompilerServices;
 
 namespace Movieasy.Application.UnitTests.Reviews
 {
@@ -50,7 +49,7 @@ namespace Movieasy.Application.UnitTests.Reviews
         [Fact]
         public async Task Handle_Should_ReturnFailure_WhenMovieNotFound()
         {
-            // Assert
+            // Arrange
             _movieRepositoryMock
                 .GetByIdAsync(Command.MovieId, Arg.Any<CancellationToken>())
                 .Returns((Movie?)null);
@@ -65,7 +64,7 @@ namespace Movieasy.Application.UnitTests.Reviews
         [Fact]
         public async Task Handle_Should_ReturnFailure_WhenUserNotFound()
         {
-            // Assert
+            // Arrange
             _movieRepositoryMock
                 .GetByIdAsync(Command.MovieId, Arg.Any<CancellationToken>())
                 .Returns(ActorData.Movie);

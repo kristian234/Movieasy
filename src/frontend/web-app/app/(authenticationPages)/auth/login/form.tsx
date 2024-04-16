@@ -29,7 +29,11 @@ export default function LoginForm() {
     });
 
     const onSubmit = async (data: IFormInput) => {
-        setCookie('rememberMe', data.rememberMe);
+        setCookie('rememberMe', data.rememberMe, {
+            httpOnly: false,
+            sameSite: 'lax',
+            secure: true
+        });
 
         const result = await signIn("credential", { email: data.email, password: data.password, redirect: false });
 

@@ -1,30 +1,30 @@
 ﻿using FluentAssertions;
-using Movieasy.Application.Reviews.DeleteReview;
 using Movieasy.Application.Reviews.UpdateReview;
 using Movieasy.Domain.Abstractions;
-using Movieasy.Domain.Genres;
 using Movieasy.Domain.Reviews;
 using NSubstitute;
 
 namespace Movieasy.Application.UnitTests.Reviews
 {
-    public class DeleteReviewTests
+    public class UpdateReviewTests
     {
-        private readonly DeleteReviewCommand Command;
-        private readonly DeleteReviewCommandHandler _handler;
+        private readonly UpdateReviewCommand Command;
+        private readonly UpdateReviewCommandHandler _handler;
 
         private readonly IReviewRepository _reviewRepositoryMock;
         private readonly IUnitOfWork _unitOfWorkMock;
 
-        public DeleteReviewTests()
+        public UpdateReviewTests()
         {
             _reviewRepositoryMock = Substitute.For<IReviewRepository>();
             _unitOfWorkMock = Substitute.For<IUnitOfWork>();
 
-            Command = new DeleteReviewCommand(
-                Guid.NewGuid());
+            Command = new UpdateReviewCommand(
+                Guid.NewGuid(),
+                ReviewData.Comment,
+                ReviewData.Rating);
 
-            _handler = new DeleteReviewCommandHandler(
+            _handler = new UpdateReviewCommandHandler(
                 _reviewRepositoryMock,
                 _unitOfWorkMock);
         }
@@ -42,6 +42,24 @@ namespace Movieasy.Application.UnitTests.Reviews
 
             // Assert
             result.Error.Should().Be(ReviewErrors.NotFound);
+        }
+
+        [Fact]
+        public async Task Handle_Should_ReturnFailure_WhenUpdateResultInvalid()
+        {
+            // Arrange
+            UpdateReviewCommand brokenCommand =
+                new UpdateReviewCommand(Guid.NewGuid(), ReviewData.Comment, ReviewData.Rating);
+
+            _reviewRepositoryMock
+                .GetByIdAsync(brokenCommand.ReviewId, Arg.Any<CancellationToken>())
+                    .Returns(ReviewData.Review);
+
+            // Act
+            var result = await _handler.Handle(Command, default);
+
+            // Assert
+            result.IsFailure.Should().BeTrue();
         }
     }
 }

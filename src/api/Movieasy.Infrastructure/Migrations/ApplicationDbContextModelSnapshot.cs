@@ -149,8 +149,8 @@ namespace Movieasy.Infrastructure.Migrations
 
                     b.Property<string>("Trailer")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)")
                         .HasColumnName("trailer");
 
                     b.Property<DateTime>("UploadDate")
