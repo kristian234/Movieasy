@@ -67,5 +67,8 @@ The backend of Movieasy adheres to the principles and practices of **clean archi
 ### ERD (without the keycloak tables)
 ![alt text](https://github.com/kristian234/Movieasy/blob/master/images/erd1.jpg)
 
+### Tests
+- Domain layer tests
+![alt text](https://github.com/kristian234/Movieasy/blob/master/images/domain-tests.jpg)
 
 **More coming soon, to be continued**
