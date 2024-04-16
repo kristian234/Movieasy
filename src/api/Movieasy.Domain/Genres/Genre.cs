@@ -4,6 +4,8 @@ namespace Movieasy.Domain.Genres
 {
     public sealed class Genre : Entity
     {
+        private Genre() { }
+
         private Genre(
             Guid id,
             Name name) : base(id)

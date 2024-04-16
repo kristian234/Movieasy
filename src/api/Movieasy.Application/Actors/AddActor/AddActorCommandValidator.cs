@@ -3,7 +3,7 @@ using Movieasy.Domain.Actors;
 
 namespace Movieasy.Application.Actors.AddActor
 {
-    public class AddActorCommandValidator : AbstractValidator<AddActorCommand>
+    internal class AddActorCommandValidator : AbstractValidator<AddActorCommand>
     {
         public AddActorCommandValidator()
         {

@@ -4,7 +4,7 @@ namespace Movieasy.Domain.Actors
 {
     public sealed class Actor : Entity
     {
-        private Actor(Guid id) : base(id) { }
+        private Actor() { }
 
         private Actor(
             Guid id,

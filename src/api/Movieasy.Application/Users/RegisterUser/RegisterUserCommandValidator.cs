@@ -3,7 +3,7 @@ using Movieasy.Domain.Users;
 
 namespace Movieasy.Application.Users.RegisterUser
 {
-    public class RegisterUserCommandValidator : AbstractValidator<RegisterUserCommand>
+    internal class RegisterUserCommandValidator : AbstractValidator<RegisterUserCommand>
     {
         public RegisterUserCommandValidator()
         {

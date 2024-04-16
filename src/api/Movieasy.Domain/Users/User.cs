@@ -6,8 +6,9 @@ namespace Movieasy.Domain.Users
 {
     public sealed class User : Entity
     {
-        private readonly List<Role> _roles = new List<Role>();
+        private User() { }
 
+        private readonly List<Role> _roles = new List<Role>();
         private User(
             Guid id,
             FirstName firstName,

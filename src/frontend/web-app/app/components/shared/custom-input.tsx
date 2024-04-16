@@ -23,6 +23,7 @@ export default function CustomInput(props: Props) {
                 {...props}
                 {...field}
                 type={props.type || 'text'}
+                autoComplete='off'
                 placeholder={props.label}
                 color={fieldState.error ? 'failure' : !fieldState.isDirty ? '' : 'success'}
                 helperText={fieldState.error?.message}

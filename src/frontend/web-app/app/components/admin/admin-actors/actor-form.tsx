@@ -4,7 +4,7 @@ import { FieldValues, useForm } from "react-hook-form";
 import { Button, CustomFlowbiteTheme } from "flowbite-react";
 import CustomInput from "../../shared/custom-input";
 import { Fragment, useEffect } from "react";
-import { Actor, Movie } from "@/types";
+import { Actor } from "@/types";
 import * as yup from 'yup';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { createActor, updateActor } from "@/app/actions/actor-actions";

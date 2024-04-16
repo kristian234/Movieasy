@@ -3,7 +3,7 @@ using Movieasy.Domain.Reviews;
 
 namespace Movieasy.Application.Reviews.UpdateReview
 {
-    public class UpdateReviewCommandValidator : AbstractValidator<UpdateReviewCommand>
+    internal class UpdateReviewCommandValidator : AbstractValidator<UpdateReviewCommand>
     {
         public UpdateReviewCommandValidator()
         {

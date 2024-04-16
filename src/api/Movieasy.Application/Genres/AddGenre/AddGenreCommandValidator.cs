@@ -3,7 +3,7 @@ using Movieasy.Domain.Genres;
 
 namespace Movieasy.Application.Genres.AddGenre
 {
-    public class AddGenreCommandValidator : AbstractValidator<AddGenreCommand>
+    internal class AddGenreCommandValidator : AbstractValidator<AddGenreCommand>
     {
         public AddGenreCommandValidator()
         {

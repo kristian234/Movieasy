@@ -4,6 +4,8 @@ namespace Movieasy.Domain.Photos
 {
     public sealed class Photo : Entity
     {
+        private Photo() { }
+
         private Photo(
             Guid id,
             PublicId publicId,

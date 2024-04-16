@@ -7,7 +7,7 @@ namespace Movieasy.Domain.Reviews
 {
     public sealed class Review : Entity
     {
-        private Review(Guid id) : base(id) { }
+        private Review() { }
 
         private Review(
             Guid id,
