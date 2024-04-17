@@ -74,19 +74,24 @@ When you launch the api with the provided configuration and docker-compose it'll
 - The appsettings.Development.json file is not included as it contains a lot of sensitive information, if you wish to get it please message me. (I've already given it in the softuni form)
 - If you decide to launch it yourself, and wish to be able to delete/edit the movies that are initially seeded, please make sure you change the cloudinary image URLs to match your own in the seed.json located in the infrastructure layer. You can still test by adding your own movies though.
 
-
 ------------
 
 ### ERD (without the keycloak tables)
 ![alt text](https://github.com/kristian234/Movieasy/blob/master/images/erd1.jpg)
 
+------------
+
 ### Tests
 ![alt text](https://github.com/kristian234/Movieasy/blob/master/images/domain-tests.jpg)
+![alt text](https://github.com/kristian234/Movieasy/blob/master/images/application-tests.jpg)
+
+------------
 
 ### Pictures
 - I am unable to upload all of these photos on this github page as it'll turn it into a mess but here are the pages on imgur
 - https://imgur.com/a/gYHvcdJ
-![alt text](https://github.com/kristian234/Movieasy/blob/master/images/application-tests.jpg)
+
+------------
 
 ### Deployment
 - The application is deployed using docker on my own VPS. You can take a look at it here https://movieasy.xyz/ (If the website is offline please contact me.)
