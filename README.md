@@ -82,6 +82,10 @@ When you launch the api with the provided configuration and docker-compose it'll
 
 ### Tests
 ![alt text](https://github.com/kristian234/Movieasy/blob/master/images/domain-tests.jpg)
+
+### Pictures
+- I am unable to upload all of these photos on this github page as it'll turn it into a mess but here are the pages on imgur
+- https://imgur.com/a/gYHvcdJ
 ![alt text](https://github.com/kristian234/Movieasy/blob/master/images/application-tests.jpg)
 
 ### Deployment
