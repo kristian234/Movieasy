@@ -67,7 +67,7 @@ When you launch the api with the provided configuration and docker-compose it'll
 ------------
 
 ### How to launch?
-- The provided docker-compose, has all the containers except next-app in development mode. There is a production ready/ish docker-compose, but it contains real keys keys and information I can't safely share. That being said, even in development mode, the local performance is extremely with next-app in production mode.
+- The provided docker-compose, has all the containers except next-app in development mode. There is a production ready/ish docker-compose, but it contains real keys keys and information I can't safely share. That being said, even in development mode, the local performance is extremely fast with next-app in production mode.
 - The provided docker-compose and configs seed the database when in development mode with an admin user, with the following credentials:
   email: admin@gmail.com
   password: admin
