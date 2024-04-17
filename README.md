@@ -73,6 +73,8 @@ When you launch the api with the provided configuration and docker-compose it'll
   password: admin
 - The appsettings.Development.json file is not included as it contains a lot of sensitive information, if you wish to get it please message me. (I've already given it in the softuni form)
 - If you decide to launch it yourself, and wish to be able to delete/edit the movies that are initially seeded, please make sure you change the cloudinary image URLs to match your own in the seed.json located in the infrastructure layer. You can still test by adding your own movies though.
+- If you're launching the application you'll notice it requires a aspnetapp.pfx (self signed https certificate) in the docker-compose.override.yml. This is to ensure the api runs on https which is important in this case. For security reasons I am unable to upload my self signed certicate for others to use, so please generate one as shown in here https://learn.microsoft.com/en-us/dotnet/core/additional-tools/self-signed-certificates-guide and move it to  Movieasy.Api/Certificates (ignore the temp file that's already in there).
+- If you for some reason decide to do the certificate validation differently, you can find all the needed information in docker-compose.override.yml, but I highly recommend you follow the approach above.
 
 ------------
 
