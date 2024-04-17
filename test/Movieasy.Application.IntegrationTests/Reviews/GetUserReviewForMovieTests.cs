@@ -25,7 +25,7 @@ namespace Movieasy.Application.IntegrationTests.Reviews
         }
 
         [Fact]
-        public async Task Handle_Should_ReturnFailure_WhenReviewSummaryNotFound()
+        public async Task Handle_Should_ReturnFailure_WhenUserReviewNotFound()
         {
             // Arrange
             _userContextMock
