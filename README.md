@@ -1,7 +1,7 @@
 ### What is Movieasy?
 - Movieasy is a platform to share your opinion on movies and/or see others' opinion and find something to watch.
 
-### Features (this list is to expand even more by 17th of April)
+### Features
 <pre>
    User:
     - register and login
