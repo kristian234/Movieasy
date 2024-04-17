@@ -64,6 +64,8 @@ The backend of Movieasy adheres to the principles and practices of **clean archi
   email: admin@gmail.com
   password: admin
 - The appsettings.Development.json file is not included as it contains a lot of sensitive information, if you wish to get it please message me. (I've already given it in the softuni form)
+- If you decide to launch it yourself, and wish to be able to delete/edit the movies that are initially seeded, please make sure you change the cloudinary image URLs to match your own in the seed.json located in the infrastructure layer. You can still test by adding your own movies though.
+
 
 ------------
 
