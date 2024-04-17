@@ -76,4 +76,5 @@ The backend of Movieasy adheres to the principles and practices of **clean archi
 ![alt text](https://github.com/kristian234/Movieasy/blob/master/images/domain-tests.jpg)
 ![alt text](https://github.com/kristian234/Movieasy/blob/master/images/application-tests.jpg)
 
-**More coming soon, to be continued**
+### Deployment
+- The application is deployed using docker on my own VPS. You can take a look at it here https://movieasy.xyz/ (If the website is offline please contact me.)
