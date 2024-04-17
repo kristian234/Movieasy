@@ -91,6 +91,9 @@ When you launch the api with the provided configuration and docker-compose it'll
 - I am unable to upload all of these photos on this github page as it'll turn it into a mess but here are the pages on imgur
 - https://imgur.com/a/gYHvcdJ
 
+- In case you were wondering how it scales and looks on mobile (it was designed to scale well, at least in my opinion)
+- https://imgur.com/a/Ov2PQm4
+  
 ------------
 
 ### Deployment
