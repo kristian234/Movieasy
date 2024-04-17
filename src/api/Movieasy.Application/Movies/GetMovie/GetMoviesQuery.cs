@@ -1,4 +1,5 @@
 ﻿using Movieasy.Application.Abstractions.Messaging;
+using Movieasy.Application.Common;
 using Movieasy.Application.Movies.GetMovieById;
 
 namespace Movieasy.Application.Movies.GetMovie

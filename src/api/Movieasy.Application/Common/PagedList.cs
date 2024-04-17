@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Movieasy.Application.Movies.GetMovie
+namespace Movieasy.Application.Common
 {
     public class PagedList<T>
     {

@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Movieasy.Application.Movies.GetMovie;
+using Movieasy.Application.Common;
 using Movieasy.Application.Reviews.AddReview;
 using Movieasy.Application.Reviews.DeleteReview;
 using Movieasy.Application.Reviews.GetReview;

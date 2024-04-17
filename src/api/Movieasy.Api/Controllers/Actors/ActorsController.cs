@@ -6,7 +6,7 @@ using Movieasy.Application.Actors.DeleteActor;
 using Movieasy.Application.Actors.GetActor;
 using Movieasy.Application.Actors.GetActorById;
 using Movieasy.Application.Actors.UpdateActor;
-using Movieasy.Application.Movies.GetMovie;
+using Movieasy.Application.Common;
 using Movieasy.Domain.Abstractions;
 
 namespace Movieasy.Api.Controllers.Actors

@@ -1,5 +1,5 @@
 ﻿using Movieasy.Application.Abstractions.Messaging;
-using Movieasy.Application.Movies.GetMovie;
+using Movieasy.Application.Common;
 
 namespace Movieasy.Application.Actors.GetActor
 {

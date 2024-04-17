@@ -26,7 +26,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<InternalsVisibleTo Include="Movieasy.Application.IntegrationTests"/>
+		<InternalsVisibleTo Include="Movieasy.Application.IntegrationTests" />
 	</ItemGroup>
 
 </Project>

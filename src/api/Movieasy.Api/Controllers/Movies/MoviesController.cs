@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Movieasy.Application.Actors.GetActorById;
+using Movieasy.Application.Common;
 using Movieasy.Application.Movies.AddMovie;
 using Movieasy.Application.Movies.DeleteMovie;
 using Movieasy.Application.Movies.GetMovie;
