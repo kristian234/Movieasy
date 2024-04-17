@@ -58,6 +58,7 @@ When you launch the api with the provided configuration and docker-compose it'll
 - Yup 
 - React Hook Form
 - NetArchTest
+- Framer-Motion
 
 ### Movieasy as is, is dependent on the following services:
 - [Cloudinary](https://cloudinary.com/)
