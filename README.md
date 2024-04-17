@@ -12,11 +12,13 @@
     - edit their already posted reviews at any time
     - see details about every movie
     - watch the trailer of every movie
-  Admin:
+    + some more
+   Admin:
     - everything that the user can
     - add/edit/delete movie/s
     - add/edit/delete genre/s
     - add/edit/delete actor/s
+    + some more
 </pre>
 
 ------------
@@ -47,7 +49,8 @@ The backend of Movieasy adheres to the principles and practices of **clean archi
 - xUnit
 - Redis (for caching)
 - Yup 
-- React Hook Form 
+- React Hook Form
+- NetArchTest
 
 ### Movieasy as is, is dependent on the following services:
 - [Cloudinary](https://cloudinary.com/)
