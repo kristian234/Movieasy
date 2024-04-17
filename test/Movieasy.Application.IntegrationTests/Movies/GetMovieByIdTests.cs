@@ -1,10 +1,7 @@
 ﻿using FluentAssertions;
-using Movieasy.Application.Abstractions.Data;
 using Movieasy.Application.IntegrationTests.Infrastructure;
 using Movieasy.Application.Movies.GetMovieById;
-using Movieasy.Domain.Actors;
 using Movieasy.Domain.Movies;
-using NSubstitute;
 
 namespace Movieasy.Application.UnitTests.Movies
 {

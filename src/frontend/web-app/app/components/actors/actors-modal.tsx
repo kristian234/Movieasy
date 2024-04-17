@@ -13,6 +13,8 @@ import {
     AccordionItemPanel,
 } from 'react-accessible-accordion';
 import { Spinner } from 'flowbite-react';
+import { useParamsStore } from '@/hooks/useParamsStore';
+import { useRouter } from 'next/navigation';
 //import 'react-accessible-accordion/dist/fancy-example.css';
 
 const customStyles = {
@@ -69,6 +71,16 @@ export default function ActorsModal({ isOpen, onClose, title, cancelButtonLabel,
         }
     };
 
+    const setParams = useParamsStore(state => state.setParams);
+    const router = useRouter();
+
+
+    function search(actorName: string) {
+        setParams({ searchTerm: actorName });
+        // over here redirect the mto the search page
+        router.push('/movies/search')
+    }
+
     return (
         <Modal
             isOpen={isOpen}
@@ -96,6 +108,14 @@ export default function ActorsModal({ isOpen, onClose, title, cancelButtonLabel,
                                     </AccordionItemHeading>
                                     <AccordionItemPanel className="bg-third rounded-lg bg-opacity-5 p-4">
                                         <p className="text-1sm text-third font-semibold">{actor.biography}</p>
+                                        <div>
+                                            <button
+                                                className="btn btn-secondary mt-4 w-full bg-secondary hover:bg-third rounded-md font-semibold"
+                                                onClick={() => search(actor.name)}
+                                            >
+                                                More Movies
+                                            </button>
+                                        </div>
                                     </AccordionItemPanel>
                                 </AccordionItem>
                             ))}
