@@ -6,8 +6,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=5000
       - ASPNETCORE_HTTPS_PORTS=5001
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=movieasy
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=Certificates/aspnetapp.pfx
+     
     ports:
       - 5000:5000
       - 5001:5001
