@@ -32,6 +32,7 @@ The backend of Movieasy adheres to the principles and practices of **clean archi
 
 ### Api
 When you launch the api with the provided configuration and docker-compose it'll open a swagger window on port 5001, there you can find more information about the api.
+
 ![alt text](https://github.com/kristian234/Movieasy/blob/master/images/swagger.png)
 
 ------------
