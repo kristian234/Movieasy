@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Movieasy.Application.Abstractions.Data;
 using Movieasy.Application.Abstractions.Messaging;
-using Movieasy.Application.Movies.GetMovieById;
 using Movieasy.Application.Reviews.GetReview;
 using Movieasy.Domain.Abstractions;
 using Movieasy.Domain.Reviews;
@@ -12,14 +11,11 @@ namespace Movieasy.Application.Reviews.GetReviewById
     internal sealed class GetReviewByIdQueryHandler : IQueryHandler<GetReviewByIdQuery, ReviewResponse>
     {
         private readonly IApplicationDbContext _context;
-        private readonly IUnitOfWork _unitOfWork;
 
         public GetReviewByIdQueryHandler(
-            IApplicationDbContext context,
-            IUnitOfWork unitOfWork)
+            IApplicationDbContext context)
         {
             _context = context;
-            _unitOfWork = unitOfWork;
         }
 
         public async Task<Result<ReviewResponse>> Handle(GetReviewByIdQuery request, CancellationToken cancellationToken)

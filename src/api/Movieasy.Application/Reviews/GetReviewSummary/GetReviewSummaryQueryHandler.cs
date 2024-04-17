@@ -25,7 +25,7 @@ namespace Movieasy.Application.Reviews.GetReviewSummary
         {
             var cacheKey = $"reviews:summary-{request.MovieId}";
 
-            var cachedSummary = await _cacheService.GetAsync<ReviewSummaryResponse>(cacheKey);
+            var cachedSummary = await _cacheService.GetAsync<ReviewSummaryResponse>(cacheKey, cancellationToken);
 
             if (cachedSummary is not null)
             {
