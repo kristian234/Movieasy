@@ -6,6 +6,7 @@ import Header from "../layout/header";
 import 'react-multi-carousel/lib/styles.css';
 import ToasterProvider from "../Providers/ToasterProvider";
 import ModalWrapper from "../Providers/ModalProvider";
+import Head from "next/head";
 
 export const metadata: Metadata = {
   title: "Movieasy",
@@ -19,6 +20,9 @@ export default async function RootLayout({
 }) {
   return (
     <html lang="en">
+    	<Head>
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        </Head>
       <body>
         <div className="min-h-screen flex-auto max-h-screen overflow-auto">
           <Provider>
