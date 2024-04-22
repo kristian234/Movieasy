@@ -36,7 +36,7 @@ When you launch the api with the provided configuration and docker-compose it'll
 
 ![alt text](https://github.com/kristian234/Movieasy/blob/master/images/swagger.png)
 
-### Application flow (very abstract)
+### Application flow (very abstract. accurate enough to give an understanding of how it flows)
 ![alt text](https://github.com/kristian234/Movieasy/blob/master/images/movieasyflow.png)
 
 ------------
