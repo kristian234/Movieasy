@@ -40,7 +40,7 @@ export default async function Home() {
           </div>
         </div>
 
-        <div className="absolute bottom-0 right-0 z-0 mb-8 mr-32">
+        <div className="absolute bottom-0 right-0 z-0 mb-8 mr-32 pointer-events-none">
           <div className="w-64 h-64 bg-secondary rounded-full opacity-10"></div>
           <div className="w-48 h-48 bg-secondary rounded-full opacity-20 mt-10 ml-10"></div>
           <div className="w-32 h-32 bg-third rounded-full opacity-30 mt-10 ml-20"></div>
