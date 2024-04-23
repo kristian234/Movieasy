@@ -7,5 +7,6 @@
         public string ReviewerName { get; set; } = string.Empty;
         public int Rating { get; set; } 
         public string CreatedOnDate { get; set; } = string.Empty;
+        public string UserId { get; set; } = string.Empty;
     }
 }

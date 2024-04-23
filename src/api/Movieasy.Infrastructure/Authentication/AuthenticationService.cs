@@ -1,4 +1,4 @@
-﻿using Bookify.Infrastructure.Authentication.Models;
+﻿using Movieasy.Infrastructure.Authentication.Models;
 using Movieasy.Application.Abstractions.Authentication;
 using Movieasy.Domain.Users;
 using System.Net.Http.Json;

@@ -6,7 +6,7 @@ using Movieasy.Domain.Photos;
 
 namespace Movieasy.Application.Movies.DeleteMovie
 {
-    internal class DeleteMovieCommandHandler : ICommandHandler<DeleteMovieCommand>
+    internal sealed class DeleteMovieCommandHandler : ICommandHandler<DeleteMovieCommand>
     {
         private readonly IMovieRepository _movieRepository;
         private readonly IUnitOfWork _unitOfWork;

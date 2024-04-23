@@ -1,4 +1,5 @@
 ﻿using Movieasy.Domain.Abstractions;
+using Movieasy.Domain.Reviews;
 using Movieasy.Domain.Users.Events;
 using System.Collections.Immutable;
 
@@ -25,9 +26,13 @@ namespace Movieasy.Domain.Users
         public FirstName FirstName { get; private set; }
         public LastName LastName { get; private set; }
         public Email Email { get; private set; }
+        public Details Details { get; private set; }
 
         public string IdentityId { get; private set; } = string.Empty;
         public IReadOnlyCollection<Role> Roles => _roles.ToImmutableList();
+
+        private List<Review> _reviews = new List<Review>();
+        public IReadOnlyCollection<Review> Reviews => _reviews.AsReadOnly(); 
 
         public static User Create(FirstName firstName, LastName lastName, Email email)
         {
@@ -40,6 +45,12 @@ namespace Movieasy.Domain.Users
             return user;
         }
 
+        public Result Update(string details)
+        {
+            Details = new Details(details);
+
+            return Result.Success();
+        }
         public void AddUserRole(Role role)
         {
             if (!_roles.Contains(role))

@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Movieasy.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Final : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -73,6 +73,7 @@ namespace Movieasy.Infrastructure.Migrations
                     first_name = table.Column<string>(type: "character varying(80)", maxLength: 80, nullable: false),
                     last_name = table.Column<string>(type: "character varying(80)", maxLength: 80, nullable: false),
                     email = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
+                    details = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: true),
                     identity_id = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>

@@ -274,6 +274,11 @@ namespace Movieasy.Infrastructure.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
+                    b.Property<string>("Details")
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)")
+                        .HasColumnName("details");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(255)
@@ -378,7 +383,7 @@ namespace Movieasy.Infrastructure.Migrations
 
             modelBuilder.Entity("Movieasy.Domain.Reviews.Review", b =>
                 {
-                    b.HasOne("Movieasy.Domain.Movies.Movie", null)
+                    b.HasOne("Movieasy.Domain.Movies.Movie", "Movie")
                         .WithMany()
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -386,11 +391,13 @@ namespace Movieasy.Infrastructure.Migrations
                         .HasConstraintName("fk_reviews_movies_movie_id");
 
                     b.HasOne("Movieasy.Domain.Users.User", "User")
-                        .WithMany()
+                        .WithMany("Reviews")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_reviews_users_user_id");
+
+                    b.Navigation("Movie");
 
                     b.Navigation("User");
                 });
@@ -410,6 +417,11 @@ namespace Movieasy.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_role_user_users_users_id");
+                });
+
+            modelBuilder.Entity("Movieasy.Domain.Users.User", b =>
+                {
+                    b.Navigation("Reviews");
                 });
 #pragma warning restore 612, 618
         }

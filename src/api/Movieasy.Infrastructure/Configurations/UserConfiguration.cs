@@ -24,6 +24,11 @@ namespace Movieasy.Infrastructure.Configurations
                 .HasMaxLength(UserConstants.EmailMaxLength)
                 .HasConversion(email => email.Value, value => new Domain.Users.Email(value));
 
+            builder.Property(user => user.Details)
+                .HasMaxLength(UserConstants.DetailsMaxLength)
+                .HasConversion(details => details.Value, value => new Details(value))
+                .IsRequired(false);
+                
             builder.HasIndex(user => user.Email).IsUnique();
 
             builder.HasIndex(user => user.IdentityId).IsUnique();

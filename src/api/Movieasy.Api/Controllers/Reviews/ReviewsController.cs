@@ -25,7 +25,7 @@ namespace Movieasy.Api.Controllers.Reviews
             _sender = sender;
         }
 
-        [HttpGet("user-review/{movieId}")]
+        [HttpGet("user/{movieId}")]
         public async Task<IActionResult> GetUserReviewForMovie(
             Guid movieId,
             CancellationToken cancellationToken)
@@ -37,6 +37,18 @@ namespace Movieasy.Api.Controllers.Reviews
 
             return result.IsSuccess ? Ok(result.Value) : NotFound();
         }
+
+        //[HttpGet("user/latest/{id}")]
+        //public async Task<IActionResult> GetUserLatestReview(
+        //    Guid id,
+        //    CancellationToken cancellationToken)
+        //{
+        //    var query = new GetUserLatestReviewQuery(id);
+
+        //    Result<LatestReviewResponse> result = await _sender.Send(query, cancellationToken);
+
+        //    return result.IsSuccess ? Ok(result.Value) : NotFound();
+        //}
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetReview(

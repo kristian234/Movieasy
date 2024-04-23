@@ -23,7 +23,8 @@ export interface Review{
   comment: string,
   reviewerName: string,
   rating: number,
-  createdOnDate: Date
+  createdOnDate: Date,
+  userId: string
 }
 
 export interface Statistic{
@@ -38,6 +39,12 @@ export interface DetailedReviewData{
 export interface Genre {
   id: string,
   name: string
+}
+
+export interface Profile{
+  firstName: string,
+  lastName: string,
+  details: string
 }
 
 export interface Error {

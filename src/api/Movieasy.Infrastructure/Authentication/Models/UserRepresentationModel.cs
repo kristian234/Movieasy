@@ -1,7 +1,7 @@
 ﻿using Movieasy.Domain.Users;
 using Movieasy.Infrastructure.Authentication.Models;
 
-namespace Bookify.Infrastructure.Authentication.Models;
+namespace Movieasy.Infrastructure.Authentication.Models;
 
 internal sealed class UserRepresentationModel
 {

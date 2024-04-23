@@ -44,7 +44,8 @@ namespace Movieasy.Application.Reviews.GetReview
                     Comment = r.Comment.Value,
                     ReviewerName = $"{r.User.FirstName.Value} {r.User.LastName.Value}",
                     Rating = r.Rating.Value,
-                    CreatedOnDate = r.CreatedOnUtc.ToString("d", CultureInfo.InvariantCulture)
+                    CreatedOnDate = r.CreatedOnUtc.ToString("d", CultureInfo.InvariantCulture),
+                    UserId = r.UserId.ToString(),
                 })
                 .AsNoTracking();
 

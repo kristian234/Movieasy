@@ -12,5 +12,8 @@
 
         public const int PasswordMaxLength = 128;
         public const int PasswordMinLength = 5;
+
+        public const int DetailsMaxLength = 1000;
+        public const int DetailsMinLength = 100;
     }
 }

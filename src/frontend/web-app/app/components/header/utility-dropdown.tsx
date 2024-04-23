@@ -8,18 +8,20 @@ import { IoLogOutOutline } from "react-icons/io5";
 import { IoMenu } from "react-icons/io5";
 import { MdOutlineAdminPanelSettings } from "react-icons/md";
 import { motion } from "framer-motion";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, use, useState } from "react";
 import { IconType } from "react-icons";
 import Link from "next/link";
-import { signOut } from "next-auth/react";
-import { FaRegCircleQuestion } from "react-icons/fa6";
+import { signOut, useSession } from "next-auth/react";
+import { FaRegCircleQuestion, FaRegUser } from "react-icons/fa6";
+import { getSession } from "@/app/actions/auth-actions";
 
 
 interface Props {
     isAdmin: boolean // DONT WORRY ITS ONLY USED AS REFERENCE TO SHOW THE LINK TO THE ADMIN PAGE OR NOT, IF THEY'RE NOT ADMIN AUTHENTICATION WILL STOP THEM ANYWAY
+    userId: string,
 }
 
-export default function UtilityDropdown({ isAdmin }: Props) {
+export default function UtilityDropdown({ isAdmin, userId }: Props) {
     const [open, setOpen] = useState(false);
 
     return (
@@ -42,12 +44,13 @@ export default function UtilityDropdown({ isAdmin }: Props) {
                     style={{ originY: "top", translateX: "-80%" }}
                     className="flex flex-col gap-2 p-2 rounded-lg bg-header shadow-3xl absolute top-[120%] left-[50%] w-48 overflow-hidden"
                 >
-                        <Option setOpen={setOpen} Icon={IoHomeOutline} text="Home" href="/" />
-                        <Option setOpen={setOpen} Icon={FaRegCircleQuestion} text="About us" href="/about" />
+                    <Option setOpen={setOpen} Icon={IoHomeOutline} text="Home" href="/" />
+                    <Option setOpen={setOpen} Icon={FaRegCircleQuestion} text="About us" href="/about" />
+                    <Option setOpen={setOpen} Icon={FaRegUser} text="My Profile" href={`/profiles/details/${userId}`} />
 
-                        {isAdmin && (
-                            <Option setOpen={setOpen} Icon={MdOutlineAdminPanelSettings} text="Admin" href="/admin/dashboard" />
-                        )}
+                    {isAdmin && (
+                        <Option setOpen={setOpen} Icon={MdOutlineAdminPanelSettings} text="Admin" href="/admin/dashboard" />
+                    )}
                     <hr className="border-0 bg-third w-full h-px bg-dropdown-border" />
                     <Option setOpen={setOpen} Icon={IoLogOutOutline} text="Logout" method={signOut} />
 

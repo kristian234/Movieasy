@@ -56,7 +56,8 @@ export const authOptions: NextAuthOptions = {
                             accessTokenExpiry: decodedToken.exp,
                             name: `${userData.data.firstName} ${userData.data.lastName}`,
                             croles: userData.data.roles,
-                            email: userData.data.email
+                            email: userData.data.email,
+                            userId: userData.data.id
                         }
                     }
                 }
@@ -81,7 +82,8 @@ export const authOptions: NextAuthOptions = {
                     croles: user.croles,
                     accessToken: user.accessToken,
                     refreshToken: user.refreshToken,
-                    accessTokenExpiry: user.accessTokenExpiry
+                    accessTokenExpiry: user.accessTokenExpiry,
+                    userId: user.userId
                 }
             }
 
@@ -105,6 +107,7 @@ export const authOptions: NextAuthOptions = {
                 session.user.email = null;
                 session.user.id = null;
                 session.user.name = null;
+                session.user.userId = null;
                 session.error = "RefreshAccessTokenError"
                 return { ...session, token }
             };
@@ -125,6 +128,7 @@ export const authOptions: NextAuthOptions = {
                         session.user.name = `${res.data.firstName} ${res.data.lastName}`,
                         session.user.id = res.data.id,
                         session.user.roles = res.data.roles
+                        session.user.userId = res.data.id
                 }
 
             }
@@ -133,7 +137,8 @@ export const authOptions: NextAuthOptions = {
                 session.user.id = token.id,
                 session.user.name = token.name,
                 session.user.email = token.email,
-                session.user.roles = token.croles
+                session.user.roles = token.croles,
+                session.user.userId = token.userId
             }
             return { ...session, token: token };
         },

@@ -8,6 +8,10 @@ namespace Movieasy.Domain.Reviews
             "Review.NotFound",
             "A review with the input identifier couldn't be found");
 
+        public static readonly Error InvalidParameters = new Error(
+            "Review.InvalidParameters",
+            "The parameters inputted for the review search are invalid");
+
         public static readonly Error NotEligible = new Error(
             "Review.Failure",
             "The review cannot be made");

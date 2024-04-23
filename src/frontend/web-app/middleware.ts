@@ -24,6 +24,7 @@ export const config = {
     '/movies/search',
     '/home',
     '/movies/details/:path*',
-    '/admin/:path*'
+    '/admin/:path*',
+    '/profiles/:path*'
   ]
 }

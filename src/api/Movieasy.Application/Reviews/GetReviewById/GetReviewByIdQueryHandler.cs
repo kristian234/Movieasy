@@ -29,6 +29,7 @@ namespace Movieasy.Application.Reviews.GetReviewById
                     Comment = r.Comment.Value,
                     CreatedOnDate = r.CreatedOnUtc.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture),
                     Rating = r.Rating.Value,
+                    UserId = r.UserId.ToString(),
                 })
                 .AsNoTracking()
                 .FirstOrDefaultAsync(cancellationToken);

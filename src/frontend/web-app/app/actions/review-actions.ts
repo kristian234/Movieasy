@@ -3,7 +3,6 @@
 import { fetchWrapper } from "@/lib/fetchWrapper";
 import { DetailedReviewData, PagedResult, Review } from "@/types";
 import { FieldValues } from "react-hook-form";
-import MovieEditPage from "../(adminPages)/admin/movies/edit/[id]/page";
 
 export async function createReview(data: FieldValues) {
     return await fetchWrapper.post(`/api/Reviews`, data)
@@ -22,8 +21,13 @@ export async function updateReview(data: FieldValues) {
 }
 
 export async function getUserReviewForMovie(movieId: string) {
-    return await fetchWrapper.get(`/api/Reviews/user-review/${movieId}`)
+    return await fetchWrapper.get(`/api/Reviews/user/${movieId}`)
 }
+
+export async function getUserLatestReview(userId: string) {
+    return await fetchWrapper.get(`/api/Reviews?userId=${userId}&pageSize=1&sortTerm=newest`)
+}
+
 
 export async function deleteReview(movieId: string) {
     return await fetchWrapper.del(`/api/reviews/${movieId}`);

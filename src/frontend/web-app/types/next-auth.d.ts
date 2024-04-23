@@ -5,7 +5,8 @@ declare module 'next-auth' {
         error?: "RefreshAccessTokenError",
         user: {
             id?: id,
-            roles: string[]
+            roles: string[],
+            userId?: string | null
         } & DefaultSession['user']
     }
 
@@ -13,7 +14,9 @@ declare module 'next-auth' {
         accessToken?: string
         refreshToken?: string
         accessTokenExpiry?: number
-        croles: string[]
+        croles: string[],
+        userId: string
+
     }
 }
 
@@ -23,6 +26,7 @@ declare module 'next-auth/jwt' {
         refreshToken?: string,
         accessTokenExpiry?: number;
         croles: string[];
+        userId: string;
         error?: "RefreshAccessTokenError"
     }
 }

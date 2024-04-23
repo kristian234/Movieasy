@@ -4,6 +4,7 @@ import { useState } from "react"
 import { deleteReview } from "@/app/actions/review-actions"
 import { toast } from "react-toastify"
 import { Button } from "flowbite-react"
+import Link from "next/link"
 
 interface Props {
     review: Review
@@ -38,7 +39,9 @@ export default function ReviewCard({ review, isAdmin = false, onDelete }: Props)
         <div className="bg-secondary flex-grow bg-opacity-10 p-4 rounded-lg shadow-3xl relative">
             <div className="bg-header bg-opacity-75 p-4 rounded-lg flex flex-col">
                 <div className="flex justify-between items-center mb-2">
-                    <h2 className="text-2xl font-semibold text-third">{review.reviewerName}</h2>
+                    <Link href={`/profiles/details/${review.userId}`}>
+                    <h2 className="text-2xl font-semibold text-third cursor-pointer hover:text-secondary hover:scale-105 transition-transform duration-300">{review.reviewerName}</h2>
+                    </Link>
                     <ReviewRating value={review.rating} readonly={true} />
                 </div>
                 <p className={`text-gray-700 cursor-pointer break-words ${showFullComment ? 'overflow-y-auto' : 'overflow-hidden'}`} onClick={toggleComment}>

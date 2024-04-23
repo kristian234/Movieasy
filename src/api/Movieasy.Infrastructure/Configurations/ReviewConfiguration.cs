@@ -19,12 +19,12 @@ namespace Movieasy.Infrastructure.Configurations
             builder.Property(review => review.Rating)
                 .HasConversion(rating => rating.Value, value => Rating.Create(value).Value);
 
-            builder.HasOne<Movie>()
+            builder.HasOne(review => review.Movie)
                 .WithMany()
                 .HasForeignKey(review => review.MovieId);
 
             builder.HasOne(review => review.User)
-                .WithMany()
+                .WithMany(user => user.Reviews)
                 .HasForeignKey(review => review.UserId);
 
             builder.HasIndex(review => new { review.UserId, review.MovieId }).IsUnique(true);

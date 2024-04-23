@@ -1,6 +1,5 @@
 ﻿using Movieasy.Application.Abstractions.Messaging;
 using Movieasy.Domain.Abstractions;
-using Movieasy.Domain.Actors;
 using Movieasy.Domain.Reviews;
 
 namespace Movieasy.Application.Reviews.DeleteReview

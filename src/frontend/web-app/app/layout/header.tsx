@@ -8,7 +8,7 @@ import { Fragment } from "react";
 
 export default async function Header() {
     const session = await getSession();
-
+    // may need soem fixing in passing down the userid
     const isAdmin = session?.user.roles?.includes('Admin') ?? false;
     return (
         <nav className="bg-header p-4 flex items-center justify-between shadow-2xl">
@@ -16,7 +16,8 @@ export default async function Header() {
             {session && !session.error ? (
                 <Fragment>
                     <Search />
-                    <UtilityDropdown isAdmin={isAdmin} />
+                    
+                    <UtilityDropdown isAdmin={isAdmin} userId={session.user.userId!}/>
                 </Fragment>
             ) : (
                 < LoginButton />
