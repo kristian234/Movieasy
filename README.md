@@ -112,3 +112,4 @@ When you launch the api with the provided configuration and docker-compose it'll
 
 ### Deployment
 - The application is deployed using docker on my own VPS. You can take a look at it here https://movieasy.xyz/ (If the website is offline please contact me.)
+- DISCLAIMER: the website version that is being hosted is the one that was also presented on (21/04/2024, Sunday)
