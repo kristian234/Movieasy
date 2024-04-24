@@ -1,3 +1,6 @@
+### Disclaimed
+- Since the presentation of the project, i've added some stuff (primarily profile related), so please feel free to revert back to an older version if it's necessary. 
+
 ### What is Movieasy?
 - Movieasy is a platform to share your opinion on movies and/or see others' opinion and find something to watch.
 
