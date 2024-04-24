@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Movieasy.Application.Abstractions.Data;
 using Movieasy.Application.Abstractions.Messaging;
-using Movieasy.Application.Reviews.GetReview;
 using Movieasy.Domain.Abstractions;
 using Movieasy.Domain.Users;
 
