@@ -12,6 +12,9 @@
     - edit their already posted reviews at any time
     - see details about every movie
     - watch the trailer of every movie
+    NEW (after project presentation: 
+    - update their profile biography
+    - see other's profile public profile information/their own
     + some more
    Admin:
     - everything that the user can
